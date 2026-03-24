@@ -1,0 +1,27 @@
+{
+  "name": "back_end",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.ts"
+  },
+  "keywords": [],
+  "authors": [
+    "Elijah Gervais",
+    "Amaan"
+  ],
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@apollo/server": "^5.4.0",
+    "graphql": "^16.13.1",
+    "mongoose": "^9.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "nodemon": "^3.1.14",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.3"
+  }
+}
