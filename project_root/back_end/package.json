@@ -1,9 +1,12 @@
 {
   "name": "back_end",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/server.js",
+  "type": "module",
   "scripts": {
-    "start": "node server.ts"
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "ts-node-esm src/server.ts"
   },
   "keywords": [],
   "authors": [
@@ -11,11 +14,15 @@
     "Amaan"
   ],
   "license": "ISC",
-  "description": "",
+  "description": "This is the backend for project",
   "dependencies": {
-    "@apollo/server": "^5.4.0",
-    "graphql": "^16.13.1",
-    "mongoose": "^9.3.2"
+    "@apollo/server": "^5.5.0",
+    "graphql": "^16.13.2",
+    "graphql-kafkajs-subscriptions": "^4.0.6",
+    "graphql-ws": "^6.0.7",
+    "kafkajs": "^2.2.4",
+    "mongoose": "^9.3.2",
+    "ws": "^8.20.0"
   },
   "devDependencies": {
     "@types/node": "^25.5.0",
