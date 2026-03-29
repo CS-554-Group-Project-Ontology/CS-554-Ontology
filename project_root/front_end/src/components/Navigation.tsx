@@ -6,6 +6,14 @@ import { doSignOut } from '../firebase/FirebaseFunctions';
 function Navigation() {
   const { currentUser } = useContext(AuthContext);
 
+  async function handleSignOut() {
+    try {
+      await doSignOut();
+    } catch (err) {
+      alert((err as Error).message);
+    }
+  }
+
   return (
     <div className="navbar bg-base-300">
       <div className="flex-1">
@@ -15,7 +23,7 @@ function Navigation() {
         {currentUser ? (
           <>
             <NavLink to='/home' className="btn btn-ghost">Home</NavLink>
-            <button className="btn btn-ghost" onClick={doSignOut}>Sign Out</button>
+            <button className="btn btn-ghost" onClick={handleSignOut}>Sign Out</button>
           </>
         ) : (
           <>
