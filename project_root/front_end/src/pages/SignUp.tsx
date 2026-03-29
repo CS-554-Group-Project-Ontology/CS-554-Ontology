@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { doCreateUserWithEmailAndPassword, doSocialSignIn } from '../firebase/FirebaseFunctions';
+import { validateDisplayName, validatePassword } from '../firebase/validation';
 
 function SignUp() {
   const { currentUser, refreshUser } = useContext(AuthContext);
@@ -19,13 +20,33 @@ function SignUp() {
     e.preventDefault();
     setSigningUp(true);
     const form = e.currentTarget;
-    const displayName = (form.elements.namedItem('displayName') as HTMLInputElement).value;
-    const email = (form.elements.namedItem('email') as HTMLInputElement).value;
-    const password = (form.elements.namedItem('password') as HTMLInputElement).value;
-    const confirmPassword = (form.elements.namedItem('confirmPassword') as HTMLInputElement).value;
+    const displayName = (form.elements.namedItem('displayName') as HTMLInputElement).value.trim();
+    const email = (form.elements.namedItem('email') as HTMLInputElement).value.trim();
+    const password = (form.elements.namedItem('password') as HTMLInputElement).value.trim();
+    const confirmPassword = (form.elements.namedItem('confirmPassword') as HTMLInputElement).value.trim();
+
+    if (!displayName || !email || !password || !confirmPassword) {
+      setError('All fields are required.');
+      setSigningUp(false);
+      return;
+    }
+
+    const displayNameError = validateDisplayName(displayName);
+    if (displayNameError) {
+      setError(displayNameError);
+      setSigningUp(false);
+      return;
+    }
 
     if (password !== confirmPassword) {
       setError('Passwords do not match.');
+      setSigningUp(false);
+      return;
+    }
+
+    const passwordError = validatePassword(password);
+    if (passwordError) {
+      setError(passwordError);
       setSigningUp(false);
       return;
     }

@@ -18,8 +18,14 @@ function SignIn() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
-    const email = (form.elements.namedItem('email') as HTMLInputElement).value;
-    const password = (form.elements.namedItem('password') as HTMLInputElement).value;
+    const email = (form.elements.namedItem('email') as HTMLInputElement).value.trim();
+    const password = (form.elements.namedItem('password') as HTMLInputElement).value.trim();
+
+    if (!email || !password) {
+      setError('All fields are required.');
+      return;
+    }
+
     try {
       await doSignInWithEmailAndPassword(email, password);
     } catch (err) {
@@ -28,7 +34,7 @@ function SignIn() {
   }
 
   async function handlePasswordReset() {
-    const email = (document.getElementById('email') as HTMLInputElement)?.value;
+    const email = (document.getElementById('email') as HTMLInputElement)?.value.trim();
     if (!email) {
       setError('Please enter your email address first.');
       return;
