@@ -58,11 +58,11 @@ function SignIn() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="form-control">
               <label className="label">Email</label>
-              <input id='email' name='email' type='email' className="input input-bordered" required />
+              <input id='email' name='email' type='email' className="input input-bordered w-full" required />
             </div>
             <div className="form-control">
               <label className="label">Password</label>
-              <input name='password' type='password' className="input input-bordered" required />
+              <input name='password' type='password' className="input input-bordered w-full" required />
             </div>
             <button type='submit' className="btn btn-primary w-full">Sign In</button>
           </form>
