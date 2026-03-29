@@ -1,18 +1,21 @@
 import { useContext, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { doCreateUserWithEmailAndPassword, doSocialSignIn } from '../firebase/FirebaseFunctions';
 
 function SignUp() {
   const { currentUser, refreshUser } = useContext(AuthContext);
   const [error, setError] = useState('');
+  const [signingUp, setSigningUp] = useState(false);
+  const navigate = useNavigate();
 
-  if (currentUser) {
+  if (currentUser && !signingUp) {
     return <Navigate to='/home' />;
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setSigningUp(true);
     const form = e.currentTarget;
     const displayName = (form.elements.namedItem('displayName') as HTMLInputElement).value;
     const email = (form.elements.namedItem('email') as HTMLInputElement).value;
@@ -21,14 +24,17 @@ function SignUp() {
 
     if (password !== confirmPassword) {
       setError('Passwords do not match.');
+      setSigningUp(false);
       return;
     }
 
     try {
       await doCreateUserWithEmailAndPassword(email, password, displayName);
       await refreshUser();
+      navigate('/home');
     } catch (err) {
       setError((err as Error).message);
+      setSigningUp(false);
     }
   }
 
