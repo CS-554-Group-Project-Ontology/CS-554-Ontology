@@ -6,6 +6,8 @@ import { doCreateUserWithEmailAndPassword, doSocialSignIn } from '../firebase/Fi
 function SignUp() {
   const { currentUser, refreshUser } = useContext(AuthContext);
   const [error, setError] = useState('');
+  // blocks redirect while signning up otherwise home briefly renders without displayname 
+  // (because we have refreshuser to fix professor's code where it can display stale data without displayname)
   const [signingUp, setSigningUp] = useState(false);
   const navigate = useNavigate();
 
