@@ -1,20 +1,20 @@
-import { useContext } from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
-import { doSignOut } from '../firebase/FirebaseFunctions';
+import { useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import { doSignOut } from "../firebase/FirebaseFunctions";
 
 function Navigation() {
   const { currentUser } = useContext(AuthContext);
 
   const authNavItems = [
-    { to: '/', label: 'Landing' },
-    { to: '/home', label: 'Home' },
+    { to: "/", label: "Landing" },
+    { to: "/home", label: "Dashboard" },
   ];
 
   const unauthNavItems = [
-    { to: '/', label: 'Landing' },
-    { to: '/signin', label: 'Sign In' },
-    { to: '/signup', label: 'Sign Up' },
+    { to: "/", label: "Landing" },
+    { to: "/signin", label: "Sign In" },
+    { to: "/signup", label: "Sign Up" },
   ];
 
   async function handleSignOut() {
@@ -26,22 +26,22 @@ function Navigation() {
   }
 
   return (
-    <header className="navbar bg-base-300 sticky top-0 z-50 shadow-sm">
-      <nav className="container mx-auto flex items-center justify-between px-4 py-3">
-        <div className="flex items-center justify-center gap-3 lg:justify-start">
-          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-amber-500 text-sm font-black text-white shadow-sm">
+    <header className='navbar bg-base-300 sticky top-0 z-50 shadow-sm'>
+      <nav className='container mx-auto flex items-center justify-between px-4 py-3'>
+        <div className='flex items-center justify-center gap-3 lg:justify-start'>
+          <div className='flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-amber-500 text-sm font-black text-white shadow-sm'>
             O
           </div>
           <div>
             <NavLink to='/'>
-              <p className="text-xl font-black tracking-tight text-slate-900">
+              <p className='text-xl font-black tracking-tight text-slate-900'>
                 Ontology
               </p>
             </NavLink>
           </div>
         </div>
 
-        <ul className="flex items-center justify-start gap-2 overflow-x-auto pb-1 lg:justify-end lg:overflow-visible lg:pb-0">
+        <ul className='flex items-center justify-start gap-4 overflow-x-auto pb-1 lg:justify-end lg:overflow-visible lg:pb-0'>
           {currentUser ? (
             <>
               {authNavItems.map((item) => (
@@ -51,8 +51,8 @@ function Navigation() {
                     className={({ isActive }) =>
                       `btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium ${
                         isActive
-                          ? 'bg-primary text-white'
-                          : 'text-slate-700 hover:bg-slate-200'
+                          ? "bg-primary text-white"
+                          : "text-slate-700 hover:bg-slate-200"
                       }`
                     }
                   >
@@ -76,10 +76,10 @@ function Navigation() {
                     <Link to='/home/affordability-nyc'>New York City</Link>
                   </li>
                   <li>
-                    <Link to='/'>San Francisco</Link>
+                    <Link to='/home/affordability-sf'>San Francisco</Link>
                   </li>
                   <li>
-                    <Link to='/'>Houston</Link>
+                    <Link to='/home/affordability-houston'>Houston</Link>
                   </li>
                 </ul>
               </div>
@@ -105,11 +105,7 @@ function Navigation() {
                       Profile
                     </Link>
                   </li>
-                  <li>
-                    <Link to='/settings' className='justify-between'>
-                      Settings
-                    </Link>
-                  </li>
+
                   <li>
                     <button className='justify-between' onClick={handleSignOut}>
                       Sign Out
@@ -127,8 +123,8 @@ function Navigation() {
                     className={({ isActive }) =>
                       `btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium ${
                         isActive
-                          ? 'bg-primary text-white'
-                          : 'text-slate-700 hover:bg-slate-200'
+                          ? "bg-primary text-white"
+                          : "text-slate-700 hover:bg-slate-200"
                       }`
                     }
                   >
