@@ -11,7 +11,6 @@ import AffordabilityNYC from "./pages/AffordabilityNYC";
 import AffordabilitySF from "./pages/AffordabilitySF";
 import AffordabilityHouston from "./pages/AffordabilityHouston";
 import Profile from "./components/Profile";
-import AffordabilityNY from "./pages/AffordabilityNY";
 function App() {
   return (
     <AuthProvider>
@@ -23,7 +22,7 @@ function App() {
               <Route path='/home' element={<Home />} />
               <Route
                 path='/home/affordability-nyc'
-                element={<AffordabilityNY />}
+                element={<AffordabilityNYC />}
               />
               <Route
                 path='/home/affordability-sf'

@@ -2,26 +2,34 @@ import { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
+// Each of the 3 cities coordinates
 const NYC_INITIAL_CENTER: [number, number] = [-74.0242, 40.6941];
 const HOUSTON_INITIAL_CENTER: [number, number] = [-95.3698, 29.7604];
 const SF_INITIAL_CENTER: [number, number] = [-122.4194, 37.7749];
+
+// All 3 cities coordinates in a dictionary for easy access
 const CITY = {
   "new-york-city": NYC_INITIAL_CENTER,
   houston: HOUSTON_INITIAL_CENTER,
   "san-francisco": SF_INITIAL_CENTER,
 };
+
+// Initial zoom level for the map
 const INITIAL_ZOOM: number = 10.12;
 
 const Affordability = ({ city }: { city: string }) => {
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
 
+  // track the current center and zoom level of the map
   const [center, setCenter] = useState<[number, number]>([
     NYC_INITIAL_CENTER[0],
     NYC_INITIAL_CENTER[1],
   ]);
+  // track the zoom level of the map
   const [zoom, setZoom] = useState<number>(INITIAL_ZOOM);
 
+  // get initial city center based on passed city from props
   const selectedCityCenter =
     CITY[city as keyof typeof CITY] || NYC_INITIAL_CENTER;
 
