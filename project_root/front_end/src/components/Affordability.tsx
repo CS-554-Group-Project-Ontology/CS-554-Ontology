@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import { AuthContext } from "../context/AuthContext";
 
 // Each of the 3 cities coordinates
 const NYC_INITIAL_CENTER: [number, number] = [-74.0242, 40.6941];
@@ -32,6 +33,8 @@ const Affordability = ({ city }: { city: string }) => {
   // get initial city center based on passed city from props
   const selectedCityCenter =
     CITY[city as keyof typeof CITY] || NYC_INITIAL_CENTER;
+
+  const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
     mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
@@ -78,6 +81,15 @@ const Affordability = ({ city }: { city: string }) => {
             : "San Francisco"}{" "}
         neighborhoods based on the median income and median rent.
       </p>
+
+      {currentUser && (
+        <div className='mb-4 p-4 bg-blue-100 rounded-lg'>
+          <h2 className='text-xl font-bold mb-2'>Your Financial Profile</h2>
+          <p className='text-lg'>Neighborhood: Downtown</p>
+          <p className='text-lg'>Income: $50,000</p>
+          <p className='text-lg'>Debt: $10,000</p>
+        </div>
+      )}
 
       <div className='mb-4 text-sm text-gray-600'>
         <p className='font-bold'>Adjust the slider to zoom in or out</p>

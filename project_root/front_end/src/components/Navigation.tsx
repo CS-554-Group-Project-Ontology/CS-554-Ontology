@@ -8,7 +8,7 @@ function Navigation() {
 
   const authNavItems = [
     { to: "/", label: "Landing" },
-    { to: "/home", label: "Dashboard" },
+    { to: "/dashboard", label: "Dashboard" },
   ];
 
   const unauthNavItems = [
@@ -73,13 +73,46 @@ function Navigation() {
                   className='dropdown-content menu bg-base-100 rounded-lg z-1 w-52 p-2 shadow-sm'
                 >
                   <li>
-                    <Link to='/home/affordability-nyc'>New York City</Link>
+                    <NavLink
+                      to='/affordability-nyc'
+                      className={({ isActive }) =>
+                        `btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium ${
+                          isActive
+                            ? "bg-primary text-white"
+                            : "text-slate-700 hover:bg-slate-200"
+                        }`
+                      }
+                    >
+                      New York City
+                    </NavLink>
                   </li>
                   <li>
-                    <Link to='/home/affordability-sf'>San Francisco</Link>
+                    <NavLink
+                      to='/affordability-sf'
+                      className={({ isActive }) =>
+                        `btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium ${
+                          isActive
+                            ? "bg-primary text-white"
+                            : "text-slate-700 hover:bg-slate-200"
+                        }`
+                      }
+                    >
+                      San Francisco
+                    </NavLink>
                   </li>
                   <li>
-                    <Link to='/home/affordability-houston'>Houston</Link>
+                    <NavLink
+                      to='/affordability-houston'
+                      className={({ isActive }) =>
+                        `btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium ${
+                          isActive
+                            ? "bg-primary text-white"
+                            : "text-slate-700 hover:bg-slate-200"
+                        }`
+                      }
+                    >
+                      Houston
+                    </NavLink>
                   </li>
                 </ul>
               </div>
@@ -92,7 +125,10 @@ function Navigation() {
                   <div className='w-10 rounded-full'>
                     <img
                       alt='Tailwind CSS Navbar component'
-                      src='https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp'
+                      src={
+                        currentUser?.photoURL ||
+                        "https://unsplash.com/photos/silhouette-of-man-illustration-2LowviVHZ-E"
+                      }
                     />
                   </div>
                 </div>
@@ -101,9 +137,9 @@ function Navigation() {
                   className='menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow'
                 >
                   <li>
-                    <Link to='/profile' className='justify-between'>
+                    <NavLink to='/profile' className='justify-between'>
                       Profile
-                    </Link>
+                    </NavLink>
                   </li>
 
                   <li>

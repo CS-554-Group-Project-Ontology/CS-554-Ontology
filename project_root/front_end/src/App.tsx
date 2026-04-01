@@ -18,22 +18,16 @@ function App() {
         <Routes>
           <Route path='/' element={<Layout />}>
             <Route path='/' element={<Landing />} />
-            <Route path='/home' element={<PrivateRoute />}>
-              <Route path='/home' element={<Home />} />
+            <Route path='/' element={<PrivateRoute />}>
+              <Route path='/dashboard' element={<Home />} />
+              <Route path='/affordability-nyc' element={<AffordabilityNYC />} />
+              <Route path='/affordability-sf' element={<AffordabilitySF />} />
               <Route
-                path='/home/affordability-nyc'
-                element={<AffordabilityNYC />}
-              />
-              <Route
-                path='/home/affordability-sf'
-                element={<AffordabilitySF />}
-              />
-              <Route
-                path='/home/affordability-houston'
+                path='/affordability-houston'
                 element={<AffordabilityHouston />}
               />
 
-              <Route path='/home/profile' element={<Profile />} />
+              <Route path='/profile' element={<Profile />} />
             </Route>
             <Route path='/signin' element={<SignIn />} />
             <Route path='/signup' element={<SignUp />} />
