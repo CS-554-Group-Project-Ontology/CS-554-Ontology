@@ -3,24 +3,37 @@ import {gql} from "graphql-tag";
 export const typeDefs = gql `
     type Query {
         users: [User!]!
-        getUserByID(_id: String!): User  
+        getUserByID(_id: ID!): User  
     }
 
     type User {
-        _id: String
+        _id: ID
         UUID: String!
+        economic_profile: EconomicProfile
         createdAt: String
         updatedAt: String
-        economic_profile: EconomicProfile
     }
 
     type EconomicProfile {
         income: Float
         address: String
-        Liabilities: Liabilities
+        liabilities: Liabilities
     }
 
     type Liabilities {
+        rent: Float
+        insuranceDeductibles: Float
+        utilities: Float
+        other: Float
+    }
+
+    input InputEconomicProfile {
+        income: Float
+        address: String
+        liabilities: InputLiabilities
+    }
+
+    input InputLiabilities {
         rent: Float
         insuranceDeductibles: Float
         utilities: Float
@@ -31,26 +44,24 @@ export const typeDefs = gql `
         
         addUser(
             UUID: String!
-            createdAt: String
-            updatedAt: String
-            economic_profile: EconomicProfile
+            economic_profile: InputEconomicProfile
         ): User
         
         editUser(
-            _id: String!,
+            _id: ID!
             UUID: String!
-            createdAt: String
-            updatedAt: String
-            economic_profile: EconomicProfile
+            economic_profile: InputEconomicProfile
         ): User
 
         updateEconomicProfile(
-            _id: String!
-            income: Float
-            address: String
-            Liabilities: Liabilities
+            _id: ID!
+            UUID: String!
+            economic_profile: InputEconomicProfile
         ): User
         
-        removeUser(_id: String!): User
+        removeUser(
+            _id: ID!
+            UUID: String!
+        ): User
     }
 `;
