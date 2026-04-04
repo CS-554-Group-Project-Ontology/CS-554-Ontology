@@ -1,7 +1,9 @@
 import { useContext } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { doSignOut } from "../firebase/FirebaseFunctions";
+
+const DEFAULT_AVATAR = "/default-avatar.png";
 
 function Navigation() {
   const { currentUser } = useContext(AuthContext);
@@ -29,7 +31,7 @@ function Navigation() {
     <header className='navbar bg-base-300 sticky top-0 z-50 shadow-sm'>
       <nav className='container mx-auto flex items-center justify-between px-4 py-3'>
         <div className='flex items-center justify-center gap-3 lg:justify-start'>
-          <div className='flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-amber-500 text-sm font-black text-white shadow-sm'>
+          <div className='flex h-9 w-9 items-center justify-center rounded-full bg-linear-to-br from-blue-600 to-amber-500 text-sm font-black text-white shadow-sm'>
             O
           </div>
           <div>
@@ -125,10 +127,11 @@ function Navigation() {
                   <div className='w-10 rounded-full'>
                     <img
                       alt='Tailwind CSS Navbar component'
-                      src={
-                        currentUser?.photoURL ||
-                        "https://unsplash.com/photos/silhouette-of-man-illustration-2LowviVHZ-E"
-                      }
+                      src={currentUser?.photoURL?.trim() || DEFAULT_AVATAR}
+                      className='h-full w-full object-cover'
+                      onError={(event) => {
+                        event.currentTarget.src = DEFAULT_AVATAR;
+                      }}
                     />
                   </div>
                 </div>
