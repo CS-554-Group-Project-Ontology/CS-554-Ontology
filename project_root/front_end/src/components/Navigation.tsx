@@ -137,7 +137,16 @@ function Navigation() {
                   className='menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow'
                 >
                   <li>
-                    <NavLink to='/profile' className='justify-between'>
+                    <NavLink
+                      to='/profile'
+                      className={({ isActive }) =>
+                        `btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium ${
+                          isActive
+                            ? "bg-primary text-white"
+                            : "text-slate-700 hover:bg-slate-200"
+                        }`
+                      }
+                    >
                       Profile
                     </NavLink>
                   </li>
