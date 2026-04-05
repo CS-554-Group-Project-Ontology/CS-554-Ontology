@@ -1,5 +1,13 @@
 import { getApps, initializeApp, cert } from "firebase-admin/app";
 import { getAuth } from "firebase-admin/auth";
+import dotenv from 'dotenv';
+dotenv.config()
+
+const privateKey = process.env.FIREBASE_PRIVATE_KEY;
+
+if(!privateKey){
+  throw new Error("Missing Keys for Firebase Connection");
+}
 
 if (!getApps().length) {
   initializeApp({

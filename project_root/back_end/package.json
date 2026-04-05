@@ -2,8 +2,14 @@
   "name": "back_end",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start": "node server.ts"
+    "build": "tsc",
+    "dev": "ts-node --esm ./server.ts",
+    "prod": "npm run build && npm start",
+    "start": "node ./dist/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodemon --exec ts-node --esm ./server.ts"
   },
   "keywords": [],
   "authors": [
@@ -16,8 +22,11 @@
   "description": "",
   "dependencies": {
     "@apollo/server": "^5.4.0",
+    "dotenv": "^17.4.0",
+    "firebase-admin": "^13.7.0",
     "graphql": "^16.13.1",
-    "mongoose": "^9.3.2"
+    "graphql-tag": "^2.12.6",
+    "mongoose": "^9.4.1"
   },
   "devDependencies": {
     "@types/node": "^25.5.0",
