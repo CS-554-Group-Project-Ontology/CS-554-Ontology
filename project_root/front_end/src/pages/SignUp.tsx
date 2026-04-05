@@ -3,6 +3,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { doCreateUserWithEmailAndPassword, doSocialSignIn } from '../firebase/FirebaseFunctions';
 import { validateDisplayName, validatePassword } from '../firebase/validation';
+import { addUserApi } from '../api';
 
 function SignUp() {
   const { currentUser, refreshUser } = useContext(AuthContext);
@@ -53,6 +54,7 @@ function SignUp() {
 
     try {
       await doCreateUserWithEmailAndPassword(email, password, displayName);
+      await addUserApi();
       await refreshUser();
       navigate('/home');
     } catch (err) {

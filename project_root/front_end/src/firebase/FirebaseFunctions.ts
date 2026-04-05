@@ -10,6 +10,7 @@ import {
   EmailAuthProvider,
   reauthenticateWithCredential,
   updatePassword,
+  type User,
 } from 'firebase/auth';
 
 async function doCreateUserWithEmailAndPassword(
@@ -21,17 +22,20 @@ async function doCreateUserWithEmailAndPassword(
   const { user } = await createUserWithEmailAndPassword(auth, email, password);
   await updateProfile(user, { displayName });
   await user.reload();
+  return user
 }
 
 async function doSignInWithEmailAndPassword(email: string, password: string) {
   const auth = getAuth();
-  await signInWithEmailAndPassword(auth, email, password);
+  const result = await signInWithEmailAndPassword(auth, email, password);
+  return result.user
 }
 
 async function doSocialSignIn() {
   const auth = getAuth();
   const provider = new GoogleAuthProvider();
-  await signInWithPopup(auth, provider);
+  const result = await signInWithPopup(auth, provider);
+  return result.user;
 }
 
 async function doPasswordReset(email: string) {
@@ -57,6 +61,10 @@ async function doSignOut() {
   await signOut(auth);
 }
 
+async function getAuthToken(user: User) {
+  return await user.getIdToken();
+}
+
 export {
   doCreateUserWithEmailAndPassword,
   doSignInWithEmailAndPassword,
@@ -64,4 +72,5 @@ export {
   doPasswordReset,
   doChangePassword,
   doSignOut,
+  getAuthToken,
 };

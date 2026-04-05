@@ -1,16 +1,17 @@
-import { Route, Routes } from "react-router-dom";
-import { AuthProvider } from "./context/AuthContext";
-import PrivateRoute from "./components/PrivateRoute";
-import Landing from "./pages/Landing";
-import Home from "./pages/Home";
-import SignIn from "./pages/SignIn";
-import SignUp from "./pages/SignUp";
-import NotFound from "./components/NotFound";
+import { Route, Routes } from 'react-router-dom';
+import { AuthProvider } from './context/AuthProvider';
+import PrivateRoute from './components/PrivateRoute';
+import Landing from './pages/Landing';
+import Home from './pages/Home';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
+import NotFound from './components/NotFound';
 import Layout from "./components/Layout";
 import AffordabilityNYC from "./pages/AffordabilityNYC";
 import AffordabilitySF from "./pages/AffordabilitySF";
 import AffordabilityHouston from "./pages/AffordabilityHouston";
 import Profile from "./components/Profile";
+
 function App() {
   return (
     <AuthProvider>
