@@ -52,12 +52,6 @@ export const typeDefs = gql `
             UUID: String!
             economic_profile: InputEconomicProfile
         ): User
-
-        updateEconomicProfile(
-            _id: ID!
-            UUID: String!
-            economic_profile: InputEconomicProfile
-        ): User
         
         removeUser(
             _id: ID!

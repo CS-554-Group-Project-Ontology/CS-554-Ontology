@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider } from './context/AuthProvider';
 import Navigation from './components/Navigation';
 import PrivateRoute from './components/PrivateRoute';
 import Landing from './pages/Landing';
