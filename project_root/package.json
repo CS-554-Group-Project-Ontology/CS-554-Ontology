@@ -1,0 +1,14 @@
+{
+  "name": "ontology",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev:front": "cd front_end && npm run dev",
+    "dev:back": "cd back_end && npm run dev",
+    "dev": "concurrently \"npm run dev:front\" \"npm run dev:back\""
+  },
+  "dependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
