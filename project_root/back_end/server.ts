@@ -1,10 +1,9 @@
-import connectDB from './Config/mongooseConfig.js';
+import connectDB from './Config/mongooseConfig.ts';
+import { typeDefs } from './data/userTypeDefs.ts';
+import { userResolver } from './data/userResolver.ts';
+
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-
-import { typeDefs } from './data/userTypeDefs.js';
-import { userResolver } from './data/userResolver.js';
-
 const Server = async () => {
     await connectDB();
 

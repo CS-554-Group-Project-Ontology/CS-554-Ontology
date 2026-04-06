@@ -1,7 +1,8 @@
 import { GraphQLError } from 'graphql';
 import mongoose from 'mongoose';
-import User, { typeUser } from "../data_model_layer/User.js"
-import { verifyFirebaseToken } from '../Config/FirebaseAdmin.js';
+import User from "../data_model_layer/User.ts";
+import type { typeUser } from "../data_model_layer/User.ts"
+import { verifyFirebaseToken } from '../Config/FirebaseAdmin.ts';
 
 interface TsLiabilities{
     rent?: number;
@@ -59,6 +60,8 @@ export const userResolver = {
 
     Mutation: {
         addUser: async(_:unknown,args:{ economic_profile:TsEconomicProfile},context: ResolverContext) =>{
+            console.log("register resolver hit");
+            console.log("incoming args:", args);
             if (!context.token){
                 throw new GraphQLError('Unauthorized',{
                     extensions: {code: 'INVALID_ACCESS'}

@@ -53,8 +53,8 @@ function SignUp() {
     }
 
     try {
-      await doCreateUserWithEmailAndPassword(email, password, displayName);
-      await addUserApi();
+      const user = await doCreateUserWithEmailAndPassword(email, password, displayName);
+      await addUserApi(user.uid);
       await refreshUser();
       navigate('/home');
     } catch (err) {
@@ -65,7 +65,9 @@ function SignUp() {
 
   async function handleSocialSignIn() {
     try {
-      await doSocialSignIn();
+      const user = await doSocialSignIn();
+  
+      await addUserApi(user.uid);
     } catch (err) {
       setError((err as Error).message);
     }

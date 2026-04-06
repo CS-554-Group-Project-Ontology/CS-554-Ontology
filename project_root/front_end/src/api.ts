@@ -16,13 +16,13 @@ export async function dbRequest<T>(query: string, variables?: Record<string,unkn
         throw new Error('User not signed in');
     }
 
-    const token = await user.getIdToken();
+    const userToken = await user.getIdToken();
 
     const response = await fetch('http://localhost:4000/',{
         method: 'POST',
         headers: {
             'Content-Type':'application/json',
-            Authorization: `TokenHolder ${token}`,
+            Authorization: `TokenHolder ${userToken}`,
         },
         body: JSON.stringify({
             query,
@@ -46,7 +46,7 @@ export async function dbRequest<T>(query: string, variables?: Record<string,unkn
     return result.data;
 }
 
-export async function addUserApi(){
+export async function addUserApi(uuid: string){
     const data = await dbRequest<{
         addUser: {
             _id: string;
@@ -54,13 +54,14 @@ export async function addUserApi(){
         }
     }>(
         `
-        mutation AddUser{
-            addUser{
+        mutation AddUser($UUID: String!){
+            addUser(UUID: $UUID){
                 _id
                 UUID
             }
         }
-        `
+        `,
+        { UUID: uuid },
     );
 
     return data.addUser;
