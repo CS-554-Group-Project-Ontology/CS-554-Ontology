@@ -34,7 +34,7 @@ export const userResolver = {
         },
         //Change getUserByID to using UUID
         getUserByID: async (_:unknown, context: ResolverContext) => {
-            console.log("register resolver hit");
+            console.log("getUser resolver hit");
             if (!context.token){
                 throw new GraphQLError('Unauthorized',{
                     extensions: {code: 'INVALID_ACCESS'}
@@ -159,6 +159,10 @@ export const userResolver = {
         },
         
         editUser: async(_:unknown,args:{economic_profile: TsEconomicProfile}, context: ResolverContext) => {
+
+            console.log("edit resolver hit");
+            console.log("incoming args:", args);
+            
             if (!context.token){
                 throw new GraphQLError('Unauthorized',{
                     extensions: {code: 'INVALID_ACCESS'}
@@ -244,6 +248,10 @@ export const userResolver = {
         },
         
         removeUser: async(_:unknown,args:{_id: string}, context: ResolverContext) => {
+            
+            console.log("remove resolver hit");
+            console.log("incoming args:", args);
+
             if (!context.token){
                 throw new GraphQLError('Unauthorized',{
                     extensions: {code: 'INVALID_ACCESS'}
