@@ -1,5 +1,8 @@
 import mongoose, {Schema, Document} from "mongoose"; 
 
+
+
+// Change the model to use UUID instead of regular 
 export interface UserAuthDetails { 
     email: String, 
     password: String, 

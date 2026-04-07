@@ -1,4 +1,4 @@
-FROM node:22
+FROM oven/bun:1
 
 WORKDIR /app
 
@@ -8,6 +8,5 @@ COPY . .
 RUN npm install
 RUN npm run build 
 
-CMD ["node", "dist/server.js"]
 
 

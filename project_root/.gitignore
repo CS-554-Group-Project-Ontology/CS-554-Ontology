@@ -1,2 +1,5 @@
-**/node_modules/
+package-lock.json
 .env.*
+bun.lock
+TPM_CSS_554_Revised(3).pdf 
+node_modules

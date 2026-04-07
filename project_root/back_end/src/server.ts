@@ -1,7 +1,7 @@
 // npx tsc in order to compile the typescript down into javascript 
 import { ApolloServer } from "@apollo/server"; 
 import { startStandaloneServer} from "@apollo/server/standalone"
-import { typeDefs } from "./graphql_layer/typedefs.js";
+import { typeDefs } from "./graphql_layer/typedefs/typedefs.js";
 import {resolvers} from "./graphql_layer/resolvers.js"
 
 

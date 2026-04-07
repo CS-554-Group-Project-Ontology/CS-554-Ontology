@@ -4,14 +4,11 @@
   "main": "dist/server.js",
   "type": "module",
   "scripts": {
-    "build": "tsc",
-    "start": "node dist/server.js",
-    "dev": "ts-node-esm src/server.ts"
-  },
+    "start": "bun run src/server.ts"
+    },
   "keywords": [],
   "authors": [
-    "Elijah Gervais",
-    "Amaan"
+    "Elijah Gervais"
   ],
   "license": "ISC",
   "description": "This is the backend for project",
