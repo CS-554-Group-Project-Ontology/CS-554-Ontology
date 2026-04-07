@@ -32,21 +32,18 @@ export const userResolver = {
             }
             return await User.find()
         },
-        getUserByID: async (_:unknown,args:{_id:string}) => {
-            if (!args._id || typeof args._id !== 'string'){
-                throw new GraphQLError(`Missing or invalid Id Input`, {
-                extensions: {code: 'BAD_USER_INPUT'}
+        //Change getUserByID to using UUID
+        getUserByID: async (_:unknown, context: ResolverContext) => {
+            console.log("register resolver hit");
+            if (!context.token){
+                throw new GraphQLError('Unauthorized',{
+                    extensions: {code: 'INVALID_ACCESS'}
                 });
             }
+            const decodedToken = await verifyFirebaseToken(context.token);
+            const UUID = decodedToken.uid;
 
-            const id = args._id.trim()
-
-            if(!mongoose.Types.ObjectId.isValid(id)){
-                throw new GraphQLError('Invalid id Input',{
-                    extensions: {code: 'BAD_USER_INPUT'},
-                });
-            }
-            const found = await User.find({_id:args._id})
+            const found = await User.find({UUID: UUID})
 
             if (!found){
                 throw new GraphQLError("User Not Found",{
