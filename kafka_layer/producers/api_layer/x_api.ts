@@ -6,7 +6,7 @@ const x_url = "https://api.x.com/2";
 
 let latestTweet: string | undefined;
 
-async function xFetch(endpoint: string, params: Record<string, string>) {
+export async function xFetch(endpoint: string, params: Record<string, string>) {
     try {
         if(!endpoint || !params){ 
             throw new Error("One of the arguments for retriving data is null or undefined"); 
@@ -69,7 +69,6 @@ export async function fetchRecentTweets(query: string) {
             latestTweet = data.meta.newest_id;
         }
 
-        // console.log(data.data); 
 
         return data.data ?? [];
     }

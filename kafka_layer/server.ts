@@ -11,7 +11,6 @@ async function main() {
     await fetchDataX();
 
 
-    // Controls API call timing currently set to a minute
     setInterval(fetchDataPolymarket, 60_000);
     setInterval(fetchDataX, 60_000);
 

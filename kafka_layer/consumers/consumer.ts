@@ -14,7 +14,8 @@ export async function consumerConnect() {
   await consumer.subscribe({ topics: ["market-data", "signals", "news-feed"] });
 
   await consumer.run({
-    eachMessage: async ({ topic, partition, message }) => {
+    eachMessage: async ({ topic, message }) => {
+
       const value = message.value?.toString();
 
       if (!value){
@@ -32,7 +33,7 @@ export async function consumerConnect() {
           break;
         case "news-feed":
           console.log("News feed:", parsed);
-          
+
           break;
         case "signals":
 
@@ -42,6 +43,6 @@ export async function consumerConnect() {
     },
   });
 
-  console.log("Consumer running");
+  console.log("Consumer is up and running");
 }
 

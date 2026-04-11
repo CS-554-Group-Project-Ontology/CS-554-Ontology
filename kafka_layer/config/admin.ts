@@ -6,8 +6,15 @@ export async function createTopics() {
     try{
         await admin.connect();
 
+        console.log("You succesfully connected to kakfa"); 
+
         await admin.createTopics({
             topics: [
+                {
+                    topic:"polymarket",
+                    numPartitions:1
+
+                },
                 { 
                     topic: "market-data", 
                     numPartitions: 1, 
