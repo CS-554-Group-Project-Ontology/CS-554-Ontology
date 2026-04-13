@@ -1,25 +1,32 @@
 {
   "name": "back_end",
   "version": "1.0.0",
-  "main": "dist/server.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "bun run src/server.ts"
-    },
+    "build": "tsc",
+    "dev": "ts-node --esm ./server.ts",
+    "prod": "npm run build && npm start",
+    "start": "node ./dist/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodemon --exec ts-node --esm ./server.ts"
+  },
   "keywords": [],
   "authors": [
-    "Elijah Gervais"
+    "Elijah Gervais",
+    "Amaan Rajguru",
+    "Mamadou Diallo ",
+    "Cedric Pollefeys "
   ],
   "license": "ISC",
   "description": "This is the backend for project",
   "dependencies": {
-    "@apollo/server": "^5.5.0",
-    "graphql": "^16.13.2",
-    "graphql-kafkajs-subscriptions": "^4.0.6",
-    "graphql-ws": "^6.0.7",
-    "kafkajs": "^2.2.4",
-    "mongoose": "^9.3.2",
-    "ws": "^8.20.0"
+    "@apollo/server": "^5.4.0",
+    "dotenv": "^17.4.0",
+    "firebase-admin": "^13.7.0",
+    "graphql": "^16.13.1",
+    "graphql-tag": "^2.12.6",
+    "mongoose": "^9.4.1"
   },
   "devDependencies": {
     "@types/node": "^25.5.0",

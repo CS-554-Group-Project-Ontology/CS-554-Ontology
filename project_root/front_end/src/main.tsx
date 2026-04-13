@@ -1,12 +1,17 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
-import { ApolloProvider } from '@apollo/client/react'
+import { StrictMode } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { createRoot } from 'react-dom/client';
+import { initializeApp } from 'firebase/app';
+import fbconfig from './firebase/FirebaseConfig';
+import './index.css';
+import App from './App.tsx';
+
+initializeApp(fbconfig);
 
 createRoot(document.getElementById('root')!).render(
-  <ApolloProvider>
   <StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </StrictMode>,
-  </ApolloProvider>
-)
+);
