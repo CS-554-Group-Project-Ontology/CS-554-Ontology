@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "daisyui";
 
 html,
@@ -39,6 +39,11 @@ body,
   left: 0;
   margin: 12px;
   border-radius: 4px;
+
+  .map-sidebar-neighborhood {
+    margin-top: 4px;
+    font-weight: 600;
+  }
 }
 
 .reset-button {

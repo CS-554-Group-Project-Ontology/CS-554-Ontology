@@ -1,9 +1,18 @@
 import { useContext, useEffect, useRef, useState } from 'react';
+import { useQuery } from '@apollo/client/react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import type { FeatureCollection, Geometry, GeoJsonProperties } from 'geojson';
+
 import { AuthContext } from '../context/AuthContext';
+
 import queries from '../queries';
-import { useQuery } from '@apollo/client/react';
+import {
+  FEATURES_WITH_NEIGHBORHOOD,
+  type GetUserByUUIDData,
+  type GetUserByUUIDVars,
+  type TsEconomicProfile,
+} from '../types';
 
 // Each of the 3 cities coordinates
 const NYC_INITIAL_CENTER: [number, number] = [-74.0242, 40.6941];
@@ -19,29 +28,6 @@ const CITY = {
 
 // Initial zoom level for the map
 const INITIAL_ZOOM: number = 10.12;
-
-type GetUserByUUIDData = {
-  getUserByUUID?: {
-    economic_profile?: TsEconomicProfile | null;
-  } | null;
-};
-
-type GetUserByUUIDVars = {
-  uuid: string;
-};
-
-interface TsLiabilities {
-  rent?: number;
-  insuranceDeductibles?: number;
-  utilities?: number;
-  other?: number;
-}
-
-interface TsEconomicProfile {
-  income?: number;
-  address?: string;
-  liabilities?: TsLiabilities;
-}
 
 const formatCurrency = (value?: number) =>
   value !== undefined && value !== null ? `$${value.toLocaleString()}` : 'N/A';
@@ -110,17 +96,56 @@ const Affordability = ({ city }: { city: string }) => {
     if (!mapContainerRef.current || mapRef.current) return;
 
     mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
-    mapRef.current = new mapboxgl.Map({
+
+    // Initialize the map
+    const map = new mapboxgl.Map({
       container: mapContainerRef.current,
       center: selectedCityCenter,
       zoom: INITIAL_ZOOM,
     });
 
-    mapRef.current.on('move', () => {
-      const mapCenter = mapRef.current!.getCenter();
-      const mapZoom = mapRef.current!.getZoom();
-      setCenter([mapCenter.lng, mapCenter.lat]);
-      setZoom(mapZoom);
+    // Add navigation controls to the map
+    mapRef.current = map;
+
+    // Add the NYC neighborhoods layer once the map has loaded
+    map.on('load', () => {
+      map.addSource('nyc-neighborhoods', {
+        type: 'geojson',
+        data: {
+          type: 'FeatureCollection' as const,
+          features: FEATURES_WITH_NEIGHBORHOOD as FeatureCollection<
+            Geometry,
+            GeoJsonProperties
+          >['features'],
+        },
+      });
+
+      map.addLayer({
+        id: 'nyc-neighborhoods-fill',
+        type: 'fill',
+        source: 'nyc-neighborhoods',
+        paint: {
+          'fill-color': ['case', ['has', 'neighborhood'], '#409A99', '#ccc'],
+          'fill-opacity': 0.7,
+        },
+      });
+
+      map.addLayer({
+        id: 'nyc-neighborhoods-outline',
+        type: 'line',
+        source: 'nyc-neighborhoods',
+        paint: {
+          'line-color': '#aaa',
+          'line-width': 1,
+        },
+      });
+
+      map.on('move', () => {
+        const mapCenter = map.getCenter();
+        const mapZoom = map.getZoom();
+        setCenter([mapCenter.lng, mapCenter.lat]);
+        setZoom(mapZoom);
+      });
     });
 
     return () => {
