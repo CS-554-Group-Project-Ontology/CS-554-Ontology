@@ -1,9 +1,13 @@
 import {gql} from "graphql-tag";
 
 export const typeDefs = gql `
+    scalar UUID
+
     type Query {
         users: [User!]!
         getUserByID(_id: ID!): User  
+        getUserByUUID(UUID: UUID!): User  
+        
     }
 
     type User {

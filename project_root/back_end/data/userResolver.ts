@@ -1,4 +1,4 @@
-import { GraphQLError } from 'graphql';
+import { GraphQLError, GraphQLScalarType, Kind } from 'graphql';
 import mongoose from 'mongoose';
 import User from "../data_model_layer/User.ts";
 import type { typeUser } from "../data_model_layer/User.ts"
@@ -22,6 +22,22 @@ type ResolverContext = {
 }
 
 export const userResolver = {
+    UUID: new GraphQLScalarType({
+        name: 'UUID',
+        description: 'UUID string scalar',
+        serialize(value) {
+        return value;
+        },
+        parseValue(value) {
+        return value;
+        },
+        parseLiteral(ast) {
+        if (ast.kind === Kind.STRING) {
+            return ast.value;
+        }
+        return null;
+        },
+    }),
     Query:{
         users: async() =>{
             const cache = await User.find()
@@ -52,7 +68,28 @@ export const userResolver = {
             }
 
             return found;
-        }
+        },
+
+        getUserByUUID: async (_: unknown, args: { UUID: string }, context: ResolverContext) => {
+            console.log('getUserByUUID resolver hit');
+            if (!context.token) {
+                throw new GraphQLError('Unauthorized', {
+                extensions: { code: 'INVALID_ACCESS' },
+                });
+            }
+            const decodedToken = await verifyFirebaseToken(context.token);
+            const UUID = args.UUID || decodedToken.uid;
+
+            const found = await User.findOne({ UUID });
+
+            if (!found) {
+                throw new GraphQLError('User Not Found', {
+                extensions: { code: 'NOT_FOUND' },
+                });
+            }
+
+            return found;
+        },
     },
 
     Mutation: {

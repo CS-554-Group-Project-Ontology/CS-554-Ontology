@@ -10,11 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@apollo/client": "^4.1.7",
     "@mapbox/search-js-react": "^1.5.1",
     "@tailwindcss/vite": "^4.2.2",
     "daisyui": "^5.5.19",
     "firebase": "^12.11.0",
-     "mapbox-gl": "^3.20.0",
+    "graphql": "^16.13.2",
+    "mapbox-gl": "^3.20.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.13.2",
