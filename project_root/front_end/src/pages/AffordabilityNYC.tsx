@@ -42,7 +42,7 @@ const AffordabilityNYC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const detailsRef = useRef<HTMLDetailsElement | null>(null);
 
-  // get initial city center based on passed city from props
+  // get user economic profile data for the current user
   const { currentUser } = useContext(AuthContext);
   const { loading, error, data } = useQuery<
     GetUserByUUIDData,
@@ -52,10 +52,12 @@ const AffordabilityNYC = () => {
     fetchPolicy: 'cache-and-network',
   });
 
+  // destructure the economic profile from graphql data
   const userEconomicProfile = data?.getUserByUUID?.economic_profile as
     | TsEconomicProfile
     | undefined;
 
+  // create an array of profile details to display in the details tag
   const profileDetails = [
     {
       label: 'Address',
@@ -108,8 +110,11 @@ const AffordabilityNYC = () => {
 
     // Add the NYC neighborhoods layer once the map has loaded
     map.on('load', () => {
+      let hoveredId: number | string | null = null;
+
       map.addSource('nyc-neighborhoods', {
         type: 'geojson',
+        generateId: true, // enable geojson id property
         data: {
           type: 'FeatureCollection' as const,
           features: FEATURES_WITH_NEIGHBORHOOD as FeatureCollection<
@@ -124,7 +129,12 @@ const AffordabilityNYC = () => {
         type: 'fill',
         source: 'nyc-neighborhoods',
         paint: {
-          'fill-color': ['case', ['has', 'neighborhood'], '#409A99', '#ccc'],
+          'fill-color': [
+            'case',
+            ['boolean', ['feature-state', 'hover'], false],
+            'orange',
+            '#409A99',
+          ],
           'fill-opacity': 0.7,
         },
       });
@@ -161,6 +171,23 @@ const AffordabilityNYC = () => {
         map.getCanvas().style.cursor = 'pointer';
 
         const feature = event.features?.[0];
+
+        if (!feature?.id) return;
+
+        if (hoveredId !== null) {
+          map.setFeatureState(
+            { source: 'nyc-neighborhoods', id: hoveredId },
+            { hover: false },
+          );
+        }
+
+        hoveredId = feature.id;
+
+        map.setFeatureState(
+          { source: 'nyc-neighborhoods', id: hoveredId },
+          { hover: true },
+        );
+
         const neighborhood = feature?.properties?.neighborhood;
 
         setHoveredNeighborhood(
@@ -170,6 +197,14 @@ const AffordabilityNYC = () => {
 
       map.on('mouseleave', 'nyc-neighborhoods-fill', () => {
         map.getCanvas().style.cursor = '';
+        if (hoveredId !== null) {
+          map.setFeatureState(
+            { source: 'nyc-neighborhoods', id: hoveredId },
+            { hover: false },
+          );
+        }
+        hoveredId = null;
+
         setHoveredNeighborhood((prev) => (prev === null ? prev : null));
       });
 
