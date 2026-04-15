@@ -6,11 +6,12 @@ import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import NotFound from './components/NotFound';
-import Layout from "./components/Layout";
-import AffordabilityNYC from "./pages/AffordabilityNYC";
-import AffordabilitySF from "./pages/AffordabilitySF";
-import AffordabilityHouston from "./pages/AffordabilityHouston";
-import Profile from "./components/Profile";
+import Layout from './components/Layout';
+import AffordabilityNYC from './pages/AffordabilityNYC';
+import AffordabilitySF from './pages/AffordabilitySF';
+import AffordabilityHouston from './pages/AffordabilityHouston';
+import Profile from './components/Profile';
+import Mobility from './pages/Mobility';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path='/' element={<Landing />} />
             <Route path='/' element={<PrivateRoute />}>
               <Route path='/dashboard' element={<Home />} />
+              <Route path='/mobility' element={<Mobility />} />
               <Route path='/affordability-nyc' element={<AffordabilityNYC />} />
               <Route path='/affordability-sf' element={<AffordabilitySF />} />
               <Route

@@ -1,4 +1,5 @@
 import { useContext, useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client/react';
 import { ChevronRight, ChevronDown } from 'lucide-react';
 import mapboxgl from 'mapbox-gl';
@@ -14,7 +15,7 @@ import {
   type TsEconomicProfile,
 } from '../types';
 
-// Each of the 3 cities coordinates
+// NYC coordinates
 const NYC_INITIAL_CENTER: [number, number] = [-74.0242, 40.6941];
 
 // Initial zoom level for the map
@@ -56,6 +57,13 @@ const AffordabilityNYC = () => {
   const userEconomicProfile = data?.getUserByUUID?.economic_profile as
     | TsEconomicProfile
     | undefined;
+
+  // check if the user economic profile is empty (address & income)
+  const isUserEconomicProfileEmpty =
+    !userEconomicProfile ||
+    Object.keys(userEconomicProfile).length === 0 ||
+    (userEconomicProfile.address === null &&
+      userEconomicProfile.income === null);
 
   // create an array of profile details to display in the details tag
   const profileDetails = [
@@ -238,141 +246,119 @@ const AffordabilityNYC = () => {
         based on the median income and median rent.
       </p>
 
-      {currentUser && (
-        <details
-          ref={detailsRef}
-          open={isOpen}
-          onToggle={toggleDetails}
-          className='mb-6 overflow-hidden rounded-2xl border border-slate-200 bg-linear-to-br from-slate-50 via-white to-sky-50 p-5 shadow-sm'
-        >
-          <summary className='cursor-pointer list-none'>
-            <div className='mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between'>
-              <div className='flex items-center gap-2'>
-                {isOpen ? (
-                  <ChevronDown className='h-5 w-5 text-sky-600 font-bold' />
-                ) : (
-                  <ChevronRight className='h-5 w-5 text-sky-600 font-bold' />
-                )}
-                <div>
-                  <p className='text-xs font-semibold uppercase tracking-[0.3em] text-sky-600'>
-                    Personal snapshot
-                  </p>
-                  <h2 className='text-2xl font-semibold text-slate-900'>
-                    Your Financial Profile
-                  </h2>
+      {!isUserEconomicProfileEmpty ? (
+        <>
+          <details
+            ref={detailsRef}
+            open={isOpen}
+            onToggle={toggleDetails}
+            className='mb-6 overflow-hidden rounded-2xl border border-slate-200 bg-linear-to-br from-slate-50 via-white to-sky-50 p-5 shadow-sm'
+          >
+            <summary className='cursor-pointer list-none'>
+              <div className='mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between'>
+                <div className='flex items-center gap-2'>
+                  {isOpen ? (
+                    <ChevronDown className='h-5 w-5 text-sky-600 font-bold' />
+                  ) : (
+                    <ChevronRight className='h-5 w-5 text-sky-600 font-bold' />
+                  )}
+                  <div>
+                    <p className='text-xs font-semibold uppercase tracking-[0.3em] text-sky-600'>
+                      Personal snapshot
+                    </p>
+                    <h2 className='text-2xl font-semibold text-slate-900'>
+                      Your Financial Profile
+                    </h2>
+                  </div>
                 </div>
+                <span className='inline-flex w-fit items-center rounded-full bg-sky-100 px-3 py-1 text-xs font-medium text-sky-700'>
+                  {isOpen ? 'Click to collapse' : 'Click to expand'}
+                </span>
               </div>
-              <span className='inline-flex w-fit items-center rounded-full bg-sky-100 px-3 py-1 text-xs font-medium text-sky-700'>
-                {isOpen ? 'Click to collapse' : 'Click to expand'}
-              </span>
+            </summary>
+
+            <div className='grid gap-4 sm:grid-cols-2'>
+              {profileDetails.map((item) => (
+                <div
+                  key={item.label}
+                  className={`rounded-xl border border-slate-200 bg-white/80 p-4 shadow-sm backdrop-blur ${
+                    item.fullWidth ? 'sm:col-span-2' : ''
+                  }`}
+                >
+                  <p className='text-xs font-semibold uppercase tracking-[0.2em] text-slate-500'>
+                    {item.label}
+                  </p>
+                  <p className='mt-2 text-lg font-semibold text-slate-900'>
+                    {item.value}
+                  </p>
+                </div>
+              ))}
             </div>
-          </summary>
+          </details>
 
-          <div className='grid gap-4 sm:grid-cols-2'>
-            {profileDetails.map((item) => (
-              <div
-                key={item.label}
-                className={`rounded-xl border border-slate-200 bg-white/80 p-4 shadow-sm backdrop-blur ${
-                  item.fullWidth ? 'sm:col-span-2' : ''
-                }`}
-              >
-                <p className='text-xs font-semibold uppercase tracking-[0.2em] text-slate-500'>
-                  {item.label}
-                </p>
-                <p className='mt-2 text-lg font-semibold text-slate-900'>
-                  {item.value}
-                </p>
-              </div>
-            ))}
+          <div className='mb-4 text-sm text-gray-600'>
+            <p className='font-bold'>Adjust the slider to zoom in or out</p>
+            <input
+              type='range'
+              min='0'
+              max='20'
+              value={zoom}
+              onChange={(e) => {
+                const newZoom = parseFloat(e.target.value);
+                setZoom(newZoom);
+                if (mapRef.current) {
+                  mapRef.current.setZoom(newZoom);
+                }
+              }}
+            />
           </div>
-        </details>
-      )}
-      {/* {currentUser && (
-        <section className='mb-6 overflow-hidden rounded-2xl border border-slate-200 bg-linear-to-br from-slate-50 via-white to-sky-50 p-5 shadow-sm'>
-          <div className='mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between'>
-            <div>
-              <p className='text-xs font-semibold uppercase tracking-[0.3em] text-sky-600'>
-                Personal snapshot
-              </p>
-              <h2 className='text-2xl font-semibold text-slate-900'>
-                Your Financial Profile
-              </h2>
+
+          {/* Reset view button */}
+          <button
+            className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-8'
+            onClick={() => {
+              setCenter(NYC_INITIAL_CENTER);
+              setZoom(INITIAL_ZOOM);
+              if (mapRef.current) {
+                mapRef.current.setCenter(NYC_INITIAL_CENTER);
+                mapRef.current.setZoom(INITIAL_ZOOM);
+              }
+            }}
+          >
+            Reset View
+          </button>
+
+          {/* Map container with sidebar overlay */}
+          <div className='map-app-container'>
+            <div className='map-sidebar'>
+              <div className='font-bold text-sm'>
+                Longitude: {center[0].toFixed(4)} | Latitude:{' '}
+                {center[1].toFixed(4)} | Zoom: {zoom.toFixed(2)}
+              </div>
+              <div className='map-sidebar-neighborhood mt-2 font-semibold'>
+                {hoveredNeighborhood ?? 'Hover over a NYC neighborhood'}
+              </div>
             </div>
-            <span className='inline-flex w-fit items-center rounded-full bg-sky-100 px-3 py-1 text-xs font-medium text-sky-700'>
-              Live profile data
-            </span>
           </div>
 
-          <div className='grid gap-4 sm:grid-cols-2'>
-            {profileDetails.map((item) => (
-              <div
-                key={item.label}
-                className={`rounded-xl border border-slate-200 bg-white/80 p-4 shadow-sm backdrop-blur ${
-                  item.fullWidth ? 'sm:col-span-2' : ''
-                }`}
-              >
-                <p className='text-xs font-semibold uppercase tracking-[0.2em] text-slate-500'>
-                  {item.label}
-                </p>
-                <p className='mt-2 text-lg font-semibold text-slate-900'>
-                  {item.value}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
-      )} */}
-
-      <div className='mb-4 text-sm text-gray-600'>
-        <p className='font-bold'>Adjust the slider to zoom in or out</p>
-        <input
-          type='range'
-          min='0'
-          max='20'
-          value={zoom}
-          onChange={(e) => {
-            const newZoom = parseFloat(e.target.value);
-            setZoom(newZoom);
-            if (mapRef.current) {
-              mapRef.current.setZoom(newZoom);
-            }
-          }}
-        />
-      </div>
-
-      {/* Reset view button */}
-      <button
-        className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-8'
-        onClick={() => {
-          setCenter(NYC_INITIAL_CENTER);
-          setZoom(INITIAL_ZOOM);
-          if (mapRef.current) {
-            mapRef.current.setCenter(NYC_INITIAL_CENTER);
-            mapRef.current.setZoom(INITIAL_ZOOM);
-          }
-        }}
-      >
-        Reset View
-      </button>
-
-      {/* Map container with sidebar overlay */}
-      <div className='map-app-container'>
-        <div className='map-sidebar'>
-          <div className='font-bold text-sm'>
-            Longitude: {center[0].toFixed(4)} | Latitude: {center[1].toFixed(4)}{' '}
-            | Zoom: {zoom.toFixed(2)}
-          </div>
-          <div className='map-sidebar-neighborhood mt-2 font-semibold'>
-            {hoveredNeighborhood ?? 'Hover over a NYC neighborhood'}
-          </div>
+          <div
+            ref={mapContainerRef}
+            className='map-container'
+            style={{ height: '500px' }}
+          />
+        </>
+      ) : (
+        <div className='flex flex-col mb-4 text-gray-700'>
+          <p className='text-lg text-gray-700 mb-4'>
+            Please update your profile and interact with the map. The map
+            displays the affordability of the New York City neighborhoods based
+            on the median income and median rent.
+          </p>
+          <Link to='/mobility' className='text-blue-500 hover:underline'>
+            Update your economic profile
+          </Link>
         </div>
-      </div>
-
-      <div
-        ref={mapContainerRef}
-        className='map-container'
-        style={{ height: '500px' }}
-      />
+      )}
     </div>
   );
 };

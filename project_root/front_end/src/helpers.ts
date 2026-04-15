@@ -1,13 +1,6 @@
 import { scaleLinear } from 'd3-scale';
-import type {
-  FeatureCollection,
-  Geometry,
-  GeoJsonProperties,
-  Feature,
-} from 'geojson';
 
-import type { NeighborhoodProperties, NYCFeature } from './types';
-import { NYC_GEOJSON } from './mapbox-gl/data/nyc-geojson';
+import type { NYCFeature } from './types';
 
 const color = scaleLinear<string>()
   .domain([1, 20])

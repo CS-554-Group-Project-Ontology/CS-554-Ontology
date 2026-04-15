@@ -1,22 +1,23 @@
-import { useContext } from "react";
-import { NavLink } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
-import { doSignOut } from "../firebase/FirebaseFunctions";
+import { useContext } from 'react';
+import { NavLink } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
+import { doSignOut } from '../firebase/FirebaseFunctions';
 
-const DEFAULT_AVATAR = "/default-avatar.png";
+const DEFAULT_AVATAR = '/default-avatar.png';
 
 function Navigation() {
   const { currentUser } = useContext(AuthContext);
 
   const authNavItems = [
-    { to: "/", label: "Landing" },
-    { to: "/dashboard", label: "Dashboard" },
+    { to: '/', label: 'Landing' },
+    { to: '/dashboard', label: 'Dashboard' },
+    { to: '/mobility', label: 'Mobility' },
   ];
 
   const unauthNavItems = [
-    { to: "/", label: "Landing" },
-    { to: "/signin", label: "Sign In" },
-    { to: "/signup", label: "Sign Up" },
+    { to: '/', label: 'Landing' },
+    { to: '/signin', label: 'Sign In' },
+    { to: '/signup', label: 'Sign Up' },
   ];
 
   async function handleSignOut() {
@@ -53,8 +54,8 @@ function Navigation() {
                     className={({ isActive }) =>
                       `btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium ${
                         isActive
-                          ? "bg-primary text-white"
-                          : "text-slate-700 hover:bg-slate-200"
+                          ? 'bg-primary text-white'
+                          : 'text-slate-700 hover:bg-slate-200'
                       }`
                     }
                   >
@@ -80,8 +81,8 @@ function Navigation() {
                       className={({ isActive }) =>
                         `btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium ${
                           isActive
-                            ? "bg-primary text-white"
-                            : "text-slate-700 hover:bg-slate-200"
+                            ? 'bg-primary text-white'
+                            : 'text-slate-700 hover:bg-slate-200'
                         }`
                       }
                     >
@@ -94,8 +95,8 @@ function Navigation() {
                       className={({ isActive }) =>
                         `btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium ${
                           isActive
-                            ? "bg-primary text-white"
-                            : "text-slate-700 hover:bg-slate-200"
+                            ? 'bg-primary text-white'
+                            : 'text-slate-700 hover:bg-slate-200'
                         }`
                       }
                     >
@@ -108,8 +109,8 @@ function Navigation() {
                       className={({ isActive }) =>
                         `btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium ${
                           isActive
-                            ? "bg-primary text-white"
-                            : "text-slate-700 hover:bg-slate-200"
+                            ? 'bg-primary text-white'
+                            : 'text-slate-700 hover:bg-slate-200'
                         }`
                       }
                     >
@@ -145,8 +146,8 @@ function Navigation() {
                       className={({ isActive }) =>
                         `btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium ${
                           isActive
-                            ? "bg-primary text-white"
-                            : "text-slate-700 hover:bg-slate-200"
+                            ? 'bg-primary text-white'
+                            : 'text-slate-700 hover:bg-slate-200'
                         }`
                       }
                     >
@@ -171,8 +172,8 @@ function Navigation() {
                     className={({ isActive }) =>
                       `btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium ${
                         isActive
-                          ? "bg-primary text-white"
-                          : "text-slate-700 hover:bg-slate-200"
+                          ? 'bg-primary text-white'
+                          : 'text-slate-700 hover:bg-slate-200'
                       }`
                     }
                   >
