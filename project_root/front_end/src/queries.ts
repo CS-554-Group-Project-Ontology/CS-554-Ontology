@@ -21,7 +21,7 @@ export const GET_USER_BY_UUID = gql`
   }
 `;
 
-let queries = {
+const queries = {
   GET_USER_BY_UUID,
 };
 

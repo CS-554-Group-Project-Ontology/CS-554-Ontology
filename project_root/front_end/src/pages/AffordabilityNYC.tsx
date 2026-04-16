@@ -213,7 +213,7 @@ const AffordabilityNYC = () => {
         }
         hoveredId = null;
 
-        setHoveredNeighborhood((prev) => (prev === null ? prev : null));
+        setHoveredNeighborhood(null);
       });
 
       map.on('click', 'nyc-neighborhoods-fill', (event) => {
