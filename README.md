@@ -2,6 +2,8 @@
 
 ## Project Name: `Ontology`
 
+## Group: `CtrlAltElite`
+
 ### Team Members
 
 - Amaan Rajguru (<arajguru@stevens.edu>)
