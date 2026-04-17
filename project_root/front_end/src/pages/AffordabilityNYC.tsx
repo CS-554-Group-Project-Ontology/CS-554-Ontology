@@ -22,7 +22,6 @@ const NYC_INITIAL_CENTER: [number, number] = [-74.0242, 40.6941];
 // Initial zoom level for the map
 const INITIAL_ZOOM: number = 10.12;
 
-
 const AffordabilityNYC = () => {
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
@@ -232,7 +231,9 @@ const AffordabilityNYC = () => {
   }, [loading]);
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  // Because user does not have an economic profile at first, so 'User Not Found' is expected.
+  if (error && error.message !== 'User Not Found')
+    return <p className='text-red-500'>Error: {error.message}</p>;
 
   return (
     <div className='container mx-auto flex-1 px-2 py-8 sm:px-4 lg:px-6'>
@@ -245,8 +246,37 @@ const AffordabilityNYC = () => {
         based on the median income and median rent.
       </p>
 
-      {!isUserEconomicProfileEmpty ? (
-        <>
+      {/* Show alert if user economic profile is empty */}
+      {isUserEconomicProfileEmpty ? (
+        <div className='flex flex-col mb-4 text-gray-700'>
+          <div role='alert' className='alert alert-error alert-soft mb-6 p-3'>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              className='h-6 w-6 shrink-0 stroke-current'
+              fill='none'
+              viewBox='0 0 24 24'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth='2'
+                d='M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z'
+              />
+            </svg>
+            <p className='text-md text-red-700'>
+              Please update your profile and interact with the map.
+            </p>
+
+            <Link
+              to='/mobility'
+              className='rounded-full bg-sky-100 px-3 py-1 text-sm font-medium text-sky-700 hover:bg-sky-200'
+            >
+              Update your economic profile
+            </Link>
+          </div>
+        </div>
+      ) : (
+        <div className='mb-6 rounded-lg p-4'>
           <details
             ref={detailsRef}
             open={isOpen}
@@ -271,7 +301,7 @@ const AffordabilityNYC = () => {
                   </div>
                 </div>
                 <span className='inline-flex w-fit items-center rounded-full bg-sky-100 px-3 py-1 text-xs font-medium text-sky-700'>
-                  {isOpen ? 'Click to collapse' : 'Click to expand'}
+                  {isOpen ? 'Click to collapse' : 'Click to see details'}
                 </span>
               </div>
             </summary>
@@ -345,17 +375,6 @@ const AffordabilityNYC = () => {
             className='map-container'
             style={{ height: '500px' }}
           />
-        </>
-      ) : (
-        <div className='flex flex-col mb-4 text-gray-700'>
-          <p className='text-lg text-gray-700 mb-4'>
-            Please update your profile and interact with the map. The map
-            displays the affordability of the New York City neighborhoods based
-            on the median income and median rent.
-          </p>
-          <Link to='/mobility' className='text-blue-500 hover:underline'>
-            Update your economic profile
-          </Link>
         </div>
       )}
     </div>
