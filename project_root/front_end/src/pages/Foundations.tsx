@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { getUserApi } from "../api";
 
 function Foundations(){
     const [economicProfile,setEconomicProfile] = useState('')

@@ -80,7 +80,7 @@ export async function addUserApi(uuid: string){
     return data.addUser;
 }
 
-export async function getUserApi(uuid:string){
+export async function getUserApi(){
     const data = await dbRequest<{
         getUserById:{
             _id: string;
@@ -98,7 +98,7 @@ export async function getUserApi(uuid:string){
         };
     }>(
             `
-            Query GetUserById(UUID: $UUID){
+            query GetUserById(UUID: $UUID){
                 _id
                 UUID
                 economic_profile {
@@ -110,8 +110,7 @@ export async function getUserApi(uuid:string){
                         utilities
                         other
                 }}}
-            `,
-            { UUID: uuid},
+            `
         );
         return data.getUserById;
 }
