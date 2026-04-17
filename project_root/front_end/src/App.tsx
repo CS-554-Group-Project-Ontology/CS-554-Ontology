@@ -7,6 +7,8 @@ import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import NotFound from './components/NotFound';
+import Mobility from './pages/Mobility';
+import Foundations from './pages/Foundations';
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
         <Route path='/' element={<Landing />} />
         <Route path='/home' element={<PrivateRoute />}>
           <Route path='/home' element={<Home />} />
+          <Route path='/mobility ' element={<Mobility />}/>
+          <Route path='/foundations ' element={<Foundations />}/>
         </Route>
         <Route path='/signin' element={<SignIn />} />
         <Route path='/signup' element={<SignUp />} />
