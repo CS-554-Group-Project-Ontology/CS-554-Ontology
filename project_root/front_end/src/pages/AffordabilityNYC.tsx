@@ -264,7 +264,7 @@ const AffordabilityNYC = () => {
               />
             </svg>
             <p className='text-md text-red-700'>
-              Please update your profile and interact with the map.
+              Please update your economic profile and interact with the map.
             </p>
 
             <Link
