@@ -19,3 +19,6 @@ export function nameLength(feature: NYCFeature) {
 export function fillFn(feature: NYCFeature) {
   return color(nameLength(feature));
 }
+
+export const formatCurrency = (value?: number) =>
+  value !== undefined && value !== null ? `$${value.toLocaleString()}` : 'N/A';

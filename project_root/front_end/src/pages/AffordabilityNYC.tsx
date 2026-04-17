@@ -14,6 +14,7 @@ import {
   type GetUserByUUIDVars,
   type TsEconomicProfile,
 } from '../types';
+import { formatCurrency } from '../helpers';
 
 // NYC coordinates
 const NYC_INITIAL_CENTER: [number, number] = [-74.0242, 40.6941];
@@ -21,8 +22,6 @@ const NYC_INITIAL_CENTER: [number, number] = [-74.0242, 40.6941];
 // Initial zoom level for the map
 const INITIAL_ZOOM: number = 10.12;
 
-const formatCurrency = (value?: number) =>
-  value !== undefined && value !== null ? `$${value.toLocaleString()}` : 'N/A';
 
 const AffordabilityNYC = () => {
   const mapRef = useRef<mapboxgl.Map | null>(null);
