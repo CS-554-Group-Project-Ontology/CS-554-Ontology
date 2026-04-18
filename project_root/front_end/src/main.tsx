@@ -5,6 +5,9 @@ import { initializeApp } from 'firebase/app';
 import fbconfig from './firebase/FirebaseConfig';
 import './index.css';
 import App from './App.tsx';
+import { client } from '../../back_end/Config/redisClient.tsx'
+
+await client.connect();
 
 initializeApp(fbconfig);
 

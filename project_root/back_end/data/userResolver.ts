@@ -1,5 +1,5 @@
 import { GraphQLError } from 'graphql';
-import mongoose from 'mongoose';
+import { setCache, getCache, cleanKey } from '../EconProfRedis.ts';
 import User from "../data_model_layer/User.ts";
 import type { typeUser } from "../data_model_layer/User.ts"
 import { verifyFirebaseToken } from '../Config/FirebaseAdmin.ts';
@@ -24,16 +24,15 @@ type ResolverContext = {
 export const userResolver = {
     Query:{
         users: async() =>{
-            const cache = await User.find()
-            if (cache.length==0){
+            const users = await User.find();
+            if (users.length==0){
                 throw new GraphQLError("Users Not Found"),{
                     extensions: {code: 'NOT_FOUND'}
                 }
             }
-            return await User.find()
+            return users;
         },
-        //Change getUserByID to using UUID
-        getUserByID: async (_:unknown, context: ResolverContext) => {
+        getUserByID: async (_:unknown,__:unknown, context: ResolverContext) => {
             console.log("getUser resolver hit");
             if (!context.token){
                 throw new GraphQLError('Unauthorized',{
@@ -43,14 +42,19 @@ export const userResolver = {
             const decodedToken = await verifyFirebaseToken(context.token);
             const UUID = decodedToken.uid;
 
-            const found = await User.find({UUID: UUID})
+            const cache = await getCache(UUID);
+            if (cache){
+                return cache
+            }
+
+            const found = await User.findOne({UUID: UUID})
 
             if (!found){
                 throw new GraphQLError("User Not Found",{
                     extensions: {code: 'NOT_FOUND'}
                 });
             }
-
+            await setCache(UUID, found.toObject());
             return found;
         }
     },
@@ -58,7 +62,6 @@ export const userResolver = {
     Mutation: {
         addUser: async(_:unknown,__:unknown,context: ResolverContext) =>{
             console.log("register resolver hit");
-            console.log("incoming args:", args);
             if (!context.token){
                 throw new GraphQLError('Unauthorized',{
                     extensions: {code: 'INVALID_ACCESS'}
@@ -165,7 +168,7 @@ export const userResolver = {
                     extensions: {code: 'NOT_FOUND'}
                 });
             }
-
+            await setCache(UUID, updated.toObject());
             return updated;
         },
         
@@ -189,7 +192,7 @@ export const userResolver = {
                     extensions: {code: 'INVALID_ACCESS'}
                 });
             }
-
+            await cleanKey(UUID);
             return result;
         }
     }
