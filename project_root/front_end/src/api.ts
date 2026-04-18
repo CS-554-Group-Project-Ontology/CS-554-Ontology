@@ -59,7 +59,7 @@ export async function dbRequest<T>(query: string, variables?: Record<string,unkn
     return result.data;
 }
 
-export async function addUserApi(uuid: string){
+export async function addUserApi(){
     const data = await dbRequest<{
         addUser: {
             _id: string;
@@ -67,14 +67,13 @@ export async function addUserApi(uuid: string){
         }
     }>(
         `
-        mutation AddUser($UUID: String!){
-            addUser(UUID: $UUID){
+        mutation AddUser{
+            addUser{
                 _id
                 UUID
             }
         }
-        `,
-        { UUID: uuid },
+        `
     );
 
     return data.addUser;
@@ -82,7 +81,7 @@ export async function addUserApi(uuid: string){
 
 export async function getUserApi(){
     const data = await dbRequest<{
-        getUserById:{
+        getUserByID:{
             _id: string;
             UUID:string;
             economic_profile: {
@@ -98,21 +97,25 @@ export async function getUserApi(){
         };
     }>(
             `
-            query GetUserById(UUID: $UUID){
-                _id
-                UUID
-                economic_profile {
-                    income
-                    address
-                    liabilities {
-                        rent
-                        insuranceDeductibles
-                        utilities
-                        other
-                }}}
+            query GetUserByID{
+                getUserByID{
+                    _id
+                    UUID
+                    economic_profile {
+                        income
+                        address
+                        liabilities {
+                            rent
+                            insuranceDeductibles
+                            utilities
+                            other
+                        }
+                    }
+                }
+            }
             `
         );
-        return data.getUserById;
+        return data.getUserByID;
 }
 
 export async function editUserApi(economic_profile: EconomicProfile){
@@ -133,18 +136,22 @@ export async function editUserApi(economic_profile: EconomicProfile){
         };
     }>(
             `
-            Mutation editUser($economic_profile: TsEconomicProfileInput!){
-                _id
-                UUID
-                economic_profile {
-                    income
-                    address
-                    liabilities {
-                        rent
-                        insuranceDeductibles
-                        utilities
-                        other
-                }}}
+            mutation EditUser($economic_profile: InputEconomicProfile){
+                editUser(economic_profile: $economic_profile){
+                    _id
+                    UUID
+                    economic_profile {
+                        income
+                        address
+                        liabilities {
+                            rent
+                            insuranceDeductibles
+                            utilities
+                            other
+                        }
+                    }
+                }
+            }
             `,
             { economic_profile },
         );

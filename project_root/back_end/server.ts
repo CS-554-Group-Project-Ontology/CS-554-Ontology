@@ -4,6 +4,10 @@ import { userResolver } from './data/userResolver.ts';
 
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
+import { client } from "./Config/redisClient.ts"
+
+await client.connect();
+
 const Server = async () => {
     await connectDB();
 

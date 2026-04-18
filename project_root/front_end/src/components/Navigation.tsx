@@ -22,7 +22,7 @@ function Navigation() {
       <div className="flex-none gap-2">
         {currentUser ? (
           <>
-            <NavLink to='/home' className="btn btn-ghost">Home</NavLink>
+            <NavLink to='/Mobility' className="btn btn-ghost">Home</NavLink>
             <button className="btn btn-ghost" onClick={handleSignOut}>Sign Out</button>
           </>
         ) : (
