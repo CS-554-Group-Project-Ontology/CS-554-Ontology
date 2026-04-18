@@ -1,6 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './context/AuthProvider';
-import Navigation from './components/Navigation';
 import PrivateRoute from './components/PrivateRoute';
 import Landing from './pages/Landing';
 import SignIn from './pages/SignIn';
@@ -17,7 +16,7 @@ import Profile from "./components/Profile";
 function App() {
   return (
     <AuthProvider>
-      <Navigation />
+      <div className='app-flex'>
       <Routes>
         <Route path='/' element={<Landing />} />
         <Route element={<PrivateRoute />}>
@@ -30,11 +29,15 @@ function App() {
                 path='/affordability-houston'
                 element={<AffordabilityHouston />}
               />
-        </Route>
-        <Route path='/signin' element={<SignIn />} />
-        <Route path='/signup' element={<SignUp />} />
-        <Route path='*' element={<NotFound />} />
-      </Routes>
+
+              <Route path='/profile' element={<Profile />} />
+            </Route>
+            <Route path='/signin' element={<SignIn />} />
+            <Route path='/signup' element={<SignUp />} />
+            <Route path='*' element={<NotFound />} />
+          </Route>
+        </Routes>
+      </div>
     </AuthProvider>
   );
 }
