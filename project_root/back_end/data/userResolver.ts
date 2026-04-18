@@ -1,5 +1,5 @@
 import { GraphQLError } from 'graphql';
-import mongoose from 'mongoose';
+import { setCache, getCache, cleanKey } from '../EconProfRedis.ts';
 import User from "../data_model_layer/User.ts";
 import type { typeUser } from "../data_model_layer/User.ts"
 import { verifyFirebaseToken } from '../Config/FirebaseAdmin.ts';
@@ -24,16 +24,15 @@ type ResolverContext = {
 export const userResolver = {
     Query:{
         users: async() =>{
-            const cache = await User.find()
-            if (cache.length==0){
+            const users = await User.find();
+            if (users.length==0){
                 throw new GraphQLError("Users Not Found"),{
                     extensions: {code: 'NOT_FOUND'}
                 }
             }
-            return await User.find()
+            return users;
         },
-        //Change getUserByID to using UUID
-        getUserByID: async (_:unknown, context: ResolverContext) => {
+        getUserByID: async (_:unknown,__:unknown, context: ResolverContext) => {
             console.log("getUser resolver hit");
             if (!context.token){
                 throw new GraphQLError('Unauthorized',{
@@ -43,22 +42,26 @@ export const userResolver = {
             const decodedToken = await verifyFirebaseToken(context.token);
             const UUID = decodedToken.uid;
 
-            const found = await User.find({UUID: UUID})
+            const cache = await getCache(UUID);
+            if (cache){
+                return cache
+            }
+
+            const found = await User.findOne({UUID: UUID})
 
             if (!found){
                 throw new GraphQLError("User Not Found",{
                     extensions: {code: 'NOT_FOUND'}
                 });
             }
-
+            await setCache(UUID, found.toObject());
             return found;
         }
     },
 
     Mutation: {
-        addUser: async(_:unknown,args:{ economic_profile:TsEconomicProfile},context: ResolverContext) =>{
+        addUser: async(_:unknown,__:unknown,context: ResolverContext) =>{
             console.log("register resolver hit");
-            console.log("incoming args:", args);
             if (!context.token){
                 throw new GraphQLError('Unauthorized',{
                     extensions: {code: 'INVALID_ACCESS'}
@@ -70,89 +73,6 @@ export const userResolver = {
             let inputUser: Partial<typeUser> = {
                 UUID,
             };
-
-            if(args.economic_profile){
-                const econProf = args.economic_profile;
-                if(econProf.income !== undefined){
-                    if(typeof econProf.income !== 'number' || econProf.income<0){
-                        throw new GraphQLError('Invalid Income Input',{
-                            extensions: {code: 'BAD_USER_INPUT'}
-                        });
-                    }
-                    if(!inputUser.economic_profile){
-                        inputUser.economic_profile = {};
-                    }
-                    inputUser.economic_profile.income = econProf.income;
-                }
-                if(econProf.address !== undefined){
-                    if(typeof econProf.address !== 'string' || econProf.address.trim().length === 0){
-                        throw new GraphQLError('Invalid Address Input',{
-                            extensions: {code: 'BAD_USER_INPUT'}
-                        });
-                    }
-                    const cleanAddress= econProf.address.trim();
-
-                    if(!inputUser.economic_profile){
-                        inputUser.economic_profile = {};
-                    }
-                    inputUser.economic_profile.address = cleanAddress;
-                }
-                if(econProf.liabilities !== undefined){
-                    const debt = econProf.liabilities;
-                    
-                    if(!inputUser.economic_profile){
-                        inputUser.economic_profile = {};
-                    }
-                    
-                    if (debt.insuranceDeductibles !== undefined){
-                        if(typeof debt.insuranceDeductibles !== 'number' || debt.insuranceDeductibles<0){
-                            throw new GraphQLError('Invalid Insurance Deductible Input',{
-                                extensions: {code: 'BAD_USER_INPUT'}
-                            });
-                        }
-                        if(!inputUser.economic_profile.liabilities){
-                            inputUser.economic_profile.liabilities = {};
-                        }
-                        inputUser.economic_profile.liabilities.insuranceDeductibles = debt.insuranceDeductibles;
-                    }
-                    
-                    if (debt.rent !== undefined){
-                        if(typeof debt.rent !== 'number' || debt.rent<0){
-                            throw new GraphQLError('Invalid Rent Input',{
-                                extensions: {code: 'BAD_USER_INPUT'}
-                            });
-                        }
-                        if(!inputUser.economic_profile.liabilities){
-                            inputUser.economic_profile.liabilities = {};
-                        }
-                        inputUser.economic_profile.liabilities.rent = debt.rent;
-                    }
-                    
-                    if(debt.utilities !== undefined){
-                        if(typeof debt.utilities !== 'number' || debt.utilities<0){
-                            throw new GraphQLError('Invalid Utilities Input',{
-                                extensions: {code: 'BAD_USER_INPUT'}
-                            });
-                        }
-                        if(!inputUser.economic_profile.liabilities){
-                            inputUser.economic_profile.liabilities = {};
-                        }
-                        inputUser.economic_profile.liabilities.utilities = debt.utilities;
-                    }
-                    
-                    if(debt.other !== undefined){
-                        if(typeof debt.other !== 'number' || debt.other<0){
-                            throw new GraphQLError('Invalid Other Input',{
-                                extensions: {code: 'BAD_USER_INPUT'}
-                            });
-                        }
-                        if(!inputUser.economic_profile.liabilities){
-                            inputUser.economic_profile.liabilities = {};
-                        }
-                        inputUser.economic_profile.liabilities.other = debt.other;
-                    }
-                }
-            }
             const resultUser = new User(inputUser);
             await resultUser.save();
             return resultUser;
@@ -176,7 +96,7 @@ export const userResolver = {
             if(args.economic_profile){
                 const econProf = args.economic_profile;
                 if(econProf.income !== undefined){
-                    if(typeof econProf.income !== 'number' || econProf.income<0){
+                    if(typeof econProf.income !== 'number' || econProf.income<0 || Number.isNaN(econProf.income)){
                         throw new GraphQLError('Invalid Income Input',{
                             extensions: {code: 'BAD_USER_INPUT'}
                         });
@@ -196,7 +116,7 @@ export const userResolver = {
                 if(econProf.liabilities !== undefined){
                     const debt = econProf.liabilities; 
                     if (debt.insuranceDeductibles !== undefined){
-                        if(typeof debt.insuranceDeductibles !== 'number' || debt.insuranceDeductibles<0){
+                        if(typeof debt.insuranceDeductibles !== 'number' || debt.insuranceDeductibles<0 || Number.isNaN(debt.insuranceDeductibles)){
                             throw new GraphQLError('Invalid Insurance Deductible Input',{
                                 extensions: {code: 'BAD_USER_INPUT'}
                             });
@@ -205,7 +125,7 @@ export const userResolver = {
                     }
                     
                     if (debt.rent !== undefined){
-                        if(typeof debt.rent !== 'number' || debt.rent<0){
+                        if(typeof debt.rent !== 'number' || debt.rent<0 || Number.isNaN(debt.rent)){
                             throw new GraphQLError('Invalid Rent Input',{
                                 extensions: {code: 'BAD_USER_INPUT'}
                             });
@@ -214,7 +134,7 @@ export const userResolver = {
                     }
                     
                     if(debt.utilities !== undefined){
-                        if(typeof debt.utilities !== 'number' || debt.utilities<0){
+                        if(typeof debt.utilities !== 'number' || debt.utilities<0 || Number.isNaN(debt.utilities)){
                             throw new GraphQLError('Invalid Utilities Input',{
                                 extensions: {code: 'BAD_USER_INPUT'}
                             });
@@ -223,7 +143,7 @@ export const userResolver = {
                     }
                     
                     if(debt.other !== undefined){
-                        if(typeof debt.other !== 'number' || debt.other<0){
+                        if(typeof debt.other !== 'number' || debt.other<0 || Number.isNaN(debt.other)){
                             throw new GraphQLError('Invalid Other Input',{
                                 extensions: {code: 'BAD_USER_INPUT'}
                             });
@@ -231,6 +151,11 @@ export const userResolver = {
                         inputUser["economic_profile.liabilities.other"] = debt.other;
                     }
                 }
+            }
+            if (Object.keys(inputUser).length===0){
+                throw new GraphQLError('Empty Input',{
+                    extensions: {code: 'BAD_USER_INPUT'}
+                });
             }
             const updated = await User.findOneAndUpdate(
                 { UUID },
@@ -243,7 +168,7 @@ export const userResolver = {
                     extensions: {code: 'NOT_FOUND'}
                 });
             }
-
+            await setCache(UUID, updated.toObject());
             return updated;
         },
         
@@ -267,7 +192,7 @@ export const userResolver = {
                     extensions: {code: 'INVALID_ACCESS'}
                 });
             }
-
+            await cleanKey(UUID);
             return result;
         }
     }

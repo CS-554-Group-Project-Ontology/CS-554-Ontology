@@ -3,7 +3,7 @@ import {gql} from "graphql-tag";
 export const typeDefs = gql `
     type Query {
         users: [User!]!
-        getUserByID(_id: ID!): User  
+        getUserByID: User  
     }
 
     type User {
@@ -42,20 +42,12 @@ export const typeDefs = gql `
 
     type Mutation {
         
-        addUser(
-            UUID: String!
-            economic_profile: InputEconomicProfile
-        ): User
+        addUser: User
         
         editUser(
-            _id: ID!
-            UUID: String!
             economic_profile: InputEconomicProfile
         ): User
         
-        removeUser(
-            _id: ID!
-            UUID: String!
-        ): User
+        removeUser: User
     }
 `;

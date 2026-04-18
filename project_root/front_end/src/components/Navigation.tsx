@@ -153,7 +153,9 @@ function Navigation() {
                       Profile
                     </NavLink>
                   </li>
-
+                    <li>
+                      <NavLink to='/Mobility' className="btn btn-ghost">Home</NavLink>
+                    </li>
                   <li>
                     <button className='justify-between' onClick={handleSignOut}>
                       Sign Out
