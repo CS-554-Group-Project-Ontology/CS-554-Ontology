@@ -172,10 +172,9 @@ export const userResolver = {
             return updated;
         },
         
-        removeUser: async(_:unknown,args:{_id: string}, context: ResolverContext) => {
+        removeUser: async(_:unknown,__:unknown, context: ResolverContext) => {
             
             console.log("remove resolver hit");
-            console.log("incoming args:", args);
 
             if (!context.token){
                 throw new GraphQLError('Unauthorized',{
