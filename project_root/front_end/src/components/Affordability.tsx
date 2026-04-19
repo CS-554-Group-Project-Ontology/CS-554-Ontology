@@ -1,7 +1,7 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import mapboxgl from "mapbox-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
-import { AuthContext } from "../context/AuthContext";
+import { useContext, useEffect, useRef, useState } from 'react';
+import mapboxgl from 'mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import { AuthContext } from '../context/AuthContext';
 
 // Each of the 3 cities coordinates
 const NYC_INITIAL_CENTER: [number, number] = [-74.0242, 40.6941];
@@ -10,9 +10,9 @@ const SF_INITIAL_CENTER: [number, number] = [-122.4194, 37.7749];
 
 // All 3 cities coordinates in a dictionary for easy access
 const CITY = {
-  "new-york-city": NYC_INITIAL_CENTER,
+  'new-york-city': NYC_INITIAL_CENTER,
   houston: HOUSTON_INITIAL_CENTER,
-  "san-francisco": SF_INITIAL_CENTER,
+  'san-francisco': SF_INITIAL_CENTER,
 };
 
 // Initial zoom level for the map
@@ -45,7 +45,7 @@ const Affordability = ({ city }: { city: string }) => {
         zoom: INITIAL_ZOOM,
       });
 
-      mapRef.current.on("move", () => {
+      mapRef.current.on('move', () => {
         const mapCenter = mapRef.current!.getCenter();
         const mapZoom = mapRef.current!.getZoom();
         setCenter([mapCenter.lng, mapCenter.lat]);
@@ -64,21 +64,21 @@ const Affordability = ({ city }: { city: string }) => {
   return (
     <div className='container mx-auto flex-1 px-2 py-8 sm:px-4 lg:px-6'>
       <h1 className='text-3xl font-bold mb-4'>
-        Affordability in{" "}
-        {city === "new-york-city"
-          ? "New York City"
-          : city === "houston"
-            ? "Houston"
-            : "San Francisco"}
+        Affordability in{' '}
+        {city === 'new-york-city'
+          ? 'New York City'
+          : city === 'houston'
+            ? 'Houston'
+            : 'San Francisco'}
       </h1>
 
       <p className='text-lg text-gray-700 mb-4'>
-        This map displays the affordability of the{" "}
-        {city === "new-york-city"
-          ? "New York City"
-          : city === "houston"
-            ? "Houston"
-            : "San Francisco"}{" "}
+        This map displays the affordability of the{' '}
+        {city === 'new-york-city'
+          ? 'New York City'
+          : city === 'houston'
+            ? 'Houston'
+            : 'San Francisco'}{' '}
         neighborhoods based on the median income and median rent.
       </p>
 
@@ -134,7 +134,7 @@ const Affordability = ({ city }: { city: string }) => {
       <div
         ref={mapContainerRef}
         className='map-container'
-        style={{ height: "500px" }}
+        style={{ height: '500px' }}
       />
     </div>
   );
