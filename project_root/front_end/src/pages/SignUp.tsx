@@ -14,7 +14,7 @@ function SignUp() {
   const navigate = useNavigate();
 
   if (currentUser && !signingUp) {
-    return <Navigate to='/home' />;
+    return <Navigate to='/dashboard' />;
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -53,10 +53,10 @@ function SignUp() {
     }
 
     try {
-      const user = await doCreateUserWithEmailAndPassword(email, password, displayName);
-      await addUserApi(user.uid);
+      await doCreateUserWithEmailAndPassword(email, password, displayName);
+      await addUserApi();
       await refreshUser();
-      navigate('/home');
+      navigate('/dashboard');
     } catch (err) {
       setError((err as Error).message);
       setSigningUp(false);
@@ -65,9 +65,8 @@ function SignUp() {
 
   async function handleSocialSignIn() {
     try {
-      const user = await doSocialSignIn();
-  
-      await addUserApi(user.uid);
+      await doSocialSignIn();
+      await addUserApi();
     } catch (err) {
       setError((err as Error).message);
     }

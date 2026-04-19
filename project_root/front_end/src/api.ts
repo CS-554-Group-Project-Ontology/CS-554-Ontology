@@ -8,6 +8,19 @@ type DBResponse<T> = {
     }>
 }
 
+type Liabilities = {
+    rent?: number;
+    insuranceDeductibles?: number;
+    utilities?: number;
+    other?: number;
+}
+
+type EconomicProfile ={
+    income?: number;
+    address?: string;
+    liabilities?: Liabilities;
+}
+
 export async function dbRequest<T>(query: string, variables?: Record<string,unknown>): Promise<T>{
     const auth = getAuth();
     const user = auth.currentUser;
@@ -46,7 +59,7 @@ export async function dbRequest<T>(query: string, variables?: Record<string,unkn
     return result.data;
 }
 
-export async function addUserApi(uuid: string){
+export async function addUserApi(){
     const data = await dbRequest<{
         addUser: {
             _id: string;
@@ -54,15 +67,93 @@ export async function addUserApi(uuid: string){
         }
     }>(
         `
-        mutation AddUser($UUID: String!){
-            addUser(UUID: $UUID){
+        mutation AddUser{
+            addUser{
                 _id
                 UUID
             }
         }
-        `,
-        { UUID: uuid },
+        `
     );
 
     return data.addUser;
+}
+
+export async function getUserApi(){
+    const data = await dbRequest<{
+        getUserByID:{
+            _id: string;
+            UUID:string;
+            economic_profile: {
+                income?: number;
+                address?: string;
+                liabilities?: {
+                    rent?: number;
+                    insuranceDeductibles?: number;
+                    utilities?: number;
+                    other?: number;
+                };
+            };
+        };
+    }>(
+            `
+            query GetUserByID{
+                getUserByID{
+                    _id
+                    UUID
+                    economic_profile {
+                        income
+                        address
+                        liabilities {
+                            rent
+                            insuranceDeductibles
+                            utilities
+                            other
+                        }
+                    }
+                }
+            }
+            `
+        );
+        return data.getUserByID;
+}
+
+export async function editUserApi(economic_profile: EconomicProfile){
+    const data = await dbRequest<{
+        editUser:{
+            _id: string;
+            UUID:string;
+            economic_profile: {
+                income?: number;
+                address?: string;
+                liabilities?: {
+                    rent?: number;
+                    insuranceDeductibles?: number;
+                    utilities?: number;
+                    other?: number;
+                };
+            };
+        };
+    }>(
+            `
+            mutation EditUser($economic_profile: InputEconomicProfile){
+                editUser(economic_profile: $economic_profile){
+                    _id
+                    UUID
+                    economic_profile {
+                        income
+                        address
+                        liabilities {
+                            rent
+                            insuranceDeductibles
+                            utilities
+                            other
+                        }
+                    }
+                }
+            }
+            `,
+            { economic_profile },
+        );
+        return data.editUser;
 }

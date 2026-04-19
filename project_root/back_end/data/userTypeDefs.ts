@@ -46,20 +46,12 @@ export const typeDefs = gql `
 
     type Mutation {
         
-        addUser(
-            UUID: String!
-            economic_profile: InputEconomicProfile
-        ): User
+        addUser: User
         
         editUser(
-            _id: ID!
-            UUID: String!
             economic_profile: InputEconomicProfile
         ): User
         
-        removeUser(
-            _id: ID!
-            UUID: String!
-        ): User
+        removeUser: User
     }
 `;

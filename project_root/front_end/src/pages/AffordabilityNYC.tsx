@@ -268,7 +268,7 @@ const AffordabilityNYC = () => {
             </p>
 
             <Link
-              to='/mobility'
+              to='/dashboard'
               className='rounded-full bg-sky-100 px-3 py-1 text-sm font-medium text-sky-700 hover:bg-sky-200'
             >
               Update your economic profile

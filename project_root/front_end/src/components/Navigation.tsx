@@ -10,9 +10,8 @@ function Navigation() {
 
   const authNavItems = [
     { to: '/', label: 'Landing' },
-    { to: '/dashboard', label: 'Dashboard' },
-    { to: '/mobility', label: 'Mobility' },
-  ];
+    { to: '/dashboard', label: 'Mobility' },
+    { to: '/foundations', label: 'Foundations' },];
 
   const unauthNavItems = [
     { to: '/', label: 'Landing' },
@@ -154,7 +153,6 @@ function Navigation() {
                       Profile
                     </NavLink>
                   </li>
-
                   <li>
                     <button className='justify-between' onClick={handleSignOut}>
                       Sign Out
