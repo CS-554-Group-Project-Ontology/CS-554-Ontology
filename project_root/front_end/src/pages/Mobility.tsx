@@ -99,8 +99,8 @@ function Mobility() {
     return <Loading />;
   }
 
-  if (!error) {
-    return <div className='text-red-500'>{error}</div>;
+  if (error && error.message !== 'User Not Found') {
+    return <div className='text-red-500'>{error.message}</div>;
   }
 
   return (

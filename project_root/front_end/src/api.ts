@@ -81,7 +81,7 @@ export async function addUserApi(){
 
 export async function getUserApi(){
     const data = await dbRequest<{
-        getUserByID:{
+        getUserByUUID:{
             _id: string;
             UUID:string;
             economic_profile: {
@@ -97,8 +97,8 @@ export async function getUserApi(){
         };
     }>(
             `
-            query GetUserByID{
-                getUserByID{
+            query GetUserByUUID($uuid: UUID!){
+                getUserByUUID(UUID: $uuid){
                     _id
                     UUID
                     economic_profile {
@@ -114,8 +114,10 @@ export async function getUserApi(){
                 }
             }
             `
+            ,
+            { uuid: getAuth().currentUser?.uid }
         );
-        return data.getUserByID;
+        return data.getUserByUUID;
 }
 
 export async function editUserApi(economic_profile: EconomicProfile){
