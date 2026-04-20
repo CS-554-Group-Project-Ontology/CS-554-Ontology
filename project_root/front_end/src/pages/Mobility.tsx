@@ -3,7 +3,7 @@ import { AuthContext } from '../context/AuthContext';
 import { editUserApi, getUserApi } from '../api';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client/react';
-import type { GetUserByUUIDData, GetUserByUUIDVars } from '../types';
+import type { GetMeData } from '../types';
 import queries from '../queries';
 import Loading from '../components/Loading';
 
@@ -38,17 +38,16 @@ function Mobility() {
     loading: isUserEconomicProfileLoading,
     error,
     data,
-  } = useQuery<GetUserByUUIDData, GetUserByUUIDVars>(queries.GET_USER_BY_UUID, {
-    variables: { uuid: currentUser?.uid || '' },
+  } = useQuery<GetMeData>(queries.GET_ME, {
     fetchPolicy: 'cache-and-network',
   });
 
   // check if the user economic profile is empty (address & income)
   const isUserEconomicProfileEmpty =
-    !data?.getUserByUUID?.economic_profile ||
-    Object.keys(data?.getUserByUUID?.economic_profile).length === 0 ||
-    (data?.getUserByUUID?.economic_profile?.address === null &&
-      data?.getUserByUUID?.economic_profile?.income === null);
+    !data?.getMe?.economic_profile ||
+    Object.keys(data?.getMe?.economic_profile).length === 0 ||
+    (data?.getMe?.economic_profile?.address === null &&
+      data?.getMe?.economic_profile?.income === null);
 
   useEffect(() => {
     const fetchProfile = async () => {

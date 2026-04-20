@@ -1,17 +1,14 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client/react';
 import { ChevronRight, ChevronDown } from 'lucide-react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import type { FeatureCollection, Geometry, GeoJsonProperties } from 'geojson';
-import { AuthContext } from '../context/AuthContext';
-
 import queries from '../queries';
 import {
   FEATURES_WITH_NEIGHBORHOOD,
-  type GetUserByUUIDData,
-  type GetUserByUUIDVars,
+  type GetMeData,
   type TsEconomicProfile,
 } from '../types';
 import { formatCurrency } from '../helpers';
@@ -42,17 +39,12 @@ const AffordabilityNYC = () => {
   const detailsRef = useRef<HTMLDetailsElement | null>(null);
 
   // get user economic profile data for the current user
-  const { currentUser } = useContext(AuthContext);
-  const { loading, error, data } = useQuery<
-    GetUserByUUIDData,
-    GetUserByUUIDVars
-  >(queries.GET_USER_BY_UUID, {
-    variables: { uuid: currentUser?.uid || '' },
+  const { loading, error, data } = useQuery<GetMeData>(queries.GET_ME, {
     fetchPolicy: 'cache-and-network',
   });
 
   // destructure the economic profile from graphql data
-  const userEconomicProfile = data?.getUserByUUID?.economic_profile as
+  const userEconomicProfile = data?.getMe?.economic_profile as
     | TsEconomicProfile
     | undefined;
 

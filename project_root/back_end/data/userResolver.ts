@@ -1,4 +1,4 @@
-import { GraphQLError, GraphQLScalarType, Kind } from 'graphql';
+import { GraphQLError } from 'graphql';
 import { setCache, getCache, cleanKey } from '../EconProfRedis.ts';
 import User from "../data_model_layer/User.ts";
 import type { typeUser } from "../data_model_layer/User.ts"
@@ -22,22 +22,6 @@ type ResolverContext = {
 }
 
 export const userResolver = {
-    UUID: new GraphQLScalarType({
-        name: 'UUID',
-        description: 'UUID string scalar',
-        serialize(value) {
-        return value;
-        },
-        parseValue(value) {
-        return value;
-        },
-        parseLiteral(ast) {
-        if (ast.kind === Kind.STRING) {
-            return ast.value;
-        }
-        return null;
-        },
-    }),
     Query:{
         users: async() =>{
             const users = await User.find();
@@ -48,8 +32,7 @@ export const userResolver = {
             }
             return users;
         },
-        getUserByID: async (_:unknown,__:unknown, context: ResolverContext) => {
-            console.log("getUser resolver hit");
+        getMe: async (_:unknown,__:unknown, context: ResolverContext) => {
             if (!context.token){
                 throw new GraphQLError('Unauthorized',{
                     extensions: {code: 'INVALID_ACCESS'}
@@ -71,27 +54,6 @@ export const userResolver = {
                 });
             }
             await setCache(UUID, found.toObject());
-            return found;
-        },
-
-        getUserByUUID: async (_: unknown, args: { UUID: string }, context: ResolverContext) => {
-            console.log('getUserByUUID resolver hit');
-            if (!context.token) {
-                throw new GraphQLError('Unauthorized', {
-                extensions: { code: 'INVALID_ACCESS' },
-                });
-            }
-            const decodedToken = await verifyFirebaseToken(context.token);
-            const UUID = args.UUID || decodedToken.uid;
-
-            const found = await User.findOne({ UUID });
-
-            if (!found) {
-                throw new GraphQLError('User Not Found', {
-                extensions: { code: 'NOT_FOUND' },
-                });
-            }
-
             return found;
         },
     },

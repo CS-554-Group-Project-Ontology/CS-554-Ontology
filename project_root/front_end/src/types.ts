@@ -1,14 +1,10 @@
 import type { Feature, Geometry } from 'geojson';
 import { NYC_GEOJSON } from './mapbox-gl/data/nyc-geojson';
 
-export type GetUserByUUIDData = {
-  getUserByUUID?: {
+export type GetMeData = {
+  getMe?: {
     economic_profile?: TsEconomicProfile | null;
   } | null;
-};
-
-export type GetUserByUUIDVars = {
-  uuid: string;
 };
 
 export interface TsLiabilities {

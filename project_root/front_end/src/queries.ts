@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
-export const GET_USER_BY_UUID = gql`
-  query GetUserByUUID($uuid: UUID!) {
-    getUserByUUID(UUID: $uuid) {
+export const GET_ME = gql`
+  query GetMe {
+    getMe {
       _id
       UUID
       createdAt
@@ -22,7 +22,7 @@ export const GET_USER_BY_UUID = gql`
 `;
 
 const queries = {
-  GET_USER_BY_UUID,
+  GET_ME,
 };
 
 export default queries;
