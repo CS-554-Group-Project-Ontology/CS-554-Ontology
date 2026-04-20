@@ -67,25 +67,27 @@ cd front_end
 npm install
 ```
 
-#### 4. Run both Server and Client from root directory `/project_root`
+#### 4. Ensure a Redis instance is running on the default port `6379` (required by the backend cache)
+
+#### 5. Run both Server and Client from root directory `/project_root`
 
 ```
 npm run dev
 ```
 
-#### 5. Visit the application
+#### 6. Visit the application
 
 ```
 http://localhost:5173/
 ```
 
-#### 6. If you want to visit the Server then go to
+#### 7. If you want to visit the Server then go to
 
 ```
 http://localhost:4000/
 ```
 
-#### 7. If you want to clear Server cache, then go to
+#### 8. If you want to clear Server cache, then go to
 
 ```
 cd back_end
