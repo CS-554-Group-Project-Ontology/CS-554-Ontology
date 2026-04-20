@@ -30,7 +30,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Allerton',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Allerton',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Allerton',
       },
     },
     {
@@ -114,7 +114,7 @@ export const NYC_GEOJSON = {
         boroughCode: '4',
         borough: 'Queens',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Alley_Pond_Park',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Alley_Pond_Park',
       },
     },
     {
@@ -174,7 +174,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Arden Heights',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Arden_Heights',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Arden_Heights',
       },
     },
     {
@@ -202,7 +202,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Arlington',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Arlington',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Arlington',
       },
     },
     {
@@ -242,7 +242,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Arrochar',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Arrochar',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Arrochar',
       },
     },
     {
@@ -354,7 +354,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Arverne',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Arverne',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Arverne',
       },
     },
     {
@@ -431,7 +431,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Astoria',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Astoria',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Astoria',
       },
     },
     {
@@ -471,7 +471,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Bath Beach',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Bath_Beach',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Bath_Beach',
       },
     },
     {
@@ -528,7 +528,7 @@ export const NYC_GEOJSON = {
         boroughCode: '1',
         borough: 'Manhattan',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Battery_Park_City',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Battery_Park_City',
       },
     },
     {
@@ -566,7 +566,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Bay Ridge',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Bay_Ridge',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Bay_Ridge',
       },
     },
     {
@@ -650,7 +650,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Bay Terrace',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Bay_Terrace',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Bay_Terrace',
       },
     },
     {
@@ -699,7 +699,7 @@ export const NYC_GEOJSON = {
         boroughCode: '5',
         borough: 'Staten Island',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Bay_Terrace_Staten_Island',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Bay_Terrace_Staten_Island',
       },
     },
     {
@@ -732,7 +732,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Baychester',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Baychester',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Baychester',
       },
     },
     {
@@ -832,7 +832,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Bayside',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Bayside',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Bayside',
       },
     },
     {
@@ -919,7 +919,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Bayswater',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Bayswater',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Bayswater',
       },
     },
     {
@@ -941,7 +941,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Bayswater',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Bayswater',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Bayswater',
       },
     },
     {
@@ -970,7 +970,7 @@ export const NYC_GEOJSON = {
         boroughCode: '3',
         borough: 'Brooklyn',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Bedford_Stuyvesant',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Bedford_Stuyvesant',
       },
     },
     {
@@ -999,7 +999,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Belle Harbor',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Belle_Harbor',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Belle_Harbor',
       },
     },
     {
@@ -1052,7 +1052,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Bellerose',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Bellerose',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Bellerose',
       },
     },
     {
@@ -1082,7 +1082,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Belmont',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Belmont',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Belmont',
       },
     },
     {
@@ -1105,7 +1105,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Bensonhurst',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Bensonhurst',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Bensonhurst',
       },
     },
     {
@@ -1228,7 +1228,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Bergen Beach',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Bergen_Beach',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Bergen_Beach',
       },
     },
     {
@@ -1316,7 +1316,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Bloomfield',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Bloomfield',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Bloomfield',
       },
     },
     {
@@ -1347,7 +1347,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Boerum Hill',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Boerum_Hill',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Boerum_Hill',
       },
     },
     {
@@ -1371,7 +1371,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Borough Park',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Borough_Park',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Borough_Park',
       },
     },
     {
@@ -1513,7 +1513,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Breezy Point',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Breezy_Point',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Breezy_Point',
       },
     },
     {
@@ -1552,7 +1552,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Briarwood',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Briarwood',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Briarwood',
       },
     },
     {
@@ -1616,7 +1616,7 @@ export const NYC_GEOJSON = {
         boroughCode: '3',
         borough: 'Brooklyn',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Brighton_Beach',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Brighton_Beach',
       },
     },
     {
@@ -1698,7 +1698,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Broad Channel',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Broad_Channel',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Broad_Channel',
       },
     },
     {
@@ -1739,7 +1739,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Broad Channel',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Broad_Channel',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Broad_Channel',
       },
     },
     {
@@ -1768,7 +1768,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Broad Channel',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Broad_Channel',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Broad_Channel',
       },
     },
     {
@@ -1790,7 +1790,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Broad Channel',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Broad_Channel',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Broad_Channel',
       },
     },
     {
@@ -1824,7 +1824,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Broad Channel',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Broad_Channel',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Broad_Channel',
       },
     },
     {
@@ -1851,7 +1851,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Broad Channel',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Broad_Channel',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Broad_Channel',
       },
     },
     {
@@ -1971,7 +1971,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Broad Channel',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Broad_Channel',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Broad_Channel',
       },
     },
     {
@@ -2019,7 +2019,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Broad Channel',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Broad_Channel',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Broad_Channel',
       },
     },
     {
@@ -2066,7 +2066,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Broad Channel',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Broad_Channel',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Broad_Channel',
       },
     },
     {
@@ -2293,7 +2293,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Broad Channel',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Broad_Channel',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Broad_Channel',
       },
     },
     {
@@ -2346,7 +2346,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Bronx Park',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Bronx_Park',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Bronx_Park',
       },
     },
     {
@@ -2371,7 +2371,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Bronxdale',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Bronxdale',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Bronxdale',
       },
     },
     {
@@ -2431,7 +2431,7 @@ export const NYC_GEOJSON = {
         boroughCode: '3',
         borough: 'Brooklyn',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Brooklyn_Heights',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Brooklyn_Heights',
       },
     },
     {
@@ -2466,7 +2466,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Brownsville',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Brownsville',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Brownsville',
       },
     },
     {
@@ -2544,7 +2544,7 @@ export const NYC_GEOJSON = {
         neighborhood: "Bull's Head",
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Bull_s_Head',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Bull_s_Head',
       },
     },
     {
@@ -2585,7 +2585,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Bushwick',
         boroughCode: '4',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Bushwick',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Bushwick',
       },
     },
     {
@@ -2619,7 +2619,7 @@ export const NYC_GEOJSON = {
         boroughCode: '4',
         borough: 'Queens',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Cambria_Heights',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Cambria_Heights',
       },
     },
     {
@@ -2712,7 +2712,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Canarsie',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Canarsie',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Canarsie',
       },
     },
     {
@@ -2739,7 +2739,7 @@ export const NYC_GEOJSON = {
         boroughCode: '3',
         borough: 'Brooklyn',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Carroll_Gardens',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Carroll_Gardens',
       },
     },
     {
@@ -2799,7 +2799,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Castle Hill',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Castle_Hill',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Castle_Hill',
       },
     },
     {
@@ -2852,7 +2852,7 @@ export const NYC_GEOJSON = {
         boroughCode: '5',
         borough: 'Staten Island',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Castleton_Corners',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Castleton_Corners',
       },
     },
     {
@@ -2881,7 +2881,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Central Park',
         boroughCode: '1',
         borough: 'Manhattan',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Central_Park',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Central_Park',
       },
     },
     {
@@ -2986,7 +2986,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Charleston',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Charleston',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Charleston',
       },
     },
     {
@@ -3057,7 +3057,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Chelsea',
         boroughCode: '1',
         borough: 'Manhattan',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Chelsea',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Chelsea',
       },
     },
     {
@@ -3143,7 +3143,7 @@ export const NYC_GEOJSON = {
         boroughCode: '5',
         borough: 'Staten Island',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Chelsea_Staten_Island',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Chelsea_Staten_Island',
       },
     },
     {
@@ -3181,7 +3181,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Chinatown',
         boroughCode: '1',
         borough: 'Manhattan',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Chinatown',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Chinatown',
       },
     },
     {
@@ -3210,7 +3210,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'City Island',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/City_Island',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/City_Island',
       },
     },
     {
@@ -3358,7 +3358,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'City Island',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/City_Island',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/City_Island',
       },
     },
     {
@@ -3393,7 +3393,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Civic Center',
         boroughCode: '1',
         borough: 'Manhattan',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Civic_Center',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Civic_Center',
       },
     },
     {
@@ -3428,7 +3428,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Claremont_Village',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Claremont_Village',
       },
     },
     {
@@ -3525,7 +3525,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Clason Point',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Clason_Point',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Clason_Point',
       },
     },
     {
@@ -3567,7 +3567,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Clifton',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Clifton',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Clifton',
       },
     },
     {
@@ -3592,7 +3592,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Clinton Hill',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Clinton_Hill',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Clinton_Hill',
       },
     },
     {
@@ -3638,7 +3638,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Co-op City',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Co_op_City',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Co_op_City',
       },
     },
     {
@@ -3668,7 +3668,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Cobble Hill',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Cobble_Hill',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Cobble_Hill',
       },
     },
     {
@@ -3864,7 +3864,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'College Point',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/College_Point',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/College_Point',
       },
     },
     {
@@ -3932,7 +3932,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Columbia St',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Columbia_St',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Columbia_St',
       },
     },
     {
@@ -3978,7 +3978,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Concord',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Concord',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Concord',
       },
     },
     {
@@ -4015,7 +4015,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Concourse',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Concourse',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Concourse',
       },
     },
     {
@@ -4049,7 +4049,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Concourse_Village',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Concourse_Village',
       },
     },
     {
@@ -4117,7 +4117,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Coney Island',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Coney_Island',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Coney_Island',
       },
     },
     {
@@ -4152,7 +4152,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Corona',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Corona',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Corona',
       },
     },
     {
@@ -4240,7 +4240,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Country Club',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Country_Club',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Country_Club',
       },
     },
     {
@@ -4270,7 +4270,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Crotona Park',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Crotona_Park',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Crotona_Park',
       },
     },
     {
@@ -4307,7 +4307,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Crown Heights',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Crown_Heights',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Crown_Heights',
       },
     },
     {
@@ -4366,7 +4366,7 @@ export const NYC_GEOJSON = {
         boroughCode: '4',
         borough: 'Queens',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Cunningham_Park',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Cunningham_Park',
       },
     },
     {
@@ -4425,7 +4425,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Cypress Hills',
         boroughCode: '4',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Cypress_Hills',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Cypress_Hills',
       },
     },
     {
@@ -4474,7 +4474,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'DUMBO',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/DUMBO',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/DUMBO',
       },
     },
     {
@@ -4587,7 +4587,7 @@ export const NYC_GEOJSON = {
         boroughCode: '4',
         borough: 'Queens',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Ditmars_Steinway',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Ditmars_Steinway',
       },
     },
     {
@@ -4626,7 +4626,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Dongan Hills',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Dongan_Hills',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Dongan_Hills',
       },
     },
     {
@@ -4749,7 +4749,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Douglaston',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Douglaston',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Douglaston',
       },
     },
     {
@@ -4786,7 +4786,7 @@ export const NYC_GEOJSON = {
         boroughCode: '3',
         borough: 'Brooklyn',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Downtown_Brooklyn',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Downtown_Brooklyn',
       },
     },
     {
@@ -4819,7 +4819,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Dyker Heights',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Dyker_Heights',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Dyker_Heights',
       },
     },
     {
@@ -4873,7 +4873,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'East Elmhurst',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/East_Elmhurst',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/East_Elmhurst',
       },
     },
     {
@@ -4907,7 +4907,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'East Flatbush',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/East_Flatbush',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/East_Flatbush',
       },
     },
     {
@@ -4967,7 +4967,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'East Harlem',
         boroughCode: '1',
         borough: 'Manhattan',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/East_Harlem',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/East_Harlem',
       },
     },
     {
@@ -5018,7 +5018,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/East_Morrisania',
+          'https://nyc.pediacities.com/Resource/Neighborhood/East_Morrisania',
       },
     },
     {
@@ -5179,7 +5179,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'East New York',
         boroughCode: '4',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/East_New_York',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/East_New_York',
       },
     },
     {
@@ -5212,7 +5212,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'East Village',
         boroughCode: '1',
         borough: 'Manhattan',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/East_Village',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/East_Village',
       },
     },
     {
@@ -5269,7 +5269,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Eastchester',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Eastchester',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Eastchester',
       },
     },
     {
@@ -5303,7 +5303,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Edenwald',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Edenwald',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Edenwald',
       },
     },
     {
@@ -5424,7 +5424,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Edgemere',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Edgemere',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Edgemere',
       },
     },
     {
@@ -5457,7 +5457,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Ellis Island',
         boroughCode: '1',
         borough: 'Manhattan',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Ellis_Island',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Ellis_Island',
       },
     },
     {
@@ -5508,7 +5508,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Elmhurst',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Elmhurst',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Elmhurst',
       },
     },
     {
@@ -5566,7 +5566,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Eltingville',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Eltingville',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Eltingville',
       },
     },
     {
@@ -5615,7 +5615,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Emerson Hill',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Emerson_Hill',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Emerson_Hill',
       },
     },
     {
@@ -5719,7 +5719,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Far Rockaway',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Far_Rockaway',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Far_Rockaway',
       },
     },
     {
@@ -5782,7 +5782,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Ferry_Point_Park',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Ferry_Point_Park',
       },
     },
     {
@@ -5821,7 +5821,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Fieldston',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Fieldston',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Fieldston',
       },
     },
     {
@@ -5907,7 +5907,7 @@ export const NYC_GEOJSON = {
         boroughCode: '1',
         borough: 'Manhattan',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Financial_District',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Financial_District',
       },
     },
     {
@@ -5940,7 +5940,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Flatbush',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Flatbush',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Flatbush',
       },
     },
     {
@@ -5966,7 +5966,7 @@ export const NYC_GEOJSON = {
         boroughCode: '1',
         borough: 'Manhattan',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Flatiron_District',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Flatiron_District',
       },
     },
     {
@@ -5996,7 +5996,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Flatlands',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Flatlands',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Flatlands',
       },
     },
     {
@@ -6032,7 +6032,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Floral Park',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Floral_Park',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Floral_Park',
       },
     },
     {
@@ -6159,7 +6159,7 @@ export const NYC_GEOJSON = {
         boroughCode: '3',
         borough: 'Brooklyn',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Floyd_Bennett_Field',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Floyd_Bennett_Field',
       },
     },
     {
@@ -6275,7 +6275,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Flushing',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Flushing',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Flushing',
       },
     },
     {
@@ -6342,7 +6342,7 @@ export const NYC_GEOJSON = {
         boroughCode: '4',
         borough: 'Queens',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Flushing_Meadows_Corona_Park',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Flushing_Meadows_Corona_Park',
       },
     },
     {
@@ -6394,7 +6394,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Fordham',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Fordham',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Fordham',
       },
     },
     {
@@ -6463,7 +6463,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Forest Hills',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Forest_Hills',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Forest_Hills',
       },
     },
     {
@@ -6582,7 +6582,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Forest Park',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Forest_Park',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Forest_Park',
       },
     },
     {
@@ -6610,7 +6610,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Fort Greene',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Fort_Greene',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Fort_Greene',
       },
     },
     {
@@ -6652,7 +6652,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Fort Hamilton',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Fort_Hamilton',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Fort_Hamilton',
       },
     },
     {
@@ -6699,7 +6699,7 @@ export const NYC_GEOJSON = {
         boroughCode: '5',
         borough: 'Staten Island',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Fort_Wadsworth',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Fort_Wadsworth',
       },
     },
     {
@@ -6744,7 +6744,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Fresh Meadows',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Fresh_Meadows',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Fresh_Meadows',
       },
     },
     {
@@ -6909,7 +6909,7 @@ export const NYC_GEOJSON = {
         boroughCode: '5',
         borough: 'Staten Island',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Freshkills_Park',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Freshkills_Park',
       },
     },
     {
@@ -6973,7 +6973,7 @@ export const NYC_GEOJSON = {
         boroughCode: '3',
         borough: 'Brooklyn',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Gerritsen_Beach',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Gerritsen_Beach',
       },
     },
     {
@@ -7007,7 +7007,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Glen Oaks',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Glen_Oaks',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Glen_Oaks',
       },
     },
     {
@@ -7077,7 +7077,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Glendale',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Glendale',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Glendale',
       },
     },
     {
@@ -7141,7 +7141,7 @@ export const NYC_GEOJSON = {
         boroughCode: '1',
         borough: 'Manhattan',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Governors_Island',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Governors_Island',
       },
     },
     {
@@ -7172,7 +7172,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Gowanus',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Gowanus',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Gowanus',
       },
     },
     {
@@ -7201,7 +7201,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Gramercy',
         boroughCode: '1',
         borough: 'Manhattan',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Gramercy',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Gramercy',
       },
     },
     {
@@ -7236,7 +7236,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Graniteville',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Graniteville',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Graniteville',
       },
     },
     {
@@ -7263,7 +7263,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Grant City',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Grant_City',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Grant_City',
       },
     },
     {
@@ -7371,7 +7371,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Gravesend',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Gravesend',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Gravesend',
       },
     },
     {
@@ -7454,7 +7454,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Great Kills',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Great_Kills',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Great_Kills',
       },
     },
     {
@@ -7530,7 +7530,7 @@ export const NYC_GEOJSON = {
         boroughCode: '5',
         borough: 'Staten Island',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Great_Kills_Park',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Great_Kills_Park',
       },
     },
     {
@@ -7560,7 +7560,7 @@ export const NYC_GEOJSON = {
         boroughCode: '3',
         borough: 'Brooklyn',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Green_Wood_Cemetery',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Green_Wood_Cemetery',
       },
     },
     {
@@ -7669,7 +7669,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Greenpoint',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Greenpoint',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Greenpoint',
       },
     },
     {
@@ -7696,7 +7696,7 @@ export const NYC_GEOJSON = {
         boroughCode: '1',
         borough: 'Manhattan',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Greenwich_Village',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Greenwich_Village',
       },
     },
     {
@@ -7743,7 +7743,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Grymes Hill',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Grymes_Hill',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Grymes_Hill',
       },
     },
     {
@@ -7811,7 +7811,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Harlem',
         boroughCode: '1',
         borough: 'Manhattan',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Harlem',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Harlem',
       },
     },
     {
@@ -7857,7 +7857,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Hart Island',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Hart_Island',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Hart_Island',
       },
     },
     {
@@ -7946,7 +7946,7 @@ export const NYC_GEOJSON = {
         boroughCode: '1',
         borough: 'Manhattan',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Hell_s_Kitchen',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Hell_s_Kitchen',
       },
     },
     {
@@ -7987,7 +7987,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Highbridge',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Highbridge',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Highbridge',
       },
     },
     {
@@ -8012,7 +8012,7 @@ export const NYC_GEOJSON = {
         boroughCode: '5',
         borough: 'Staten Island',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Hoffman_Island',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Hoffman_Island',
       },
     },
     {
@@ -8043,7 +8043,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Hollis',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Hollis',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Hollis',
       },
     },
     {
@@ -8076,7 +8076,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Hollis Hills',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Hollis_Hills',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Hollis_Hills',
       },
     },
     {
@@ -8113,7 +8113,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Holliswood',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Holliswood',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Holliswood',
       },
     },
     {
@@ -8123,7 +8123,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Howard Beach',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Howard_Beach',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Howard_Beach',
       },
     },
     {
@@ -8290,7 +8290,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Howard Beach',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Howard_Beach',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Howard_Beach',
       },
     },
     {
@@ -8331,7 +8331,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Howland Hook',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Howland_Hook',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Howland_Hook',
       },
     },
     {
@@ -8391,7 +8391,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Huguenot',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Huguenot',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Huguenot',
       },
     },
     {
@@ -8471,7 +8471,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Hunts Point',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Hunts_Point',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Hunts_Point',
       },
     },
     {
@@ -8591,7 +8591,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Inwood',
         boroughCode: '1',
         borough: 'Manhattan',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Inwood',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Inwood',
       },
     },
     {
@@ -8626,7 +8626,7 @@ export const NYC_GEOJSON = {
         boroughCode: '4',
         borough: 'Queens',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Jackson_Heights',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Jackson_Heights',
       },
     },
     {
@@ -8690,7 +8690,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Jamaica',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Jamaica',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Jamaica',
       },
     },
     {
@@ -8729,7 +8729,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Jamaica Bay',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
       },
     },
     {
@@ -8749,7 +8749,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Jamaica Bay',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
       },
     },
     {
@@ -8770,7 +8770,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Jamaica Bay',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
       },
     },
     {
@@ -8811,7 +8811,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Jamaica Bay',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
       },
     },
     {
@@ -8833,7 +8833,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Jamaica Bay',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
       },
     },
     {
@@ -8854,7 +8854,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Jamaica Bay',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
       },
     },
     {
@@ -8875,7 +8875,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Jamaica Bay',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
       },
     },
     {
@@ -8900,7 +8900,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Jamaica Bay',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
       },
     },
     {
@@ -8932,7 +8932,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Jamaica Bay',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
       },
     },
     {
@@ -8964,7 +8964,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Jamaica Bay',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
       },
     },
     {
@@ -9007,7 +9007,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Jamaica Bay',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
       },
     },
     {
@@ -9031,7 +9031,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Jamaica Bay',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
       },
     },
     {
@@ -9051,7 +9051,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Jamaica Bay',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
       },
     },
     {
@@ -9097,7 +9097,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Jamaica Bay',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
       },
     },
     {
@@ -9119,7 +9119,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Jamaica Bay',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
       },
     },
     {
@@ -9143,7 +9143,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Jamaica Bay',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Bay',
       },
     },
     {
@@ -9190,7 +9190,7 @@ export const NYC_GEOJSON = {
         boroughCode: '4',
         borough: 'Queens',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Estates',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Estates',
       },
     },
     {
@@ -9234,7 +9234,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Jamaica Hills',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Hills',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Jamaica_Hills',
       },
     },
     {
@@ -9420,7 +9420,7 @@ export const NYC_GEOJSON = {
         boroughCode: '4',
         borough: 'Queens',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/John_F_Kennedy_International_Airport',
+          'https://nyc.pediacities.com/Resource/Neighborhood/John_F_Kennedy_International_Airport',
       },
     },
     {
@@ -9447,7 +9447,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Kensington',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Kensington',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Kensington',
       },
     },
     {
@@ -9490,7 +9490,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Kew Gardens',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Kew_Gardens',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Kew_Gardens',
       },
     },
     {
@@ -9537,7 +9537,7 @@ export const NYC_GEOJSON = {
         boroughCode: '4',
         borough: 'Queens',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Kew_Gardens_Hills',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Kew_Gardens_Hills',
       },
     },
     {
@@ -9623,7 +9623,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Kingsbridge',
         boroughCode: '1',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Kingsbridge',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Kingsbridge',
       },
     },
     {
@@ -9664,7 +9664,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Kips Bay',
         boroughCode: '1',
         borough: 'Manhattan',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Kips_Bay',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Kips_Bay',
       },
     },
     {
@@ -9757,7 +9757,7 @@ export const NYC_GEOJSON = {
         boroughCode: '4',
         borough: 'Queens',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/LaGuardia_Airport',
+          'https://nyc.pediacities.com/Resource/Neighborhood/LaGuardia_Airport',
       },
     },
     {
@@ -9884,7 +9884,7 @@ export const NYC_GEOJSON = {
         boroughCode: '5',
         borough: 'Staten Island',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Latourette_Park',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Latourette_Park',
       },
     },
     {
@@ -9928,7 +9928,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Laurelton',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Laurelton',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Laurelton',
       },
     },
     {
@@ -9962,7 +9962,7 @@ export const NYC_GEOJSON = {
         boroughCode: '1',
         borough: 'Manhattan',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Liberty_Island',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Liberty_Island',
       },
     },
     {
@@ -10030,7 +10030,7 @@ export const NYC_GEOJSON = {
         boroughCode: '5',
         borough: 'Staten Island',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Lighthouse_Hill',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Lighthouse_Hill',
       },
     },
     {
@@ -10054,7 +10054,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Little Italy',
         boroughCode: '1',
         borough: 'Manhattan',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Little_Italy',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Little_Italy',
       },
     },
     {
@@ -10113,7 +10113,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Little Neck',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Little_Neck',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Little_Neck',
       },
     },
     {
@@ -10264,7 +10264,7 @@ export const NYC_GEOJSON = {
         boroughCode: '4',
         borough: 'Queens',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Long_Island_City',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Long_Island_City',
       },
     },
     {
@@ -10315,7 +10315,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Longwood',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Longwood',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Longwood',
       },
     },
     {
@@ -10360,7 +10360,7 @@ export const NYC_GEOJSON = {
         boroughCode: '1',
         borough: 'Manhattan',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Lower_East_Side',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Lower_East_Side',
       },
     },
     {
@@ -10409,7 +10409,7 @@ export const NYC_GEOJSON = {
         boroughCode: '3',
         borough: 'Brooklyn',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Manhattan_Beach',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Manhattan_Beach',
       },
     },
     {
@@ -10445,7 +10445,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Marble Hill',
         boroughCode: '1',
         borough: 'Manhattan',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Marble_Hill',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Marble_Hill',
       },
     },
     {
@@ -10498,7 +10498,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Marine Park',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Marine_Park',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Marine_Park',
       },
     },
     {
@@ -10530,7 +10530,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Marine Park',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Marine_Park',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Marine_Park',
       },
     },
     {
@@ -10650,7 +10650,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Marine Park',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Marine_Park',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Marine_Park',
       },
     },
     {
@@ -10785,7 +10785,7 @@ export const NYC_GEOJSON = {
         boroughCode: '5',
         borough: 'Staten Island',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Mariners_Harbor',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Mariners_Harbor',
       },
     },
     {
@@ -10866,7 +10866,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Maspeth',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Maspeth',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Maspeth',
       },
     },
     {
@@ -10894,7 +10894,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Melrose',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Melrose',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Melrose',
       },
     },
     {
@@ -10938,7 +10938,7 @@ export const NYC_GEOJSON = {
         boroughCode: '4',
         borough: 'Queens',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Middle_Village',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Middle_Village',
       },
     },
     {
@@ -10976,7 +10976,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Midland Beach',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Midland_Beach',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Midland_Beach',
       },
     },
     {
@@ -11019,7 +11019,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Midtown',
         boroughCode: '1',
         borough: 'Manhattan',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Midtown',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Midtown',
       },
     },
     {
@@ -11047,7 +11047,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Midwood',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Midwood',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Midwood',
       },
     },
     {
@@ -11143,7 +11143,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Mill Basin',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Mill_Basin',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Mill_Basin',
       },
     },
     {
@@ -11175,7 +11175,7 @@ export const NYC_GEOJSON = {
         boroughCode: '1',
         borough: 'Manhattan',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Morningside_Heights',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Morningside_Heights',
       },
     },
     {
@@ -11221,7 +11221,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Morris_Heights',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Morris_Heights',
       },
     },
     {
@@ -11261,7 +11261,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Morris Park',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Morris_Park',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Morris_Park',
       },
     },
     {
@@ -11295,7 +11295,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Morrisania',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Morrisania',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Morrisania',
       },
     },
     {
@@ -11334,7 +11334,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Mott Haven',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Mott_Haven',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Mott_Haven',
       },
     },
     {
@@ -11369,7 +11369,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Mount Eden',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Mount_Eden',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Mount_Eden',
       },
     },
     {
@@ -11404,7 +11404,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Mount Hope',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Mount_Hope',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Mount_Hope',
       },
     },
     {
@@ -11434,7 +11434,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Murray Hill',
         boroughCode: '1',
         borough: 'Manhattan',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Murray_Hill',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Murray_Hill',
       },
     },
     {
@@ -11528,7 +11528,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Navy Yard',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Navy_Yard',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Navy_Yard',
       },
     },
     {
@@ -11562,7 +11562,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Neponsit',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Neponsit',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Neponsit',
       },
     },
     {
@@ -11597,7 +11597,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'New Brighton',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/New_Brighton',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/New_Brighton',
       },
     },
     {
@@ -11644,7 +11644,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'New Dorp',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/New_Dorp',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/New_Dorp',
       },
     },
     {
@@ -11692,7 +11692,7 @@ export const NYC_GEOJSON = {
         boroughCode: '5',
         borough: 'Staten Island',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/New_Dorp_Beach',
+          'https://nyc.pediacities.com/Resource/Neighborhood/New_Dorp_Beach',
       },
     },
     {
@@ -11743,7 +11743,7 @@ export const NYC_GEOJSON = {
         boroughCode: '5',
         borough: 'Staten Island',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/New_Springville',
+          'https://nyc.pediacities.com/Resource/Neighborhood/New_Springville',
       },
     },
     {
@@ -11766,7 +11766,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'NoHo',
         boroughCode: '1',
         borough: 'Manhattan',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/NoHo',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/NoHo',
       },
     },
     {
@@ -11788,7 +11788,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Nolita',
         boroughCode: '1',
         borough: 'Manhattan',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Nolita',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Nolita',
       },
     },
     {
@@ -11814,7 +11814,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/North_Brother_Island',
+          'https://nyc.pediacities.com/Resource/Neighborhood/North_Brother_Island',
       },
     },
     {
@@ -11855,7 +11855,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/North_Riverdale',
+          'https://nyc.pediacities.com/Resource/Neighborhood/North_Riverdale',
       },
     },
     {
@@ -11905,7 +11905,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Norwood',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Norwood',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Norwood',
       },
     },
     {
@@ -11965,7 +11965,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Oakwood',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Oakwood',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Oakwood',
       },
     },
     {
@@ -11993,7 +11993,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Olinville',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Olinville',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Olinville',
       },
     },
     {
@@ -12036,7 +12036,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Ozone Park',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Ozone_Park',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Ozone_Park',
       },
     },
     {
@@ -12074,7 +12074,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Park Hill',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Park_Hill',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Park_Hill',
       },
     },
     {
@@ -12105,7 +12105,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Park Slope',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Park_Slope',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Park_Slope',
       },
     },
     {
@@ -12144,7 +12144,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Parkchester',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Parkchester',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Parkchester',
       },
     },
     {
@@ -12181,7 +12181,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Pelham Bay',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Pelham_Bay',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Pelham_Bay',
       },
     },
     {
@@ -12192,7 +12192,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Pelham_Bay_Park',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Pelham_Bay_Park',
       },
     },
     {
@@ -12203,7 +12203,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Pelham_Bay_Park',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Pelham_Bay_Park',
       },
     },
     {
@@ -12463,7 +12463,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Pelham_Bay_Park',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Pelham_Bay_Park',
       },
     },
     {
@@ -12498,7 +12498,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Pelham_Gardens',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Pelham_Gardens',
       },
     },
     {
@@ -12520,7 +12520,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Pelham_Islands',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Pelham_Islands',
       },
     },
     {
@@ -12545,7 +12545,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Pelham_Islands',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Pelham_Islands',
       },
     },
     {
@@ -12568,7 +12568,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Pelham_Islands',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Pelham_Islands',
       },
     },
     {
@@ -12591,7 +12591,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Pelham_Islands',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Pelham_Islands',
       },
     },
     {
@@ -12602,7 +12602,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Pelham_Islands',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Pelham_Islands',
       },
     },
     {
@@ -12626,7 +12626,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Pelham_Islands',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Pelham_Islands',
       },
     },
     {
@@ -12637,7 +12637,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Pelham_Islands',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Pelham_Islands',
       },
     },
     {
@@ -12659,7 +12659,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Pelham_Islands',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Pelham_Islands',
       },
     },
     {
@@ -12681,7 +12681,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Pelham_Islands',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Pelham_Islands',
       },
     },
     {
@@ -12703,7 +12703,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Pelham_Islands',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Pelham_Islands',
       },
     },
     {
@@ -12726,7 +12726,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Pelham_Islands',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Pelham_Islands',
       },
     },
     {
@@ -12737,7 +12737,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Pelham_Islands',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Pelham_Islands',
       },
     },
     {
@@ -12748,7 +12748,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Pelham_Islands',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Pelham_Islands',
       },
     },
     {
@@ -12775,7 +12775,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Pelham_Islands',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Pelham_Islands',
       },
     },
     {
@@ -12845,7 +12845,7 @@ export const NYC_GEOJSON = {
         boroughCode: '5',
         borough: 'Staten Island',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Pleasant_Plains',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Pleasant_Plains',
       },
     },
     {
@@ -12925,7 +12925,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Plum Beach',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Plum_Beach',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Plum_Beach',
       },
     },
     {
@@ -12998,7 +12998,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Port Ivory',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Port_Ivory',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Port_Ivory',
       },
     },
     {
@@ -13093,7 +13093,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Port Morris',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Port_Morris',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Port_Morris',
       },
     },
     {
@@ -13153,7 +13153,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Port Richmond',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Port_Richmond',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Port_Richmond',
       },
     },
     {
@@ -13227,7 +13227,7 @@ export const NYC_GEOJSON = {
         neighborhood: "Prince's Bay",
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Prince_s_Bay',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Prince_s_Bay',
       },
     },
     {
@@ -13259,7 +13259,7 @@ export const NYC_GEOJSON = {
         boroughCode: '3',
         borough: 'Brooklyn',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Prospect_Heights',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Prospect_Heights',
       },
     },
     {
@@ -13313,7 +13313,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Prospect Park',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Prospect_Park',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Prospect_Park',
       },
     },
     {
@@ -13345,7 +13345,7 @@ export const NYC_GEOJSON = {
         boroughCode: '3',
         borough: 'Brooklyn',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Prospect_Lefferts_Gardens',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Prospect_Lefferts_Gardens',
       },
     },
     {
@@ -13396,7 +13396,7 @@ export const NYC_GEOJSON = {
         boroughCode: '4',
         borough: 'Queens',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Queens_Village',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Queens_Village',
       },
     },
     {
@@ -13509,7 +13509,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Randall Manor',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Randall_Manor',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Randall_Manor',
       },
     },
     {
@@ -13595,7 +13595,7 @@ export const NYC_GEOJSON = {
         boroughCode: '1',
         borough: 'Manhattan',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Randall_s_Island',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Randall_s_Island',
       },
     },
     {
@@ -13716,7 +13716,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Red Hook',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Red_Hook',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Red_Hook',
       },
     },
     {
@@ -13762,7 +13762,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Rego Park',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Rego_Park',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Rego_Park',
       },
     },
     {
@@ -13808,7 +13808,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Richmond Hill',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Richmond_Hill',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Richmond_Hill',
       },
     },
     {
@@ -13853,7 +13853,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Richmondtown',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Richmondtown',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Richmondtown',
       },
     },
     {
@@ -13890,7 +13890,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Ridgewood',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Ridgewood',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Ridgewood',
       },
     },
     {
@@ -13958,7 +13958,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Rikers Island',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Rikers_Island',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Rikers_Island',
       },
     },
     {
@@ -14002,7 +14002,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Riverdale',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Riverdale',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Riverdale',
       },
     },
     {
@@ -14073,7 +14073,7 @@ export const NYC_GEOJSON = {
         boroughCode: '4',
         borough: 'Queens',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Rockaway_Beach',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Rockaway_Beach',
       },
     },
     {
@@ -14118,7 +14118,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Rockaway Park',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Rockaway_Park',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Rockaway_Park',
       },
     },
     {
@@ -14191,7 +14191,7 @@ export const NYC_GEOJSON = {
         boroughCode: '1',
         borough: 'Manhattan',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Roosevelt_Island',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Roosevelt_Island',
       },
     },
     {
@@ -14242,7 +14242,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Rosebank',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Rosebank',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Rosebank',
       },
     },
     {
@@ -14351,7 +14351,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Rosedale',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Rosedale',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Rosedale',
       },
     },
     {
@@ -14413,7 +14413,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Rossville',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Rossville',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Rossville',
       },
     },
     {
@@ -14457,7 +14457,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Schuylerville',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Schuylerville',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Schuylerville',
       },
     },
     {
@@ -14502,7 +14502,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Sea Gate',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Sea_Gate',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Sea_Gate',
       },
     },
     {
@@ -14587,7 +14587,7 @@ export const NYC_GEOJSON = {
         boroughCode: '3',
         borough: 'Brooklyn',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Sheepshead_Bay',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Sheepshead_Bay',
       },
     },
     {
@@ -14629,7 +14629,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Shore Acres',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Shore_Acres',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Shore_Acres',
       },
     },
     {
@@ -14677,7 +14677,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Silver Lake',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Silver_Lake',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Silver_Lake',
       },
     },
     {
@@ -14716,7 +14716,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'SoHo',
         boroughCode: '1',
         borough: 'Manhattan',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/SoHo',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/SoHo',
       },
     },
     {
@@ -14748,7 +14748,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Soundview',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Soundview',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Soundview',
       },
     },
     {
@@ -14791,7 +14791,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'South Beach',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/South_Beach',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/South_Beach',
       },
     },
     {
@@ -14817,7 +14817,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/South_Brother_Island',
+          'https://nyc.pediacities.com/Resource/Neighborhood/South_Brother_Island',
       },
     },
     {
@@ -14871,7 +14871,7 @@ export const NYC_GEOJSON = {
         boroughCode: '4',
         borough: 'Queens',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/South_Ozone_Park',
+          'https://nyc.pediacities.com/Resource/Neighborhood/South_Ozone_Park',
       },
     },
     {
@@ -14903,7 +14903,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'South Slope',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/South_Slope',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/South_Slope',
       },
     },
     {
@@ -14955,7 +14955,7 @@ export const NYC_GEOJSON = {
         boroughCode: '4',
         borough: 'Queens',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Springfield_Gardens',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Springfield_Gardens',
       },
     },
     {
@@ -14988,7 +14988,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Spuyten_Duyvil',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Spuyten_Duyvil',
       },
     },
     {
@@ -15028,7 +15028,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'St. Albans',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/St_Albans',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/St_Albans',
       },
     },
     {
@@ -15098,7 +15098,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'St. George',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/St_George',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/St_George',
       },
     },
     {
@@ -15148,7 +15148,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Stapleton',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Stapleton',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Stapleton',
       },
     },
     {
@@ -15179,7 +15179,7 @@ export const NYC_GEOJSON = {
         boroughCode: '1',
         borough: 'Manhattan',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Stuyvesant_Town',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Stuyvesant_Town',
       },
     },
     {
@@ -15226,7 +15226,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Sunnyside',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Sunnyside',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Sunnyside',
       },
     },
     {
@@ -15425,7 +15425,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Sunset Park',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Sunset_Park',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Sunset_Park',
       },
     },
     {
@@ -15447,7 +15447,7 @@ export const NYC_GEOJSON = {
         boroughCode: '1',
         borough: 'Manhattan',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Theater_District',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Theater_District',
       },
     },
     {
@@ -15653,7 +15653,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Throgs Neck',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Throgs_Neck',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Throgs_Neck',
       },
     },
     {
@@ -15728,7 +15728,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Todt Hill',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Todt_Hill',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Todt_Hill',
       },
     },
     {
@@ -15783,7 +15783,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Tompkinsville',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Tompkinsville',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Tompkinsville',
       },
     },
     {
@@ -15892,7 +15892,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Tottenville',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Tottenville',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Tottenville',
       },
     },
     {
@@ -15927,7 +15927,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Tremont',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Tremont',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Tremont',
       },
     },
     {
@@ -15966,7 +15966,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Tribeca',
         boroughCode: '1',
         borough: 'Manhattan',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Tribeca',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Tribeca',
       },
     },
     {
@@ -15994,7 +15994,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Two Bridges',
         boroughCode: '1',
         borough: 'Manhattan',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Two_Bridges',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Two_Bridges',
       },
     },
     {
@@ -16071,7 +16071,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Unionport',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Unionport',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Unionport',
       },
     },
     {
@@ -16117,7 +16117,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/University_Heights',
+          'https://nyc.pediacities.com/Resource/Neighborhood/University_Heights',
       },
     },
     {
@@ -16155,7 +16155,7 @@ export const NYC_GEOJSON = {
         boroughCode: '1',
         borough: 'Manhattan',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Upper_East_Side',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Upper_East_Side',
       },
     },
     {
@@ -16212,7 +16212,7 @@ export const NYC_GEOJSON = {
         boroughCode: '1',
         borough: 'Manhattan',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Upper_West_Side',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Upper_West_Side',
       },
     },
     {
@@ -16261,7 +16261,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Van_Cortlandt_Park',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Van_Cortlandt_Park',
       },
     },
     {
@@ -16297,7 +16297,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Van Nest',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Van Nest',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Van Nest',
       },
     },
     {
@@ -16332,7 +16332,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Vinegar Hill',
         boroughCode: '3',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Vinegar_Hill',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Vinegar_Hill',
       },
     },
     {
@@ -16418,7 +16418,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Wakefield',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Wakefield',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Wakefield',
       },
     },
     {
@@ -16487,7 +16487,7 @@ export const NYC_GEOJSON = {
         boroughCode: '1',
         borough: 'Manhattan',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Washington_Heights',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Washington_Heights',
       },
     },
     {
@@ -16529,7 +16529,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'West Brighton',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/West_Brighton',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/West_Brighton',
       },
     },
     {
@@ -16563,7 +16563,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'West Farms',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/West_Farms',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/West_Farms',
       },
     },
     {
@@ -16621,7 +16621,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'West Village',
         boroughCode: '1',
         borough: 'Manhattan',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/West_Village',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/West_Village',
       },
     },
     {
@@ -16662,7 +16662,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Westchester_Square',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Westchester_Square',
       },
     },
     {
@@ -16693,7 +16693,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Westerleigh',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Westerleigh',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Westerleigh',
       },
     },
     {
@@ -16818,7 +16818,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Whitestone',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Whitestone',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Whitestone',
       },
     },
     {
@@ -16847,7 +16847,7 @@ export const NYC_GEOJSON = {
         boroughCode: '2',
         borough: 'Bronx',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Williamsbridge',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Williamsbridge',
       },
     },
     {
@@ -16968,7 +16968,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Williamsburg',
         boroughCode: '4',
         borough: 'Brooklyn',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Williamsburg',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Williamsburg',
       },
     },
     {
@@ -17015,7 +17015,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Willowbrook',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Willowbrook',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Willowbrook',
       },
     },
     {
@@ -17055,7 +17055,7 @@ export const NYC_GEOJSON = {
         boroughCode: '3',
         borough: 'Brooklyn',
         '@id':
-          'http://nyc.pediacities.com/Resource/Neighborhood/Windsor_Terrace',
+          'https://nyc.pediacities.com/Resource/Neighborhood/Windsor_Terrace',
       },
     },
     {
@@ -17095,7 +17095,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Woodhaven',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Woodhaven',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Woodhaven',
       },
     },
     {
@@ -17138,7 +17138,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Woodlawn',
         boroughCode: '2',
         borough: 'Bronx',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Woodlawn',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Woodlawn',
       },
     },
     {
@@ -17206,7 +17206,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Woodrow',
         boroughCode: '5',
         borough: 'Staten Island',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Woodrow',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Woodrow',
       },
     },
     {
@@ -17258,7 +17258,7 @@ export const NYC_GEOJSON = {
         neighborhood: 'Woodside',
         boroughCode: '4',
         borough: 'Queens',
-        '@id': 'http://nyc.pediacities.com/Resource/Neighborhood/Woodside',
+        '@id': 'https://nyc.pediacities.com/Resource/Neighborhood/Woodside',
       },
     },
   ],
