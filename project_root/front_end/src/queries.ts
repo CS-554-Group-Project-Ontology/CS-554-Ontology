@@ -22,8 +22,21 @@ export const GET_ME = gql`
   }
 `;
 
+export const FRED_SERIES = gql`
+  query FredSeries($seriesId: String!, $start: String, $end: String) {
+    fredSeries(seriesId: $seriesId, start: $start, end: $end) {
+      seriesId
+      observations {
+        date
+        value
+      }
+    }
+  }
+`;
+
 const queries = {
   GET_ME,
+  FRED_SERIES,
 };
 
 export default queries;

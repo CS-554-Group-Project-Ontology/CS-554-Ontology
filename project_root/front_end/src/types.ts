@@ -30,6 +30,20 @@ export type NeighborhoodProperties = {
 
 export type NYCFeature = Feature<Geometry | null, NeighborhoodProperties>;
 
+export interface FredObservation {
+  date: string;
+  value: number | null;
+}
+
+export interface FredSeriesResponse {
+  seriesId: string;
+  observations: FredObservation[];
+}
+
+export type FredSeriesData = {
+  fredSeries: FredSeriesResponse;
+};
+
 export const FEATURES_WITH_NEIGHBORHOOD = (
   NYC_GEOJSON.features as NYCFeature[]
 ).filter(
