@@ -12,6 +12,8 @@ import {
   type TsEconomicProfile,
 } from '../types';
 import { formatCurrency } from '../helpers';
+import Profile from '../components/Profile';
+import ProfileStatusBanner from './Mobility/ProfileStatusBanner';
 
 // NYC coordinates
 const NYC_INITIAL_CENTER: [number, number] = [-74.0242, 40.6941];
@@ -227,6 +229,12 @@ const AffordabilityNYC = () => {
     };
   }, [loading]);
 
+  const messageProfileIncomplete =
+    'Please update your economic profile and interact with the map.';
+  const messageProfileComplete = 'Update your economic profile';
+  const pathLink = '/dashboard';
+  const pathLinkText = 'Update your economic profile';
+
   if (loading) return <p>Loading...</p>;
   // Because user does not have an economic profile at first, so 'User Not Found' is expected.
   if (error && error.message !== 'User Not Found')
@@ -246,31 +254,13 @@ const AffordabilityNYC = () => {
       {/* Show alert if user economic profile is empty */}
       {isUserEconomicProfileEmpty ? (
         <div className='flex flex-col mb-4 text-gray-700'>
-          <div role='alert' className='alert alert-error alert-soft mb-6 p-3'>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              className='h-6 w-6 shrink-0 stroke-current'
-              fill='none'
-              viewBox='0 0 24 24'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth='2'
-                d='M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z'
-              />
-            </svg>
-            <p className='text-md text-red-700'>
-              Please update your economic profile and interact with the map.
-            </p>
-
-            <Link
-              to='/dashboard'
-              className='rounded-full bg-sky-100 px-3 py-1 text-sm font-medium text-sky-700 hover:bg-sky-200'
-            >
-              Update your economic profile
-            </Link>
-          </div>
+          <ProfileStatusBanner
+            isEmpty={isUserEconomicProfileEmpty}
+            messageProfileIncomplete={messageProfileIncomplete}
+            messageProfileComplete={messageProfileComplete}
+            pathLink={pathLink}
+            pathLinkText={pathLinkText}
+          />
         </div>
       ) : (
         <div className='mb-6 rounded-lg p-4'>
