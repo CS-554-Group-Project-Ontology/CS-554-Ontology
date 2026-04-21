@@ -16,7 +16,8 @@ export interface TsLiabilities {
 
 export interface TsEconomicProfile {
   income?: number;
-  address?: string;
+  city?: string;
+  neighborhood?: string;
   liabilities?: TsLiabilities;
 }
 

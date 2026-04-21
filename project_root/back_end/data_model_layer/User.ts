@@ -9,7 +9,8 @@ interface TsLiabilities{
 
 interface TsEconomicProfile{
     income?: number;
-    address?: string;
+    city?: string;
+    neighborhood?: string;
     liabilities?: TsLiabilities;
 }
 
@@ -48,7 +49,11 @@ const economicProfileSchema = new Schema<TsEconomicProfile>(
             type: Number,
             min:0,
         },
-        address:{
+        city:{
+            type: String,
+            trim: true
+        },
+        neighborhood:{
             type: String,
             trim: true
         },

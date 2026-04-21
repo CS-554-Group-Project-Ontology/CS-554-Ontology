@@ -37,8 +37,10 @@ function Mobility() {
   const isUserEconomicProfileEmpty =
     !savedProfile ||
     savedProfile.income == null ||
-    !savedProfile.address ||
-    savedProfile.address.trim().length === 0;
+    !savedProfile.city ||
+    savedProfile.city.trim().length === 0 ||
+    !savedProfile.neighborhood ||
+    savedProfile.neighborhood.trim().length === 0;
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -47,7 +49,8 @@ function Mobility() {
         const profile = await getUserApi();
         const loaded: EconomicProfile = {
           income: profile.economic_profile?.income,
-          address: profile.economic_profile?.address ?? '',
+          city: profile.economic_profile?.city ?? '',
+          neighborhood: profile.economic_profile?.neighborhood ?? '',
           liabilities: {
             rent: profile.economic_profile?.liabilities?.rent,
             insuranceDeductibles:
@@ -72,9 +75,16 @@ function Mobility() {
     if (economicProfile.income !== baseline.income) {
       payload.income = economicProfile.income;
     }
-    const trimmedAddress = (economicProfile.address ?? '').trim();
-    if (trimmedAddress && trimmedAddress !== (baseline.address ?? '').trim()) {
-      payload.address = trimmedAddress;
+    const trimmedCity = (economicProfile.city ?? '').trim();
+    if (trimmedCity && trimmedCity !== (baseline.city ?? '').trim()) {
+      payload.city = trimmedCity;
+    }
+    const trimmedNeighborhood = (economicProfile.neighborhood ?? '').trim();
+    if (
+      trimmedNeighborhood &&
+      trimmedNeighborhood !== (baseline.neighborhood ?? '').trim()
+    ) {
+      payload.neighborhood = trimmedNeighborhood;
     }
 
     const liabilities: Liabilities = {};
@@ -144,7 +154,7 @@ function Mobility() {
 
       <form onSubmit={handleSubmit} className='space-y-6'>
         <section className='rounded-box bg-base-100 p-6 shadow space-y-4'>
-          <h2 className='text-xl font-semibold'>Income & Address</h2>
+          <h2 className='text-xl font-semibold'>Income & Location</h2>
 
           <MoneyInput
             label='Annual income'
@@ -155,25 +165,50 @@ function Mobility() {
             error={errors.income}
           />
 
-          <div className='w-full'>
-            <label className='mb-1 block text-sm font-medium'>Address</label>
-            <textarea
-              className={`textarea textarea-bordered w-full ${
-                errors.address ? 'textarea-error' : ''
-              }`}
-              rows={2}
-              placeholder='Street, City, State'
-              value={economicProfile.address ?? ''}
-              onChange={(e) =>
-                setEconomicProfile((prev) => ({
-                  ...prev,
-                  address: e.target.value,
-                }))
-              }
-            />
-            {errors.address && (
-              <p className='mt-1 text-sm text-error'>{errors.address}</p>
-            )}
+          <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
+            <div className='w-full'>
+              <label className='mb-1 block text-sm font-medium'>City</label>
+              <input
+                type='text'
+                className={`input input-bordered w-full ${
+                  errors.city ? 'input-error' : ''
+                }`}
+                placeholder='e.g. New York'
+                value={economicProfile.city ?? ''}
+                onChange={(e) =>
+                  setEconomicProfile((prev) => ({
+                    ...prev,
+                    city: e.target.value,
+                  }))
+                }
+              />
+              {errors.city && (
+                <p className='mt-1 text-sm text-error'>{errors.city}</p>
+              )}
+            </div>
+
+            <div className='w-full'>
+              <label className='mb-1 block text-sm font-medium'>
+                Neighborhood
+              </label>
+              <input
+                type='text'
+                className={`input input-bordered w-full ${
+                  errors.neighborhood ? 'input-error' : ''
+                }`}
+                placeholder='e.g. Flushing'
+                value={economicProfile.neighborhood ?? ''}
+                onChange={(e) =>
+                  setEconomicProfile((prev) => ({
+                    ...prev,
+                    neighborhood: e.target.value,
+                  }))
+                }
+              />
+              {errors.neighborhood && (
+                <p className='mt-1 text-sm text-error'>{errors.neighborhood}</p>
+              )}
+            </div>
           </div>
         </section>
 

@@ -13,7 +13,8 @@ interface TsLiabilities{
 
 interface TsEconomicProfile{
     income?: number;
-    address?: string;
+    city?: string;
+    neighborhood?: string;
     liabilities?: TsLiabilities;
 }
 
@@ -101,15 +102,21 @@ export const userResolver = {
                     }
                     inputUser["economic_profile.income"] = econProf.income;
                 }
-                if(econProf.address !== undefined){
-                    if(typeof econProf.address !== 'string' || econProf.address.trim().length === 0){
-                        throw new GraphQLError('Invalid Address Input',{
+                if(econProf.city !== undefined){
+                    if(typeof econProf.city !== 'string' || econProf.city.trim().length === 0){
+                        throw new GraphQLError('Invalid City Input',{
                             extensions: {code: 'BAD_USER_INPUT'}
                         });
                     }
-                    const cleanAddress= econProf.address.trim();
-
-                    inputUser["economic_profile.address"] = cleanAddress;
+                    inputUser["economic_profile.city"] = econProf.city.trim();
+                }
+                if(econProf.neighborhood !== undefined){
+                    if(typeof econProf.neighborhood !== 'string' || econProf.neighborhood.trim().length === 0){
+                        throw new GraphQLError('Invalid Neighborhood Input',{
+                            extensions: {code: 'BAD_USER_INPUT'}
+                        });
+                    }
+                    inputUser["economic_profile.neighborhood"] = econProf.neighborhood.trim();
                 }
                 if(econProf.liabilities !== undefined){
                     const debt = econProf.liabilities; 

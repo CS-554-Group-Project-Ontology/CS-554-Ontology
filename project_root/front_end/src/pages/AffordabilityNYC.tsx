@@ -48,19 +48,24 @@ const AffordabilityNYC = () => {
     | TsEconomicProfile
     | undefined;
 
-  // check if the user economic profile is empty (address & income)
+  // check if the user economic profile is empty (city, neighborhood & income)
   const isUserEconomicProfileEmpty =
     !userEconomicProfile ||
     userEconomicProfile.income == null ||
-    !userEconomicProfile.address ||
-    userEconomicProfile.address.trim().length === 0;
+    !userEconomicProfile.city ||
+    userEconomicProfile.city.trim().length === 0 ||
+    !userEconomicProfile.neighborhood ||
+    userEconomicProfile.neighborhood.trim().length === 0;
 
   // create an array of profile details to display in the details tag
   const profileDetails = [
     {
-      label: 'Address',
-      value: userEconomicProfile?.address || 'N/A',
-      fullWidth: true,
+      label: 'City',
+      value: userEconomicProfile?.city || 'N/A',
+    },
+    {
+      label: 'Neighborhood',
+      value: userEconomicProfile?.neighborhood || 'N/A',
     },
     {
       label: 'Income',
@@ -302,9 +307,7 @@ const AffordabilityNYC = () => {
               {profileDetails.map((item) => (
                 <div
                   key={item.label}
-                  className={`rounded-xl border border-slate-200 bg-white/80 p-4 shadow-sm backdrop-blur ${
-                    item.fullWidth ? 'sm:col-span-2' : ''
-                  }`}
+                  className='rounded-xl border border-slate-200 bg-white/80 p-4 shadow-sm backdrop-blur'
                 >
                   <p className='text-xs font-semibold uppercase tracking-[0.2em] text-slate-500'>
                     {item.label}

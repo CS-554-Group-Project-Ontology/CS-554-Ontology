@@ -9,13 +9,15 @@ export type Liabilities = {
 
 export type EconomicProfile = {
   income?: number;
-  address?: string;
+  city?: string;
+  neighborhood?: string;
   liabilities?: Liabilities;
 };
 
 export type FieldErrors = {
   income?: string;
-  address?: string;
+  city?: string;
+  neighborhood?: string;
   rent?: string;
   insuranceDeductibles?: string;
   utilities?: string;
@@ -24,7 +26,8 @@ export type FieldErrors = {
 
 export const EMPTY_PROFILE: EconomicProfile = {
   income: undefined,
-  address: '',
+  city: '',
+  neighborhood: '',
   liabilities: {
     rent: undefined,
     insuranceDeductibles: undefined,
@@ -46,13 +49,14 @@ export const LIABILITY_FIELDS: Array<{
 const optionalNonNegative = z
   .number({ message: 'Must be a number' })
   .nonnegative('Must be 0 or greater')
-  .optional();
+  .nullish();
 
 export const profileSchema = z.object({
   income: z
     .number({ message: 'Income is required' })
     .nonnegative('Income must be 0 or greater'),
-  address: z.string().trim().min(1, 'Address is required'),
+  city: z.string().trim().min(1, 'City is required'),
+  neighborhood: z.string().trim().min(1, 'Neighborhood is required'),
   liabilities: z
     .object({
       rent: optionalNonNegative,

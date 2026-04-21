@@ -16,7 +16,8 @@ export const typeDefs = gql `
 
     type EconomicProfile {
         income: Float
-        address: String
+        city: String
+        neighborhood: String
         liabilities: Liabilities
     }
 
@@ -29,7 +30,8 @@ export const typeDefs = gql `
 
     input InputEconomicProfile {
         income: Float
-        address: String
+        city: String
+        neighborhood: String
         liabilities: InputLiabilities
     }
 

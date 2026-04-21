@@ -8,7 +8,8 @@ export const GET_ME = gql`
       createdAt
       updatedAt
       economic_profile {
-        address
+        city
+        neighborhood
         income
         liabilities {
           insuranceDeductibles

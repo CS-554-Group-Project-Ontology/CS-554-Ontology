@@ -17,7 +17,8 @@ type Liabilities = {
 
 type EconomicProfile ={
     income?: number;
-    address?: string;
+    city?: string;
+    neighborhood?: string;
     liabilities?: Liabilities;
 }
 
@@ -86,7 +87,8 @@ export async function getUserApi(){
             UUID:string;
             economic_profile: {
                 income?: number;
-                address?: string;
+                city?: string;
+                neighborhood?: string;
                 liabilities?: {
                     rent?: number;
                     insuranceDeductibles?: number;
@@ -103,7 +105,8 @@ export async function getUserApi(){
                     UUID
                     economic_profile {
                         income
-                        address
+                        city
+                        neighborhood
                         liabilities {
                             rent
                             insuranceDeductibles
@@ -125,7 +128,8 @@ export async function editUserApi(economic_profile: EconomicProfile){
             UUID:string;
             economic_profile: {
                 income?: number;
-                address?: string;
+                city?: string;
+                neighborhood?: string;
                 liabilities?: {
                     rent?: number;
                     insuranceDeductibles?: number;
@@ -142,7 +146,8 @@ export async function editUserApi(economic_profile: EconomicProfile){
                     UUID
                     economic_profile {
                         income
-                        address
+                        city
+                        neighborhood
                         liabilities {
                             rent
                             insuranceDeductibles
