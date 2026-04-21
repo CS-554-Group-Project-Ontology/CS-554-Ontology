@@ -6,7 +6,7 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import NotFound from './components/NotFound';
 import Layout from "./components/Layout";
-import Mobility from './pages/Mobility';
+import Mobility from './pages/Mobility/Mobility';
 import Foundations from './pages/Foundations';
 import AffordabilityNYC from "./pages/AffordabilityNYC";
 import AffordabilitySF from "./pages/AffordabilitySF";

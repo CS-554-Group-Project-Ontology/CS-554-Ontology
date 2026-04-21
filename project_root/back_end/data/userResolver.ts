@@ -46,14 +46,13 @@ export const userResolver = {
                 return cache
             }
 
-            const found = await User.findOne({UUID: UUID})
+            const found = await User.findOneAndUpdate(
+                { UUID },
+                { $setOnInsert: { UUID } },
+                { upsert: true, returnDocument: 'after' }
+            );
 
-            if (!found){
-                throw new GraphQLError("User Not Found",{
-                    extensions: {code: 'NOT_FOUND'}
-                });
-            }
-            await setCache(UUID, found.toObject());
+            await setCache(UUID, found!.toObject());
             return found;
         },
     },
@@ -158,16 +157,11 @@ export const userResolver = {
             }
             const updated = await User.findOneAndUpdate(
                 { UUID },
-                { $set: inputUser},
-                { new: true, runValidators: true}
+                { $set: inputUser, $setOnInsert: { UUID } },
+                { upsert: true, returnDocument: 'after', runValidators: true }
             );
 
-            if (!updated){
-                throw new GraphQLError('User not found',{
-                    extensions: {code: 'NOT_FOUND'}
-                });
-            }
-            await setCache(UUID, updated.toObject());
+            await setCache(UUID, updated!.toObject());
             return updated;
         },
         

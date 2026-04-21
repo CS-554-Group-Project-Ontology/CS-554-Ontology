@@ -51,9 +51,9 @@ const AffordabilityNYC = () => {
   // check if the user economic profile is empty (address & income)
   const isUserEconomicProfileEmpty =
     !userEconomicProfile ||
-    Object.keys(userEconomicProfile).length === 0 ||
-    (userEconomicProfile.address === null &&
-      userEconomicProfile.income === null);
+    userEconomicProfile.income == null ||
+    !userEconomicProfile.address ||
+    userEconomicProfile.address.trim().length === 0;
 
   // create an array of profile details to display in the details tag
   const profileDetails = [
