@@ -17,7 +17,8 @@ type Liabilities = {
 
 type EconomicProfile ={
     income?: number;
-    address?: string;
+    city?: string;
+    neighborhood?: string;
     liabilities?: Liabilities;
 }
 
@@ -81,12 +82,13 @@ export async function addUserApi(){
 
 export async function getUserApi(){
     const data = await dbRequest<{
-        getUserByUUID:{
+        getMe:{
             _id: string;
             UUID:string;
             economic_profile: {
                 income?: number;
-                address?: string;
+                city?: string;
+                neighborhood?: string;
                 liabilities?: {
                     rent?: number;
                     insuranceDeductibles?: number;
@@ -97,13 +99,14 @@ export async function getUserApi(){
         };
     }>(
             `
-            query GetUserByUUID($uuid: UUID!){
-                getUserByUUID(UUID: $uuid){
+            query GetMe{
+                getMe{
                     _id
                     UUID
                     economic_profile {
                         income
-                        address
+                        city
+                        neighborhood
                         liabilities {
                             rent
                             insuranceDeductibles
@@ -114,10 +117,8 @@ export async function getUserApi(){
                 }
             }
             `
-            ,
-            { uuid: getAuth().currentUser?.uid }
         );
-        return data.getUserByUUID;
+        return data.getMe;
 }
 
 export async function editUserApi(economic_profile: EconomicProfile){
@@ -127,7 +128,8 @@ export async function editUserApi(economic_profile: EconomicProfile){
             UUID:string;
             economic_profile: {
                 income?: number;
-                address?: string;
+                city?: string;
+                neighborhood?: string;
                 liabilities?: {
                     rent?: number;
                     insuranceDeductibles?: number;
@@ -144,7 +146,8 @@ export async function editUserApi(economic_profile: EconomicProfile){
                     UUID
                     economic_profile {
                         income
-                        address
+                        city
+                        neighborhood
                         liabilities {
                             rent
                             insuranceDeductibles

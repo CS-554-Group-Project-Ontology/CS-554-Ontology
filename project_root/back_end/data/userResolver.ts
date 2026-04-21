@@ -1,4 +1,4 @@
-import { GraphQLError, GraphQLScalarType, Kind } from 'graphql';
+import { GraphQLError } from 'graphql';
 import { setCache, getCache, cleanKey } from '../EconProfRedis.ts';
 import User from "../data_model_layer/User.ts";
 import type { typeUser } from "../data_model_layer/User.ts"
@@ -13,7 +13,8 @@ interface TsLiabilities{
 
 interface TsEconomicProfile{
     income?: number;
-    address?: string;
+    city?: string;
+    neighborhood?: string;
     liabilities?: TsLiabilities;
 }
 
@@ -22,22 +23,6 @@ type ResolverContext = {
 }
 
 export const userResolver = {
-    UUID: new GraphQLScalarType({
-        name: 'UUID',
-        description: 'UUID string scalar',
-        serialize(value) {
-        return value;
-        },
-        parseValue(value) {
-        return value;
-        },
-        parseLiteral(ast) {
-        if (ast.kind === Kind.STRING) {
-            return ast.value;
-        }
-        return null;
-        },
-    }),
     Query:{
         users: async() =>{
             const users = await User.find();
@@ -48,8 +33,7 @@ export const userResolver = {
             }
             return users;
         },
-        getUserByID: async (_:unknown,__:unknown, context: ResolverContext) => {
-            console.log("getUser resolver hit");
+        getMe: async (_:unknown,__:unknown, context: ResolverContext) => {
             if (!context.token){
                 throw new GraphQLError('Unauthorized',{
                     extensions: {code: 'INVALID_ACCESS'}
@@ -63,35 +47,13 @@ export const userResolver = {
                 return cache
             }
 
-            const found = await User.findOne({UUID: UUID})
+            const found = await User.findOneAndUpdate(
+                { UUID },
+                { $setOnInsert: { UUID } },
+                { upsert: true, returnDocument: 'after' }
+            );
 
-            if (!found){
-                throw new GraphQLError("User Not Found",{
-                    extensions: {code: 'NOT_FOUND'}
-                });
-            }
-            await setCache(UUID, found.toObject());
-            return found;
-        },
-
-        getUserByUUID: async (_: unknown, args: { UUID: string }, context: ResolverContext) => {
-            console.log('getUserByUUID resolver hit');
-            if (!context.token) {
-                throw new GraphQLError('Unauthorized', {
-                extensions: { code: 'INVALID_ACCESS' },
-                });
-            }
-            const decodedToken = await verifyFirebaseToken(context.token);
-            const UUID = args.UUID || decodedToken.uid;
-
-            const found = await User.findOne({ UUID });
-
-            if (!found) {
-                throw new GraphQLError('User Not Found', {
-                extensions: { code: 'NOT_FOUND' },
-                });
-            }
-
+            await setCache(UUID, found!.toObject());
             return found;
         },
     },
@@ -140,15 +102,21 @@ export const userResolver = {
                     }
                     inputUser["economic_profile.income"] = econProf.income;
                 }
-                if(econProf.address !== undefined){
-                    if(typeof econProf.address !== 'string' || econProf.address.trim().length === 0){
-                        throw new GraphQLError('Invalid Address Input',{
+                if(econProf.city !== undefined){
+                    if(typeof econProf.city !== 'string' || econProf.city.trim().length === 0){
+                        throw new GraphQLError('Invalid City Input',{
                             extensions: {code: 'BAD_USER_INPUT'}
                         });
                     }
-                    const cleanAddress= econProf.address.trim();
-
-                    inputUser["economic_profile.address"] = cleanAddress;
+                    inputUser["economic_profile.city"] = econProf.city.trim();
+                }
+                if(econProf.neighborhood !== undefined){
+                    if(typeof econProf.neighborhood !== 'string' || econProf.neighborhood.trim().length === 0){
+                        throw new GraphQLError('Invalid Neighborhood Input',{
+                            extensions: {code: 'BAD_USER_INPUT'}
+                        });
+                    }
+                    inputUser["economic_profile.neighborhood"] = econProf.neighborhood.trim();
                 }
                 if(econProf.liabilities !== undefined){
                     const debt = econProf.liabilities; 
@@ -196,23 +164,17 @@ export const userResolver = {
             }
             const updated = await User.findOneAndUpdate(
                 { UUID },
-                { $set: inputUser},
-                { new: true, runValidators: true}
+                { $set: inputUser, $setOnInsert: { UUID } },
+                { upsert: true, returnDocument: 'after', runValidators: true }
             );
 
-            if (!updated){
-                throw new GraphQLError('User not found',{
-                    extensions: {code: 'NOT_FOUND'}
-                });
-            }
-            await setCache(UUID, updated.toObject());
+            await setCache(UUID, updated!.toObject());
             return updated;
         },
         
-        removeUser: async(_:unknown,args:{_id: string}, context: ResolverContext) => {
+        removeUser: async(_:unknown,__:unknown, context: ResolverContext) => {
             
             console.log("remove resolver hit");
-            console.log("incoming args:", args);
 
             if (!context.token){
                 throw new GraphQLError('Unauthorized',{

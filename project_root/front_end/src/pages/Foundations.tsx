@@ -8,7 +8,8 @@ function Foundations(){
     const [loading,setLoading] = useState(false);
     const [economicProfile,setEconomicProfile] = useState<TsEconomicProfile>({
         income: 0,
-        address: "",
+        city: "",
+        neighborhood: "",
         liabilities: {
             rent: 0,
             insuranceDeductibles: 0,
@@ -24,7 +25,8 @@ function Foundations(){
                 const profile = await getUserApi();
                 setEconomicProfile({
                     income: profile.economic_profile?.income ?? 0,
-                    address: profile.economic_profile?.address ?? "",
+                    city: profile.economic_profile?.city ?? "",
+                    neighborhood: profile.economic_profile?.neighborhood ?? "",
                     liabilities: {
                         rent: profile.economic_profile?.liabilities?.rent ?? 0,
                         insuranceDeductibles: profile.economic_profile?.liabilities?.insuranceDeductibles ?? 0,

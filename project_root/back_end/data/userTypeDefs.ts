@@ -1,13 +1,9 @@
 import {gql} from "graphql-tag";
 
 export const typeDefs = gql `
-    scalar UUID
-
     type Query {
         users: [User!]!
-        getUserByID(_id: ID!): User  
-        getUserByUUID(UUID: UUID!): User  
-        
+        getMe: User
     }
 
     type User {
@@ -20,7 +16,8 @@ export const typeDefs = gql `
 
     type EconomicProfile {
         income: Float
-        address: String
+        city: String
+        neighborhood: String
         liabilities: Liabilities
     }
 
@@ -33,7 +30,8 @@ export const typeDefs = gql `
 
     input InputEconomicProfile {
         income: Float
-        address: String
+        city: String
+        neighborhood: String
         liabilities: InputLiabilities
     }
 

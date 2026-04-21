@@ -1,17 +1,14 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client/react';
 import { ChevronRight, ChevronDown } from 'lucide-react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import type { FeatureCollection, Geometry, GeoJsonProperties } from 'geojson';
-import { AuthContext } from '../context/AuthContext';
-
 import queries from '../queries';
 import {
   FEATURES_WITH_NEIGHBORHOOD,
-  type GetUserByUUIDData,
-  type GetUserByUUIDVars,
+  type GetMeData,
   type TsEconomicProfile,
 } from '../types';
 import { formatCurrency } from '../helpers';
@@ -42,33 +39,33 @@ const AffordabilityNYC = () => {
   const detailsRef = useRef<HTMLDetailsElement | null>(null);
 
   // get user economic profile data for the current user
-  const { currentUser } = useContext(AuthContext);
-  const { loading, error, data } = useQuery<
-    GetUserByUUIDData,
-    GetUserByUUIDVars
-  >(queries.GET_USER_BY_UUID, {
-    variables: { uuid: currentUser?.uid || '' },
+  const { loading, error, data } = useQuery<GetMeData>(queries.GET_ME, {
     fetchPolicy: 'cache-and-network',
   });
 
   // destructure the economic profile from graphql data
-  const userEconomicProfile = data?.getUserByUUID?.economic_profile as
+  const userEconomicProfile = data?.getMe?.economic_profile as
     | TsEconomicProfile
     | undefined;
 
-  // check if the user economic profile is empty (address & income)
+  // check if the user economic profile is empty (city, neighborhood & income)
   const isUserEconomicProfileEmpty =
     !userEconomicProfile ||
-    Object.keys(userEconomicProfile).length === 0 ||
-    (userEconomicProfile.address === null &&
-      userEconomicProfile.income === null);
+    userEconomicProfile.income == null ||
+    !userEconomicProfile.city ||
+    userEconomicProfile.city.trim().length === 0 ||
+    !userEconomicProfile.neighborhood ||
+    userEconomicProfile.neighborhood.trim().length === 0;
 
   // create an array of profile details to display in the details tag
   const profileDetails = [
     {
-      label: 'Address',
-      value: userEconomicProfile?.address || 'N/A',
-      fullWidth: true,
+      label: 'City',
+      value: userEconomicProfile?.city || 'N/A',
+    },
+    {
+      label: 'Neighborhood',
+      value: userEconomicProfile?.neighborhood || 'N/A',
     },
     {
       label: 'Income',
@@ -310,9 +307,7 @@ const AffordabilityNYC = () => {
               {profileDetails.map((item) => (
                 <div
                   key={item.label}
-                  className={`rounded-xl border border-slate-200 bg-white/80 p-4 shadow-sm backdrop-blur ${
-                    item.fullWidth ? 'sm:col-span-2' : ''
-                  }`}
+                  className='rounded-xl border border-slate-200 bg-white/80 p-4 shadow-sm backdrop-blur'
                 >
                   <p className='text-xs font-semibold uppercase tracking-[0.2em] text-slate-500'>
                     {item.label}
