@@ -1,7 +1,14 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-const ALLOWED_SERIES = new Set<string>(['CPIAUCSL', 'UNRATE']);
+const ALLOWED_SERIES = new Set<string>([
+    'CPIAUCSL',
+    'UNRATE',
+    'MORTGAGE30US',
+    'FEDFUNDS',
+    'MSPUS',
+    'GASREGW',
+]);
 const FRED_BASE = 'https://api.stlouisfed.org/fred/series/observations';
 
 export type FredObservation = { date: string; value: number | null };
