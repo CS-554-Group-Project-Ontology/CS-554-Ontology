@@ -7,8 +7,8 @@ export interface FoundationsSeriesConfig {
 
 export const FOUNDATIONS_SERIES: FoundationsSeriesConfig[] = [
   {
-    seriesId: 'CPIAUCSL',
-    title: 'Consumer Price Index (Inflation)',
+    seriesId: 'CPILFESL',
+    title: 'Core Consumer Price Index (Inflation)',
     yLabel: 'Index (1982-84=100)',
     description:
       "Tracks how much everyday things cost on average. When this goes up, every dollar doesn't go as far as it used to.",
@@ -35,11 +35,11 @@ export const FOUNDATIONS_SERIES: FoundationsSeriesConfig[] = [
       'The interest rate the Fed sets for banks. Pretty much everything else that the bank makes money on follows this when it goes up or down, as well as what your savings account could grant you.',
   },
   {
-    seriesId: 'MSPUS',
-    title: 'Median Sales Price of Houses Sold',
+    seriesId: 'ASPUS',
+    title: 'Average Sales Price of Houses Sold',
     yLabel: 'USD',
     description:
-      'The typical price a house sells for in the U.S. When this keeps climbing, buying gets harder. When it flattens or dips, the market is cooling off.',
+      'The average price a house sells for in the U.S. When this keeps climbing, buying gets harder. When it flattens or dips, the market is cooling off.',
   },
   {
     seriesId: 'GASREGW',
