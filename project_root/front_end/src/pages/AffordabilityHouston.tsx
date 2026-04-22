@@ -47,17 +47,19 @@ const AffordabilityHouston = () => {
 
   const profileNeighborhood =
     data?.getMe?.economic_profile?.neighborhood?.trim() ?? null;
+  const selectedCity = data?.getMe?.economic_profile?.city?.trim() ?? '';
+  const isUserCurrentCity = selectedCity === 'Houston';
 
   const [selectedNeighborhood, setSelectedNeighborhood] = useState<
     string | null
   >(null);
 
   useEffect(() => {
-    if (!selectedNeighborhood && profileNeighborhood) {
+    if (isUserCurrentCity && !selectedNeighborhood && profileNeighborhood) {
       setSelectedNeighborhood(profileNeighborhood);
       setHoveredNeighborhood(profileNeighborhood);
     }
-  }, [profileNeighborhood, selectedNeighborhood]);
+  }, [isUserCurrentCity, profileNeighborhood, selectedNeighborhood]);
 
   // get cost of living data for the selected neighborhood
   const [
@@ -179,7 +181,7 @@ const AffordabilityHouston = () => {
     // Add navigation controls to the map
     mapRef.current = map;
 
-    // Add the NYC neighborhoods layer once the map has loaded
+    // Add the Houston neighborhoods layer once the map has loaded
     map.on('load', () => {
       let hoveredId: number | string | null = null;
 
@@ -278,8 +280,8 @@ const AffordabilityHouston = () => {
         }
         hoveredId = null;
 
-        setHoveredNeighborhood(profileNeighborhood);
-        setSelectedNeighborhood(profileNeighborhood);
+        setHoveredNeighborhood(isUserCurrentCity ? profileNeighborhood : null);
+        setSelectedNeighborhood(isUserCurrentCity ? profileNeighborhood : null);
       });
       setIsMapLoaded(true);
     });

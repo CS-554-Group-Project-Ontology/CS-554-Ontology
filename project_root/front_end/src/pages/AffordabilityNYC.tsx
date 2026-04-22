@@ -12,7 +12,6 @@ import {
 } from '../types';
 import { formatCurrency } from '../helpers';
 import ProfileStatusBanner from './Mobility/ProfileStatusBanner';
-import { useLocation } from 'react-router-dom';
 
 // NYC coordinates
 const NYC_INITIAL_CENTER: [number, number] = [-74.0242, 40.6941];
@@ -28,9 +27,6 @@ const AffordabilityNYC = () => {
   const [hoveredNeighborhood, setHoveredNeighborhood] = useState<string | null>(
     null,
   );
-
-  const { pathname } = useLocation();
-  const lastPartOfPath = pathname.split('/').pop()?.split('-').pop();
 
   // track the current center and zoom level of the map
   const [center, setCenter] = useState<[number, number]>([
@@ -52,19 +48,18 @@ const AffordabilityNYC = () => {
   const profileNeighborhood =
     data?.getMe?.economic_profile?.neighborhood?.trim() ?? null;
   const selectedCity = data?.getMe?.economic_profile?.city?.trim() ?? '';
-  const isCurrentUserCity =
-    selectedCity === 'New York' && lastPartOfPath === 'nyc';
+  const isUserCurrentCity = selectedCity === 'New York';
 
   const [selectedNeighborhood, setSelectedNeighborhood] = useState<
     string | null
   >(null);
 
   useEffect(() => {
-    if (!selectedNeighborhood && profileNeighborhood) {
+    if (isUserCurrentCity && !selectedNeighborhood && profileNeighborhood) {
       setSelectedNeighborhood(profileNeighborhood);
       setHoveredNeighborhood(profileNeighborhood);
     }
-  }, [profileNeighborhood, selectedNeighborhood]);
+  }, [isUserCurrentCity, profileNeighborhood, selectedNeighborhood]);
 
   // get cost of living data for the selected neighborhood
   const [
@@ -285,8 +280,8 @@ const AffordabilityNYC = () => {
         }
         hoveredId = null;
 
-        setHoveredNeighborhood(profileNeighborhood);
-        setSelectedNeighborhood(profileNeighborhood);
+        setHoveredNeighborhood(isUserCurrentCity ? profileNeighborhood : null);
+        setSelectedNeighborhood(isUserCurrentCity ? profileNeighborhood : null);
       });
       setIsMapLoaded(true);
     });
@@ -460,7 +455,7 @@ const AffordabilityNYC = () => {
                 </p>
               </div>
 
-              <div className='mt-2 w-full max-w-80 rounded-2xl bg-white/95 shadow-xl ring-1 ring-slate-200/70 backdrop-blur-sm overflow-hidden'>
+              <div className='mt-2 mb-2 w-full max-w-95 rounded-2xl bg-white/95 shadow-xl ring-1 ring-slate-200/70 backdrop-blur-sm overflow-hidden'>
                 <div className='flex items-center gap-2 px-4 py-3'>
                   <div className='flex h-8 w-8 items-center justify-center rounded-lg bg-amber-50 text-xs text-amber-600'>
                     <MapPin className='h-5 w-5' />
@@ -507,8 +502,7 @@ const AffordabilityNYC = () => {
                   <div className='px-6 pb-4 text-xs text-slate-600'>
                     {isCostOfLivingLoading
                       ? 'Loading neighborhood costs...'
-                      : costOfLivingMessage ||
-                        'No data for this neighborhood yet.'}
+                      : costOfLivingMessage || null}
                   </div>
                 )}
               </div>

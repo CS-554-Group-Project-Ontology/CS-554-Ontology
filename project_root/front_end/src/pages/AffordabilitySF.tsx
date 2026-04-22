@@ -456,7 +456,7 @@ const AffordabilitySF = () => {
                 </p>
               </div>
 
-              <div className='mt-2 w-full max-w-80 rounded-2xl bg-white/95 shadow-xl ring-1 ring-slate-200/70 backdrop-blur-sm overflow-hidden'>
+              <div className='mt-2 mb-2 w-full max-w-95 rounded-2xl bg-white/95 shadow-xl ring-1 ring-slate-200/70 backdrop-blur-sm overflow-hidden'>
                 <div className='flex items-center gap-2 px-4 py-3'>
                   <div className='flex h-8 w-8 items-center justify-center rounded-lg bg-amber-50 text-xs text-amber-600'>
                     <MapPin className='h-5 w-5' />
