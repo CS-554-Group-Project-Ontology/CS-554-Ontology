@@ -5,13 +5,14 @@ import mapboxgl from 'mapbox-gl';
 import type { FeatureCollection, Geometry, GeoJsonProperties } from 'geojson';
 import queries from '../queries';
 import {
-  FEATURES_WITH_NEIGHBORHOOD,
+  NYC_FEATURES_WITH_NEIGHBORHOOD,
   type GetCostOfLivingByCityAndNeighborhoodData,
   type GetMeData,
   type TsEconomicProfile,
 } from '../types';
 import { formatCurrency } from '../helpers';
 import ProfileStatusBanner from './Mobility/ProfileStatusBanner';
+import { useLocation } from 'react-router-dom';
 
 // NYC coordinates
 const NYC_INITIAL_CENTER: [number, number] = [-74.0242, 40.6941];
@@ -27,6 +28,9 @@ const AffordabilityNYC = () => {
   const [hoveredNeighborhood, setHoveredNeighborhood] = useState<string | null>(
     null,
   );
+
+  const { pathname } = useLocation();
+  const lastPartOfPath = pathname.split('/').pop()?.split('-').pop();
 
   // track the current center and zoom level of the map
   const [center, setCenter] = useState<[number, number]>([
@@ -48,6 +52,8 @@ const AffordabilityNYC = () => {
   const profileNeighborhood =
     data?.getMe?.economic_profile?.neighborhood?.trim() ?? null;
   const selectedCity = data?.getMe?.economic_profile?.city?.trim() ?? '';
+  const isCurrentUserCity =
+    selectedCity === 'New York' && lastPartOfPath === 'nyc';
 
   const [selectedNeighborhood, setSelectedNeighborhood] = useState<
     string | null
@@ -77,11 +83,11 @@ const AffordabilityNYC = () => {
 
   // fetch cost of living data when selected neighborhood changes
   useEffect(() => {
-    if (!selectedCity || !selectedNeighborhood) {
+    if (!selectedNeighborhood) {
       return;
     }
 
-    const requestKey = `${selectedCity}::${selectedNeighborhood}`;
+    const requestKey = `${selectedNeighborhood}`;
 
     if (lastRequestedNeighborhoodRef.current === requestKey) {
       return;
@@ -89,11 +95,10 @@ const AffordabilityNYC = () => {
     lastRequestedNeighborhoodRef.current = requestKey;
     void fetchCostOfLiving({
       variables: {
-        city: selectedCity,
         neighborhood: selectedNeighborhood,
       },
     });
-  }, [fetchCostOfLiving, selectedCity, selectedNeighborhood]);
+  }, [fetchCostOfLiving, selectedNeighborhood]);
 
   // destructure the cost of living data
   const costOfLiving = costOfLivingData?.getCostOfLivingByCityAndNeighborhood;
@@ -190,7 +195,7 @@ const AffordabilityNYC = () => {
         generateId: true, // enable geojson id property
         data: {
           type: 'FeatureCollection' as const,
-          features: FEATURES_WITH_NEIGHBORHOOD as FeatureCollection<
+          features: NYC_FEATURES_WITH_NEIGHBORHOOD as FeatureCollection<
             Geometry,
             GeoJsonProperties
           >['features'],
@@ -346,8 +351,8 @@ const AffordabilityNYC = () => {
       </h1>
 
       <p className='text-lg text-gray-700 mb-4'>
-        This map displays the affordability of the New York City neighborhoods
-        based on the median income and median rent.
+        Use the map below to explore the affordability of different
+        neighborhoods in New York City.
       </p>
 
       {/* Show alert if user economic profile is empty */}
