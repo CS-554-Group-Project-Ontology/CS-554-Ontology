@@ -121,7 +121,7 @@ export async function getUserApi(){
         return data.getMe;
 }
 
-export async function getCostOfLivingByCityAndNeighborhoodApi(city: string, neighborhood: string){
+export async function getCostOfLivingByCityAndNeighborhoodApi(neighborhood: string){
     const data = await dbRequest<{
         getCostOfLivingByCityAndNeighborhood: {
             rent?: number;
@@ -131,8 +131,8 @@ export async function getCostOfLivingByCityAndNeighborhoodApi(city: string, neig
         };
     }>(
             `
-            query GetCostOfLivingByCityAndNeighborhood($city: String!, $neighborhood: String!){
-                getCostOfLivingByCityAndNeighborhood(city: $city, neighborhood: $neighborhood){
+            query GetCostOfLivingByCityAndNeighborhood($neighborhood: String!){
+                getCostOfLivingByCityAndNeighborhood(neighborhood: $neighborhood){
                     rent
                     insuranceDeductibles
                     utilities
@@ -140,7 +140,7 @@ export async function getCostOfLivingByCityAndNeighborhoodApi(city: string, neig
                 }
             }
             `,
-            { city, neighborhood },
+            { neighborhood },
         );
         return data.getCostOfLivingByCityAndNeighborhood;
 }

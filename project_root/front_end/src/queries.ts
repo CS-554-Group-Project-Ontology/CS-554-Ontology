@@ -23,8 +23,8 @@ export const GET_ME = gql`
 `;
 
 export const GET_COST_OF_LIVING_BY_CITY_AND_NEIGHBORHOOD = gql`
-  query GetCostOfLivingByCityAndNeighborhood($city: String!, $neighborhood: String!) {
-    getCostOfLivingByCityAndNeighborhood(city: $city, neighborhood: $neighborhood) {
+  query GetCostOfLivingByCityAndNeighborhood($neighborhood: String!) {
+    getCostOfLivingByCityAndNeighborhood(neighborhood: $neighborhood) {
       rent
       insuranceDeductibles
       utilities

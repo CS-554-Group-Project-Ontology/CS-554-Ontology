@@ -59,7 +59,7 @@ export const userResolver = {
 
     getCostOfLivingByCityAndNeighborhood: async (
       _: unknown,
-      args: { city: string; neighborhood: string },
+      args: { neighborhood: string },
       context: ResolverContext,
     ) => {
       if (!context.token) {
@@ -68,11 +68,10 @@ export const userResolver = {
         });
       }
 
-      const city = args.city.trim();
       const neighborhood = args.neighborhood.trim();
 
-      if (!city || !neighborhood) {
-        throw new GraphQLError('City and Neighborhood are required', {
+      if (!neighborhood) {
+        throw new GraphQLError('Neighborhood is required', {
           extensions: { code: 'BAD_USER_INPUT' },
         });
       }
@@ -80,10 +79,6 @@ export const userResolver = {
       const escapeRegex = (str: string) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
       const users = await User.find({
-        'economic_profile.city': {
-          $regex: `^${escapeRegex(city)}$`,
-          $options: 'i',
-        },
         'economic_profile.neighborhood': {
           $regex: `^${escapeRegex(neighborhood)}$`,
           $options: 'i',

@@ -1,13 +1,10 @@
-import {gql} from "graphql-tag";
+import { gql } from 'graphql-tag';
 
 export const typeDefs = gql`
   type Query {
     users: [User!]!
     getMe: User
-    getCostOfLivingByCityAndNeighborhood(
-      city: String!
-      neighborhood: String!
-    ): Liabilities
+    getCostOfLivingByCityAndNeighborhood(neighborhood: String!): Liabilities
   }
 
   type User {
@@ -47,12 +44,9 @@ export const typeDefs = gql`
   }
 
   type Mutation {
-        
     addUser: User
 
-        editUser(
-            economic_profile: InputEconomicProfile
-        ): User
+    editUser(economic_profile: InputEconomicProfile): User
 
     removeUser: User
   }
