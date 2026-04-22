@@ -121,6 +121,30 @@ export async function getUserApi(){
         return data.getMe;
 }
 
+export async function getCostOfLivingByCityAndNeighborhoodApi(city: string, neighborhood: string){
+    const data = await dbRequest<{
+        getCostOfLivingByCityAndNeighborhood: {
+            rent?: number;
+            insuranceDeductibles?: number;
+            utilities?: number;
+            other?: number;
+        };
+    }>(
+            `
+            query GetCostOfLivingByCityAndNeighborhood($city: String!, $neighborhood: String!){
+                getCostOfLivingByCityAndNeighborhood(city: $city, neighborhood: $neighborhood){
+                    rent
+                    insuranceDeductibles
+                    utilities
+                    other
+                }
+            }
+            `,
+            { city, neighborhood },
+        );
+        return data.getCostOfLivingByCityAndNeighborhood;
+}
+
 export async function editUserApi(economic_profile: EconomicProfile){
     const data = await dbRequest<{
         editUser:{

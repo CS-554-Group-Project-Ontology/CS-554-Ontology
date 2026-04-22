@@ -7,6 +7,10 @@ export type GetMeData = {
   } | null;
 };
 
+export type GetCostOfLivingByCityAndNeighborhoodData = {
+  getCostOfLivingByCityAndNeighborhood?: TsLiabilities | null;
+};
+
 export interface TsLiabilities {
   rent?: number;
   insuranceDeductibles?: number;
