@@ -15,7 +15,7 @@ import { formatCurrency } from '../helpers';
 import ProfileStatusBanner from './Mobility/ProfileStatusBanner';
 
 const SF_GEOJSON_URL =
-  'https://raw.githubusercontent.com/codeforgermany/click_that_hood/main/public/data/san-francisco.geojson';
+  'https://gist.githubusercontent.com/PollefeysC/f2f3bc6cb40e1edcaa0ae94c48c14cab/raw/0927e4107ea832d01de8dae70e0c8efc05ae780f/sf.geojson';
 
 // SF coordinates
 const SF_INITIAL_CENTER: [number, number] = [-122.4723, 37.7622];

@@ -1,17 +1,21 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLazyQuery, useQuery } from '@apollo/client/react';
+import axios from 'axios';
 import { ChevronRight, ChevronDown, MapPin } from 'lucide-react';
 import mapboxgl from 'mapbox-gl';
 import type { FeatureCollection, Geometry, GeoJsonProperties } from 'geojson';
 import queries from '../queries';
 import {
-  HOUSTON_FEATURES_WITH_NEIGHBORHOOD,
+  normalizeGeoJSON,
   type GetCostOfLivingByCityAndNeighborhoodData,
   type GetMeData,
   type TsEconomicProfile,
 } from '../types';
 import { formatCurrency } from '../helpers';
 import ProfileStatusBanner from './Mobility/ProfileStatusBanner';
+
+const HOUSTON_GEOJSON_URL =
+  'https://gist.githubusercontent.com/PollefeysC/4158b5b31f2e862362fef059da811dfb/raw/8612c7813439f31b9773b59c1446f62f64973670/houston.geojson';
 
 // Houston coordinates
 const HOUSTON_INITIAL_CENTER: [number, number] = [-95.5659, 29.7308];
@@ -27,6 +31,12 @@ const AffordabilityHouston = () => {
   const [hoveredNeighborhood, setHoveredNeighborhood] = useState<string | null>(
     null,
   );
+  const [selectedNeighborhood, setSelectedNeighborhood] = useState<
+    string | null
+  >(null);
+  const [neighborhoodFeatures, setNeighborhoodFeatures] = useState<
+    FeatureCollection<Geometry, GeoJsonProperties>['features']
+  >([]);
 
   // track the current center and zoom level of the map
   const [center, setCenter] = useState<[number, number]>([
@@ -50,17 +60,6 @@ const AffordabilityHouston = () => {
   const selectedCity = data?.getMe?.economic_profile?.city?.trim() ?? '';
   const isUserCurrentCity = selectedCity === 'Houston';
 
-  const [selectedNeighborhood, setSelectedNeighborhood] = useState<
-    string | null
-  >(null);
-
-  useEffect(() => {
-    if (isUserCurrentCity && !selectedNeighborhood && profileNeighborhood) {
-      setSelectedNeighborhood(profileNeighborhood);
-      setHoveredNeighborhood(profileNeighborhood);
-    }
-  }, [isUserCurrentCity, profileNeighborhood, selectedNeighborhood]);
-
   // get cost of living data for the selected neighborhood
   const [
     fetchCostOfLiving,
@@ -75,25 +74,6 @@ const AffordabilityHouston = () => {
       fetchPolicy: 'cache-and-network',
     },
   );
-
-  // fetch cost of living data when selected neighborhood changes
-  useEffect(() => {
-    if (!selectedNeighborhood) {
-      return;
-    }
-
-    const requestKey = `${selectedNeighborhood}`;
-
-    if (lastRequestedNeighborhoodRef.current === requestKey) {
-      return;
-    }
-    lastRequestedNeighborhoodRef.current = requestKey;
-    void fetchCostOfLiving({
-      variables: {
-        neighborhood: selectedNeighborhood,
-      },
-    });
-  }, [fetchCostOfLiving, selectedNeighborhood]);
 
   // destructure the cost of living data
   const costOfLiving = costOfLivingData?.getCostOfLivingByCityAndNeighborhood;
@@ -150,11 +130,60 @@ const AffordabilityHouston = () => {
     setIsOpen((prev) => !prev);
   };
 
+  // set the selected neighborhood for the selected city
+  // Eg: User City=New York, Neighborhood=Flushing -> Flushing map is filled
+  useEffect(() => {
+    if (isUserCurrentCity && !selectedNeighborhood && profileNeighborhood) {
+      setSelectedNeighborhood(profileNeighborhood);
+      setHoveredNeighborhood(profileNeighborhood);
+    }
+  }, [isUserCurrentCity, profileNeighborhood, selectedNeighborhood]);
+
+  // fetch cost of living data when selected neighborhood changes
+  useEffect(() => {
+    if (!selectedNeighborhood) {
+      return;
+    }
+
+    const requestKey = `${selectedNeighborhood}`;
+
+    if (lastRequestedNeighborhoodRef.current === requestKey) {
+      return;
+    }
+    lastRequestedNeighborhoodRef.current = requestKey;
+    void fetchCostOfLiving({
+      variables: {
+        neighborhood: selectedNeighborhood,
+      },
+    });
+  }, [fetchCostOfLiving, selectedNeighborhood]);
+
+  // fetch neighborhood features from gist url
+  useEffect(() => {
+    const fetchNeighborhoods = async () => {
+      try {
+        const resp =
+          await axios.get<FeatureCollection<Geometry, GeoJsonProperties>>(
+            HOUSTON_GEOJSON_URL,
+          );
+        const normalizedFeatures = normalizeGeoJSON(resp.data, 'Houston');
+        setNeighborhoodFeatures(normalizedFeatures);
+      } catch (error) {
+        console.error('Failed to load Houston GeoJSON', error);
+        setNeighborhoodFeatures([]);
+      }
+    };
+
+    void fetchNeighborhoods();
+  }, []);
+
   // Initialize the map when the component mounts
   useEffect(() => {
     if (loading) return;
     if (!mapContainerRef.current || mapRef.current) return;
 
+    // this code prepares the environment for Mapbox and prevents the map
+    // from initializing when the app is not configured correctly.
     if (!document.getElementById('mapbox-gl-css')) {
       const mapboxStylesheet = document.createElement('link');
       mapboxStylesheet.id = 'mapbox-gl-css';
@@ -190,10 +219,7 @@ const AffordabilityHouston = () => {
         generateId: true, // enable geojson id property
         data: {
           type: 'FeatureCollection' as const,
-          features: HOUSTON_FEATURES_WITH_NEIGHBORHOOD as FeatureCollection<
-            Geometry,
-            GeoJsonProperties
-          >['features'],
+          features: neighborhoodFeatures,
         },
       });
 
@@ -290,7 +316,7 @@ const AffordabilityHouston = () => {
       mapRef.current?.remove();
       mapRef.current = null;
     };
-  }, [loading]);
+  }, [loading, neighborhoodFeatures]);
 
   // Update the fill color of user neighborhood by default
   useEffect(() => {

@@ -14,7 +14,7 @@ import { formatCurrency } from '../helpers';
 import ProfileStatusBanner from './Mobility/ProfileStatusBanner';
 
 const NYC_GEOJSON_URL =
-  'https://gist.githubusercontent.com/ix4/ff7603f48283cf06fc4fb3dfb6a0635c/raw/3eae4056c9d4de99f0040b6bedbd9ba547e8d215/nyc.geojson';
+  'https://gist.githubusercontent.com/PollefeysC/da321dabb6455a52cfe0e121b314da51/raw/2725bf0b9ca897c590bdb592040ab587e4348725/nyc.geojson';
 
 // NYC coordinates
 const NYC_INITIAL_CENTER: [number, number] = [-74.0242, 40.6941];
