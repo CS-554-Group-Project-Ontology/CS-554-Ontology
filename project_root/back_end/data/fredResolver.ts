@@ -34,6 +34,15 @@ export const fredResolver = {
                 });
             }
 
+            const minStart = new Date();
+            minStart.setFullYear(minStart.getFullYear() - 5);
+            const minStartIso = minStart.toISOString().slice(0, 10);
+            if (!start || start < minStartIso) {
+                throw new GraphQLError('Date range exceeds 5-year maximum', {
+                    extensions: { code: 'BAD_USER_INPUT' },
+                });
+            }
+
             const cached = await getFredCache(seriesId, start, end);
             if (cached) {
                 return { seriesId, observations: cached };

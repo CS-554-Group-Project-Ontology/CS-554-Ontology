@@ -6,12 +6,11 @@ import Loading from '../../components/Loading';
 import TimeSeriesChart from './TimeSeriesChart';
 import type { FoundationsSeriesConfig } from './foundationsConfig';
 
-type Range = '1Y' | '5Y' | '10Y' | 'Max';
-const RANGES: Range[] = ['1Y', '5Y', '10Y', 'Max'];
+type Range = '1Y' | '2Y' | '3Y' | '4Y' | '5Y';
+const RANGES: Range[] = ['1Y', '2Y', '3Y', '4Y', '5Y'];
 
-function startDateFor(range: Range): string | undefined {
-  if (range === 'Max') return undefined;
-  const years = { '1Y': 1, '5Y': 5, '10Y': 10 }[range];
+function startDateFor(range: Range): string {
+  const years = Number(range.replace('Y', ''));
   const d = new Date();
   d.setFullYear(d.getFullYear() - years);
   return d.toISOString().slice(0, 10);
