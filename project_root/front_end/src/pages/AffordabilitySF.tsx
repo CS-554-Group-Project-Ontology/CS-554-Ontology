@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLazyQuery, useQuery } from '@apollo/client/react';
+import axios from 'axios';
 import { ChevronRight, ChevronDown, MapPin } from 'lucide-react';
 import mapboxgl from 'mapbox-gl';
 import type { FeatureCollection, Geometry, GeoJsonProperties } from 'geojson';
 import queries from '../queries';
 import {
-  SF_FEATURES_WITH_NEIGHBORHOOD,
+  normalizeGeoJSON,
   type GetCostOfLivingByCityAndNeighborhoodData,
   type GetMeData,
   type TsEconomicProfile,
@@ -13,9 +14,11 @@ import {
 import { formatCurrency } from '../helpers';
 import ProfileStatusBanner from './Mobility/ProfileStatusBanner';
 
+const SF_GEOJSON_URL =
+  'https://raw.githubusercontent.com/codeforgermany/click_that_hood/main/public/data/san-francisco.geojson';
+
 // SF coordinates
 const SF_INITIAL_CENTER: [number, number] = [-122.4723, 37.7622];
-// -122.4723 | Lat:37.7622 | Zoom:11.21
 
 // Initial zoom level for the map
 const INITIAL_ZOOM: number = 11.21;
@@ -28,6 +31,12 @@ const AffordabilitySF = () => {
   const [hoveredNeighborhood, setHoveredNeighborhood] = useState<string | null>(
     null,
   );
+  const [selectedNeighborhood, setSelectedNeighborhood] = useState<
+    string | null
+  >(null);
+  const [neighborhoodFeatures, setNeighborhoodFeatures] = useState<
+    FeatureCollection<Geometry, GeoJsonProperties>['features']
+  >([]);
 
   // track the current center and zoom level of the map
   const [center, setCenter] = useState<[number, number]>([
@@ -49,17 +58,7 @@ const AffordabilitySF = () => {
   const profileNeighborhood =
     data?.getMe?.economic_profile?.neighborhood?.trim() ?? null;
   const selectedCity = data?.getMe?.economic_profile?.city?.trim() ?? '';
-
-  const [selectedNeighborhood, setSelectedNeighborhood] = useState<
-    string | null
-  >(null);
-
-  useEffect(() => {
-    if (!selectedNeighborhood && profileNeighborhood) {
-      setSelectedNeighborhood(profileNeighborhood);
-      setHoveredNeighborhood(profileNeighborhood);
-    }
-  }, [profileNeighborhood, selectedNeighborhood]);
+  const isUserCurrentCity = selectedCity === 'San Francisco';
 
   // get cost of living data for the selected neighborhood
   const [
@@ -75,26 +74,6 @@ const AffordabilitySF = () => {
       fetchPolicy: 'cache-and-network',
     },
   );
-
-  // fetch cost of living data when selected neighborhood changes
-  useEffect(() => {
-    if (!selectedCity || !selectedNeighborhood) {
-      return;
-    }
-
-    const requestKey = `${selectedCity}::${selectedNeighborhood}`;
-
-    if (lastRequestedNeighborhoodRef.current === requestKey) {
-      return;
-    }
-    lastRequestedNeighborhoodRef.current = requestKey;
-    void fetchCostOfLiving({
-      variables: {
-        city: selectedCity,
-        neighborhood: selectedNeighborhood,
-      },
-    });
-  }, [fetchCostOfLiving, selectedCity, selectedNeighborhood]);
 
   // destructure the cost of living data
   const costOfLiving = costOfLivingData?.getCostOfLivingByCityAndNeighborhood;
@@ -151,11 +130,60 @@ const AffordabilitySF = () => {
     setIsOpen((prev) => !prev);
   };
 
+  // set the selected neighborhood for the selected city
+  // Eg: User City=New York, Neighborhood=Flushing -> Flushing map is filled
+  useEffect(() => {
+    if (isUserCurrentCity && !selectedNeighborhood && profileNeighborhood) {
+      setSelectedNeighborhood(profileNeighborhood);
+      setHoveredNeighborhood(profileNeighborhood);
+    }
+  }, [isUserCurrentCity, profileNeighborhood, selectedNeighborhood]);
+
+  // fetch cost of living data when selected neighborhood changes
+  useEffect(() => {
+    if (!selectedNeighborhood) {
+      return;
+    }
+
+    const requestKey = `${selectedNeighborhood}`;
+
+    if (lastRequestedNeighborhoodRef.current === requestKey) {
+      return;
+    }
+    lastRequestedNeighborhoodRef.current = requestKey;
+    void fetchCostOfLiving({
+      variables: {
+        neighborhood: selectedNeighborhood,
+      },
+    });
+  }, [fetchCostOfLiving, selectedNeighborhood]);
+
+  // fetch neighborhood features from gist url
+  useEffect(() => {
+    const fetchNeighborhoods = async () => {
+      try {
+        const resp =
+          await axios.get<FeatureCollection<Geometry, GeoJsonProperties>>(
+            SF_GEOJSON_URL,
+          );
+        const normalizedFeatures = normalizeGeoJSON(resp.data, 'San Francisco');
+        setNeighborhoodFeatures(normalizedFeatures);
+      } catch (error) {
+        console.error('Failed to load SF GeoJSON', error);
+        setNeighborhoodFeatures([]);
+      }
+    };
+
+    void fetchNeighborhoods();
+  }, []);
+
   // Initialize the map when the component mounts
   useEffect(() => {
     if (loading) return;
     if (!mapContainerRef.current || mapRef.current) return;
 
+    // this code prepares the environment for Mapbox and prevents the map
+    // from initializing when the app is not configured correctly.
     if (!document.getElementById('mapbox-gl-css')) {
       const mapboxStylesheet = document.createElement('link');
       mapboxStylesheet.id = 'mapbox-gl-css';
@@ -168,8 +196,9 @@ const AffordabilitySF = () => {
     const mapboxAccessToken = document
       .querySelector('meta[name="mapbox-access-token"]')
       ?.getAttribute('content');
-    if (!mapboxAccessToken) return;
 
+    // if the token is missing, app stops early and does not create the map.
+    if (!mapboxAccessToken) return;
     mapboxgl.accessToken = mapboxAccessToken;
 
     // Initialize the map
@@ -191,10 +220,7 @@ const AffordabilitySF = () => {
         generateId: true, // enable geojson id property
         data: {
           type: 'FeatureCollection' as const,
-          features: SF_FEATURES_WITH_NEIGHBORHOOD as FeatureCollection<
-            Geometry,
-            GeoJsonProperties
-          >['features'],
+          features: neighborhoodFeatures,
         },
       });
 
@@ -291,7 +317,7 @@ const AffordabilitySF = () => {
       mapRef.current?.remove();
       mapRef.current = null;
     };
-  }, [loading]);
+  }, [loading, neighborhoodFeatures]);
 
   // Update the fill color of user neighborhood by default
   useEffect(() => {

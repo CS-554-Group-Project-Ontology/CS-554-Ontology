@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLazyQuery, useQuery } from '@apollo/client/react';
+import axios from 'axios';
 import { ChevronRight, ChevronDown, MapPin } from 'lucide-react';
 import mapboxgl from 'mapbox-gl';
 import type { FeatureCollection, Geometry, GeoJsonProperties } from 'geojson';
@@ -11,7 +12,6 @@ import {
 } from '../types';
 import { formatCurrency } from '../helpers';
 import ProfileStatusBanner from './Mobility/ProfileStatusBanner';
-import axios from 'axios';
 
 const NYC_GEOJSON_URL =
   'https://gist.githubusercontent.com/ix4/ff7603f48283cf06fc4fb3dfb6a0635c/raw/3eae4056c9d4de99f0040b6bedbd9ba547e8d215/nyc.geojson';
@@ -30,9 +30,12 @@ const AffordabilityNYC = () => {
   const [hoveredNeighborhood, setHoveredNeighborhood] = useState<string | null>(
     null,
   );
-  const [neighborhoodFeatures, setNeighborhoodFeatures] = useState<
-    FeatureCollection<Geometry, GeoJsonProperties>['features'] | null
+  const [selectedNeighborhood, setSelectedNeighborhood] = useState<
+    string | null
   >(null);
+  const [neighborhoodFeatures, setNeighborhoodFeatures] = useState<
+    FeatureCollection<Geometry, GeoJsonProperties>['features']
+  >([]);
 
   // track the current center and zoom level of the map
   const [center, setCenter] = useState<[number, number]>([
@@ -56,35 +59,6 @@ const AffordabilityNYC = () => {
   const selectedCity = data?.getMe?.economic_profile?.city?.trim() ?? '';
   const isUserCurrentCity = selectedCity === 'New York';
 
-  const [selectedNeighborhood, setSelectedNeighborhood] = useState<
-    string | null
-  >(null);
-
-  useEffect(() => {
-    if (isUserCurrentCity && !selectedNeighborhood && profileNeighborhood) {
-      setSelectedNeighborhood(profileNeighborhood);
-      setHoveredNeighborhood(profileNeighborhood);
-    }
-  }, [isUserCurrentCity, profileNeighborhood, selectedNeighborhood]);
-
-  // fetch neighborhood features from gist url
-  useEffect(() => {
-    const fetchNeighborhoods = async () => {
-      try {
-        const resp =
-          await axios.get<FeatureCollection<Geometry, GeoJsonProperties>>(
-            NYC_GEOJSON_URL,
-          );
-        setNeighborhoodFeatures(resp.data.features ?? []);
-      } catch (error) {
-        console.error('Failed to load NYC GeoJSON', error);
-        setNeighborhoodFeatures([]);
-      }
-    };
-
-    void fetchNeighborhoods();
-  }, []);
-
   // get cost of living data for the selected neighborhood
   const [
     fetchCostOfLiving,
@@ -99,25 +73,6 @@ const AffordabilityNYC = () => {
       fetchPolicy: 'cache-and-network',
     },
   );
-
-  // fetch cost of living data when selected neighborhood changes
-  useEffect(() => {
-    if (!selectedNeighborhood) {
-      return;
-    }
-
-    const requestKey = `${selectedNeighborhood}`;
-
-    if (lastRequestedNeighborhoodRef.current === requestKey) {
-      return;
-    }
-    lastRequestedNeighborhoodRef.current = requestKey;
-    void fetchCostOfLiving({
-      variables: {
-        neighborhood: selectedNeighborhood,
-      },
-    });
-  }, [fetchCostOfLiving, selectedNeighborhood]);
 
   // destructure the cost of living data
   const costOfLiving = costOfLivingData?.getCostOfLivingByCityAndNeighborhood;
@@ -173,6 +128,52 @@ const AffordabilityNYC = () => {
   const toggleDetails = () => {
     setIsOpen((prev) => !prev);
   };
+
+  // set the selected neighborhood for the selected city
+  // Eg: User City=New York, Neighborhood=Flushing -> Flushing map is filled
+  useEffect(() => {
+    if (isUserCurrentCity && !selectedNeighborhood && profileNeighborhood) {
+      setSelectedNeighborhood(profileNeighborhood);
+      setHoveredNeighborhood(profileNeighborhood);
+    }
+  }, [isUserCurrentCity, profileNeighborhood, selectedNeighborhood]);
+
+  // fetch cost of living data when selected neighborhood changes
+  useEffect(() => {
+    if (!selectedNeighborhood) {
+      return;
+    }
+
+    const requestKey = `${selectedNeighborhood}`;
+
+    if (lastRequestedNeighborhoodRef.current === requestKey) {
+      return;
+    }
+    lastRequestedNeighborhoodRef.current = requestKey;
+    void fetchCostOfLiving({
+      variables: {
+        neighborhood: selectedNeighborhood,
+      },
+    });
+  }, [fetchCostOfLiving, selectedNeighborhood]);
+
+  // fetch neighborhood features from gist url
+  useEffect(() => {
+    const fetchNeighborhoods = async () => {
+      try {
+        const resp =
+          await axios.get<FeatureCollection<Geometry, GeoJsonProperties>>(
+            NYC_GEOJSON_URL,
+          );
+        setNeighborhoodFeatures(resp.data.features ?? []);
+      } catch (error) {
+        console.error('Failed to load NYC GeoJSON', error);
+        setNeighborhoodFeatures([]);
+      }
+    };
+
+    void fetchNeighborhoods();
+  }, []);
 
   // Initialize the map when the component mounts
   useEffect(() => {

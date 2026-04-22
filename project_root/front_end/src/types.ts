@@ -1,6 +1,5 @@
 import type { Feature, Geometry } from 'geojson';
 import { HOUSTON_GEOJSON } from './mapbox-gl/data/houston-geojson';
-import { SF_GEOJSON } from './mapbox-gl/data/sf-geojson';
 
 export type GetMeData = {
   getMe?: {
@@ -33,7 +32,9 @@ export type NeighborhoodProperties = {
   '@id'?: string;
 };
 
-const normalizeGeoJSON = (geojson: any, city: string) => {
+// SF and Houston do not have neighborhood but name property
+// So to make it work, we need to normalize the geojson to mach NYC
+export const normalizeGeoJSON = (geojson: any, city: string) => {
   return geojson.features
     .filter((f: any) => f.geometry !== null)
     .map((f: any) => ({
@@ -48,11 +49,6 @@ const normalizeGeoJSON = (geojson: any, city: string) => {
 };
 
 export type CityFeature = Feature<Geometry | null, NeighborhoodProperties>;
-
-export const SF_FEATURES_WITH_NEIGHBORHOOD = normalizeGeoJSON(
-  SF_GEOJSON,
-  'San Francisco',
-) as Feature<Geometry, NeighborhoodProperties>[];
 
 export const HOUSTON_FEATURES_WITH_NEIGHBORHOOD = normalizeGeoJSON(
   HOUSTON_GEOJSON,
