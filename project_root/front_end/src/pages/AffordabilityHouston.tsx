@@ -13,15 +13,11 @@ import {
 } from '../types';
 import { formatCurrency } from '../helpers';
 import ProfileStatusBanner from './Mobility/ProfileStatusBanner';
-
-const HOUSTON_GEOJSON_URL =
-  'https://gist.githubusercontent.com/PollefeysC/4158b5b31f2e862362fef059da811dfb/raw/8612c7813439f31b9773b59c1446f62f64973670/houston.geojson';
-
-// Houston coordinates
-const HOUSTON_INITIAL_CENTER: [number, number] = [-95.5659, 29.7308];
-
-// Initial zoom level for the map
-const INITIAL_ZOOM: number = 9.87;
+import {
+  HOUSTON_GEOJSON_URL,
+  HOUSTON_INITIAL_CENTER,
+  HOUSTON_INITIAL_ZOOM,
+} from '../constants';
 
 const AffordabilityHouston = () => {
   const mapRef = useRef<mapboxgl.Map | null>(null);
@@ -44,7 +40,7 @@ const AffordabilityHouston = () => {
     HOUSTON_INITIAL_CENTER[1],
   ]);
   // track the zoom level of the map
-  const [zoom, setZoom] = useState<number>(INITIAL_ZOOM);
+  const [zoom, setZoom] = useState<number>(HOUSTON_INITIAL_ZOOM);
 
   // open or closed the details tag
   const [isOpen, setIsOpen] = useState(false);
@@ -204,7 +200,7 @@ const AffordabilityHouston = () => {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
       center: HOUSTON_INITIAL_CENTER,
-      zoom: INITIAL_ZOOM,
+      zoom: HOUSTON_INITIAL_ZOOM,
     });
 
     // Add navigation controls to the map
@@ -461,10 +457,10 @@ const AffordabilityHouston = () => {
               className='btn btn-primary btn-sm'
               onClick={() => {
                 setCenter(HOUSTON_INITIAL_CENTER);
-                setZoom(INITIAL_ZOOM);
+                setZoom(HOUSTON_INITIAL_ZOOM);
                 if (mapRef.current) {
                   mapRef.current.setCenter(HOUSTON_INITIAL_CENTER);
-                  mapRef.current.setZoom(INITIAL_ZOOM);
+                  mapRef.current.setZoom(HOUSTON_INITIAL_ZOOM);
                 }
               }}
             >

@@ -13,15 +13,11 @@ import {
 } from '../types';
 import { formatCurrency } from '../helpers';
 import ProfileStatusBanner from './Mobility/ProfileStatusBanner';
-
-const SF_GEOJSON_URL =
-  'https://gist.githubusercontent.com/PollefeysC/f2f3bc6cb40e1edcaa0ae94c48c14cab/raw/0927e4107ea832d01de8dae70e0c8efc05ae780f/sf.geojson';
-
-// SF coordinates
-const SF_INITIAL_CENTER: [number, number] = [-122.4723, 37.7622];
-
-// Initial zoom level for the map
-const INITIAL_ZOOM: number = 11.21;
+import {
+  SF_GEOJSON_URL,
+  SF_INITIAL_CENTER,
+  SF_INITIAL_ZOOM,
+} from '../constants';
 
 const AffordabilitySF = () => {
   const mapRef = useRef<mapboxgl.Map | null>(null);
@@ -44,7 +40,7 @@ const AffordabilitySF = () => {
     SF_INITIAL_CENTER[1],
   ]);
   // track the zoom level of the map
-  const [zoom, setZoom] = useState<number>(INITIAL_ZOOM);
+  const [zoom, setZoom] = useState<number>(SF_INITIAL_ZOOM);
 
   // open or closed the details tag
   const [isOpen, setIsOpen] = useState(false);
@@ -205,7 +201,7 @@ const AffordabilitySF = () => {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
       center: SF_INITIAL_CENTER,
-      zoom: INITIAL_ZOOM,
+      zoom: SF_INITIAL_ZOOM,
     });
 
     // Add navigation controls to the map
@@ -460,10 +456,10 @@ const AffordabilitySF = () => {
               className='btn btn-primary btn-sm'
               onClick={() => {
                 setCenter(SF_INITIAL_CENTER);
-                setZoom(INITIAL_ZOOM);
+                setZoom(SF_INITIAL_ZOOM);
                 if (mapRef.current) {
                   mapRef.current.setCenter(SF_INITIAL_CENTER);
-                  mapRef.current.setZoom(INITIAL_ZOOM);
+                  mapRef.current.setZoom(SF_INITIAL_ZOOM);
                 }
               }}
             >

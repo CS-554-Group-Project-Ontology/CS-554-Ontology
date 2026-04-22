@@ -137,7 +137,7 @@ function Navigation() {
                 </div>
                 <ul
                   tabIndex={1}
-                  className='menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow'
+                  className='menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 gap-2 shadow'
                 >
                   <li>
                     <NavLink
@@ -154,7 +154,7 @@ function Navigation() {
                     </NavLink>
                   </li>
                   <li>
-                    <button className='justify-between' onClick={handleSignOut}>
+                    <button className='btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-200' onClick={handleSignOut}>
                       Sign Out
                     </button>
                   </li>

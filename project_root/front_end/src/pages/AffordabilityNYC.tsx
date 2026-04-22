@@ -12,15 +12,11 @@ import {
 } from '../types';
 import { formatCurrency } from '../helpers';
 import ProfileStatusBanner from './Mobility/ProfileStatusBanner';
-
-const NYC_GEOJSON_URL =
-  'https://gist.githubusercontent.com/PollefeysC/da321dabb6455a52cfe0e121b314da51/raw/2725bf0b9ca897c590bdb592040ab587e4348725/nyc.geojson';
-
-// NYC coordinates
-const NYC_INITIAL_CENTER: [number, number] = [-74.0242, 40.6941];
-
-// Initial zoom level for the map
-const INITIAL_ZOOM: number = 10.12;
+import {
+  NYC_GEOJSON_URL,
+  NYC_INITIAL_CENTER,
+  NYC_INITIAL_ZOOM,
+} from '../constants';
 
 const AffordabilityNYC = () => {
   const mapRef = useRef<mapboxgl.Map | null>(null);
@@ -43,7 +39,7 @@ const AffordabilityNYC = () => {
     NYC_INITIAL_CENTER[1],
   ]);
   // track the zoom level of the map
-  const [zoom, setZoom] = useState<number>(INITIAL_ZOOM);
+  const [zoom, setZoom] = useState<number>(NYC_INITIAL_ZOOM);
 
   // open or closed the details tag
   const [isOpen, setIsOpen] = useState(false);
@@ -203,7 +199,7 @@ const AffordabilityNYC = () => {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
       center: NYC_INITIAL_CENTER,
-      zoom: INITIAL_ZOOM,
+      zoom: NYC_INITIAL_ZOOM,
     });
 
     // Add navigation controls to the map
@@ -458,10 +454,10 @@ const AffordabilityNYC = () => {
               className='btn btn-primary btn-sm'
               onClick={() => {
                 setCenter(NYC_INITIAL_CENTER);
-                setZoom(INITIAL_ZOOM);
+                setZoom(NYC_INITIAL_ZOOM);
                 if (mapRef.current) {
                   mapRef.current.setCenter(NYC_INITIAL_CENTER);
-                  mapRef.current.setZoom(INITIAL_ZOOM);
+                  mapRef.current.setZoom(NYC_INITIAL_ZOOM);
                 }
               }}
             >
