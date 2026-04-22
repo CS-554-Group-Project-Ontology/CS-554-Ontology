@@ -7,7 +7,7 @@ import SignUp from './pages/SignUp';
 import NotFound from './components/NotFound';
 import Layout from "./components/Layout";
 import Mobility from './pages/Mobility/Mobility';
-import Foundations from './pages/Foundations';
+import Foundations from './pages/Foundations/Foundations';
 import AffordabilityNYC from "./pages/AffordabilityNYC";
 import AffordabilitySF from "./pages/AffordabilitySF";
 import AffordabilityHouston from "./pages/AffordabilityHouston";

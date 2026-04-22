@@ -121,6 +121,29 @@ export async function getUserApi(){
         return data.getMe;
 }
 
+export async function getFredSeriesApi(seriesId: string, start?: string, end?: string){
+    const data = await dbRequest<{
+        fredSeries: {
+            seriesId: string;
+            observations: Array<{ date: string; value: number | null }>;
+        };
+    }>(
+        `
+        query FredSeries($seriesId: String!, $start: String, $end: String){
+            fredSeries(seriesId: $seriesId, start: $start, end: $end){
+                seriesId
+                observations {
+                    date
+                    value
+                }
+            }
+        }
+        `,
+        { seriesId, start, end },
+    );
+    return data.fredSeries;
+}
+
 export async function getCostOfLivingByCityAndNeighborhoodApi(neighborhood: string){
     const data = await dbRequest<{
         getCostOfLivingByCityAndNeighborhood: {

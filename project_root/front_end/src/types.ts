@@ -31,6 +31,22 @@ export type NeighborhoodProperties = {
   '@id'?: string;
 };
 
+export type NYCFeature = Feature<Geometry | null, NeighborhoodProperties>;
+
+export interface FredObservation {
+  date: string;
+  value: number | null;
+}
+
+export interface FredSeriesResponse {
+  seriesId: string;
+  observations: FredObservation[];
+}
+
+export type FredSeriesData = {
+  fredSeries: FredSeriesResponse;
+};
+
 // SF and Houston do not have neighborhood but name property
 // So to make it work, we need to normalize the geojson to mach NYC
 export const normalizeGeoJSON = (geojson: any, city: string) => {
