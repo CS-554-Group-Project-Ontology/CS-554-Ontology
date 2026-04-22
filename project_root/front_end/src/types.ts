@@ -1,5 +1,4 @@
 import type { Feature, Geometry } from 'geojson';
-import { NYC_GEOJSON } from './mapbox-gl/data/nyc-geojson';
 import { HOUSTON_GEOJSON } from './mapbox-gl/data/houston-geojson';
 import { SF_GEOJSON } from './mapbox-gl/data/sf-geojson';
 
@@ -49,11 +48,6 @@ const normalizeGeoJSON = (geojson: any, city: string) => {
 };
 
 export type CityFeature = Feature<Geometry | null, NeighborhoodProperties>;
-
-export const NYC_FEATURES_WITH_NEIGHBORHOOD = normalizeGeoJSON(
-  NYC_GEOJSON,
-  'New York City',
-);
 
 export const SF_FEATURES_WITH_NEIGHBORHOOD = normalizeGeoJSON(
   SF_GEOJSON,

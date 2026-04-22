@@ -5,13 +5,16 @@ import mapboxgl from 'mapbox-gl';
 import type { FeatureCollection, Geometry, GeoJsonProperties } from 'geojson';
 import queries from '../queries';
 import {
-  NYC_FEATURES_WITH_NEIGHBORHOOD,
   type GetCostOfLivingByCityAndNeighborhoodData,
   type GetMeData,
   type TsEconomicProfile,
 } from '../types';
 import { formatCurrency } from '../helpers';
 import ProfileStatusBanner from './Mobility/ProfileStatusBanner';
+import axios from 'axios';
+
+const NYC_GEOJSON_URL =
+  'https://gist.githubusercontent.com/ix4/ff7603f48283cf06fc4fb3dfb6a0635c/raw/3eae4056c9d4de99f0040b6bedbd9ba547e8d215/nyc.geojson';
 
 // NYC coordinates
 const NYC_INITIAL_CENTER: [number, number] = [-74.0242, 40.6941];
@@ -27,6 +30,9 @@ const AffordabilityNYC = () => {
   const [hoveredNeighborhood, setHoveredNeighborhood] = useState<string | null>(
     null,
   );
+  const [neighborhoodFeatures, setNeighborhoodFeatures] = useState<
+    FeatureCollection<Geometry, GeoJsonProperties>['features'] | null
+  >(null);
 
   // track the current center and zoom level of the map
   const [center, setCenter] = useState<[number, number]>([
@@ -60,6 +66,24 @@ const AffordabilityNYC = () => {
       setHoveredNeighborhood(profileNeighborhood);
     }
   }, [isUserCurrentCity, profileNeighborhood, selectedNeighborhood]);
+
+  // fetch neighborhood features from gist url
+  useEffect(() => {
+    const fetchNeighborhoods = async () => {
+      try {
+        const resp =
+          await axios.get<FeatureCollection<Geometry, GeoJsonProperties>>(
+            NYC_GEOJSON_URL,
+          );
+        setNeighborhoodFeatures(resp.data.features ?? []);
+      } catch (error) {
+        console.error('Failed to load NYC GeoJSON', error);
+        setNeighborhoodFeatures([]);
+      }
+    };
+
+    void fetchNeighborhoods();
+  }, []);
 
   // get cost of living data for the selected neighborhood
   const [
@@ -152,9 +176,11 @@ const AffordabilityNYC = () => {
 
   // Initialize the map when the component mounts
   useEffect(() => {
-    if (loading) return;
+    if (loading || !neighborhoodFeatures) return;
     if (!mapContainerRef.current || mapRef.current) return;
 
+    // this code prepares the environment for Mapbox and prevents the map
+    // from initializing when the app is not configured correctly.
     if (!document.getElementById('mapbox-gl-css')) {
       const mapboxStylesheet = document.createElement('link');
       mapboxStylesheet.id = 'mapbox-gl-css';
@@ -167,8 +193,9 @@ const AffordabilityNYC = () => {
     const mapboxAccessToken = document
       .querySelector('meta[name="mapbox-access-token"]')
       ?.getAttribute('content');
-    if (!mapboxAccessToken) return;
 
+    // if the token is missing, app stops early and does not create the map.
+    if (!mapboxAccessToken) return;
     mapboxgl.accessToken = mapboxAccessToken;
 
     // Initialize the map
@@ -190,10 +217,7 @@ const AffordabilityNYC = () => {
         generateId: true, // enable geojson id property
         data: {
           type: 'FeatureCollection' as const,
-          features: NYC_FEATURES_WITH_NEIGHBORHOOD as FeatureCollection<
-            Geometry,
-            GeoJsonProperties
-          >['features'],
+          features: neighborhoodFeatures,
         },
       });
 
@@ -290,7 +314,7 @@ const AffordabilityNYC = () => {
       mapRef.current?.remove();
       mapRef.current = null;
     };
-  }, [loading]);
+  }, [loading, neighborhoodFeatures]);
 
   // Update the fill color of user neighborhood by default
   useEffect(() => {
