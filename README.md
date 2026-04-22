@@ -42,7 +42,19 @@ https://github.com/CS-554-Group-Project-Ontology/CS-554-Ontology
 #### New York City Neighborhoods GeoJson map data
 
 ```
-https://gist.github.com/ix4/ff7603f48283cf06fc4fb3dfb6a0635c?short_path=5cdd9db
+https://gist.githubusercontent.com/PollefeysC/da321dabb6455a52cfe0e121b314da51/raw/2725bf0b9ca897c590bdb592040ab587e4348725/nyc.geojson
+```
+
+#### San Francisco Neighborhoods GeoJson map data
+
+```
+https://gist.githubusercontent.com/PollefeysC/f2f3bc6cb40e1edcaa0ae94c48c14cab/raw/0927e4107ea832d01de8dae70e0c8efc05ae780f/sf.geojson
+```
+
+#### Houston Neighborhoods GeoJson map data
+
+```
+https://gist.githubusercontent.com/PollefeysC/4158b5b31f2e862362fef059da811dfb/raw/8612c7813439f31b9773b59c1446f62f64973670/houston.geojson
 ```
 
 ### IV - How to run the application
