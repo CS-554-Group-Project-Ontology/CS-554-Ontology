@@ -203,10 +203,10 @@ function Mobility() {
                 Neighborhood
               </label>
 
-              {CITY_OPTIONS.includes(economicProfile.city || '') ? (
+              {CITY_OPTIONS.includes(economicProfile.city!) ? (
                 <SearchableSelect
-                  selectedCity={economicProfile.city || ''}
-                  value={economicProfile.neighborhood || ''}
+                  selectedCity={economicProfile.city!}
+                  value={economicProfile.neighborhood!}
                   onChange={(value: string) =>
                     setEconomicProfile((prev) => ({
                       ...prev,
