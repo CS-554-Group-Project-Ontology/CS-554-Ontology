@@ -1,0 +1,21 @@
+{
+  "name": "kafka_integration",
+  "scripts": {
+    "start": "bun run server.ts",
+    "test-xv2": "bun run producers/api_layer/x_api.ts",
+    "test-polymarket": "bun run producers/api_layer/polymarket_api.ts",
+    "build": "tsc -p tsconfig.build.json",
+    "start-node": "tsc -p tsconfig.build.json && node dist/server.js",
+    "start:bun": "bun run server.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "axios": "^1.15.2",
+    "kafkajs": "^2.2.4"
+  }
+}

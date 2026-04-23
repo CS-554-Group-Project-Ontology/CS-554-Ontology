@@ -19,7 +19,7 @@
     "Cedric Pollefeys "
   ],
   "license": "ISC",
-  "description": "",
+  "description": "This is the backend for project",
   "dependencies": {
     "@apollo/server": "^5.4.0",
     "dotenv": "^17.4.0",
