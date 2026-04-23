@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { useState, useEffect, useMemo, use } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import { ChevronDown } from 'lucide-react';
 import type { FeatureCollection, Geometry, GeoJsonProperties } from 'geojson';
 import { normalizeGeoJSON } from '../../types';
 import {
@@ -16,6 +17,13 @@ interface SearchableSelectProps {
   placeholder?: string;
   disabled?: boolean;
 }
+
+type NeighborhoodFeature = {
+  properties?: {
+    name?: string;
+    neighborhood?: string;
+  };
+};
 
 const SearchableSelect: React.FC<SearchableSelectProps> = ({
   selectedCity,
@@ -69,14 +77,14 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
             names = normalizedFeatures as string[];
           } else {
             // Otherwise, try to extract from properties
-            names = normalizedFeatures
+            names = (normalizedFeatures as NeighborhoodFeature[])
               .map(
-                (feature: any) =>
+                (feature) =>
                   feature?.properties?.name ||
                   feature?.properties?.neighborhood ||
                   '',
               )
-              .filter((n: string) => n);
+              .filter((n): n is string => Boolean(n));
           }
         }
         if (names.length === 0) {
@@ -126,19 +134,9 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
             value || placeholder
           )}
         </span>
-        <svg
-          className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`}
-          fill='none'
-          stroke='currentColor'
-          viewBox='0 0 24 24'
-        >
-          <path
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            strokeWidth={2}
-            d='M19 9l-7 7-7-7'
-          />
-        </svg>
+        <ChevronDown
+          className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+        />
       </div>
 
       {isOpen &&
