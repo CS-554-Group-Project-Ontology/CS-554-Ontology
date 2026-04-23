@@ -67,6 +67,7 @@ export const userResolver = {
           extensions: { code: 'INVALID_ACCESS' },
         });
       }
+      await verifyFirebaseToken(context.token);
 
       const neighborhood = args.neighborhood.trim();
 
