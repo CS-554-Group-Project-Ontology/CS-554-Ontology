@@ -15,6 +15,8 @@ import {
   type FieldErrors,
   type Liabilities,
 } from './schema';
+import SearchableSelect from './SearchableSelect';
+import { NEIGHBORHOODS } from '../../constants';
 
 function Mobility() {
   const { currentUser } = useContext(AuthContext);
@@ -196,20 +198,39 @@ function Mobility() {
               <label className='mb-1 block text-sm font-medium'>
                 Neighborhood
               </label>
-              <input
-                type='text'
-                className={`input input-bordered w-full ${
-                  errors.neighborhood ? 'input-error' : ''
-                }`}
-                placeholder='e.g. Flushing'
-                value={economicProfile.neighborhood ?? ''}
-                onChange={(e) =>
-                  setEconomicProfile((prev) => ({
-                    ...prev,
-                    neighborhood: e.target.value,
-                  }))
-                }
-              />
+
+              {['New York', 'San Francisco', 'Houston'].includes(
+                economicProfile.city || '',
+              ) ? (
+                <SearchableSelect
+                  options={NEIGHBORHOODS[economicProfile.city!] || []}
+                  value={economicProfile.neighborhood || ''}
+                  onChange={(value) =>
+                    setEconomicProfile((prev) => ({
+                      ...prev,
+                      neighborhood: value,
+                    }))
+                  }
+                  placeholder='Search and select a neighborhood...'
+                  disabled={!economicProfile.city}
+                />
+              ) : (
+                <input
+                  type='text'
+                  className={`input input-bordered w-full ${
+                    errors.neighborhood ? 'input-error' : ''
+                  }`}
+                  placeholder='e.g. Flushing'
+                  value={economicProfile.neighborhood ?? ''}
+                  onChange={(e) =>
+                    setEconomicProfile((prev) => ({
+                      ...prev,
+                      neighborhood: e.target.value,
+                    }))
+                  }
+                />
+              )}
+
               {errors.neighborhood && (
                 <p className='mt-1 text-sm text-error'>{errors.neighborhood}</p>
               )}
