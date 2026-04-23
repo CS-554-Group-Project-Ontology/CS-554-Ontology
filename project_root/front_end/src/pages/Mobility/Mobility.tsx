@@ -16,7 +16,7 @@ import {
   type Liabilities,
 } from './schema';
 import SearchableSelect from './SearchableSelect';
-import { NEIGHBORHOODS } from '../../constants';
+import { CITY_OPTIONS } from '../../constants';
 
 function Mobility() {
   const { currentUser } = useContext(AuthContext);
@@ -175,19 +175,23 @@ function Mobility() {
                   errors.city ? 'select-error' : ''
                 }`}
                 value={economicProfile.city ?? ''}
-                onChange={(e) =>
+                onChange={(e) => {
+                  const newCity = e.target.value;
                   setEconomicProfile((prev) => ({
                     ...prev,
-                    city: e.target.value,
-                  }))
-                }
+                    city: newCity,
+                    neighborhood: '',
+                  }));
+                }}
               >
                 <option value='' disabled>
                   Select a city
                 </option>
-                <option value='New York'>New York</option>
-                <option value='San Francisco'>San Francisco</option>
-                <option value='Houston'>Houston</option>
+                {CITY_OPTIONS.map((city) => (
+                  <option key={city} value={city}>
+                    {city}
+                  </option>
+                ))}
               </select>
               {errors.city && (
                 <p className='mt-1 text-sm text-error'>{errors.city}</p>
@@ -199,19 +203,17 @@ function Mobility() {
                 Neighborhood
               </label>
 
-              {['New York', 'San Francisco', 'Houston'].includes(
-                economicProfile.city || '',
-              ) ? (
+              {CITY_OPTIONS.includes(economicProfile.city || '') ? (
                 <SearchableSelect
-                  options={NEIGHBORHOODS[economicProfile.city!] || []}
+                  selectedCity={economicProfile.city || ''}
                   value={economicProfile.neighborhood || ''}
-                  onChange={(value) =>
+                  onChange={(value: string) =>
                     setEconomicProfile((prev) => ({
                       ...prev,
                       neighborhood: value,
                     }))
                   }
-                  placeholder='Search and select a neighborhood...'
+                  placeholder='Select a neighborhood'
                   disabled={!economicProfile.city}
                 />
               ) : (
