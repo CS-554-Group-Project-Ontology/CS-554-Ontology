@@ -168,12 +168,10 @@ function Mobility() {
           <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
             <div className='w-full'>
               <label className='mb-1 block text-sm font-medium'>City</label>
-              <input
-                type='text'
-                className={`input input-bordered w-full ${
-                  errors.city ? 'input-error' : ''
+              <select
+                className={`select select-bordered w-full ${
+                  errors.city ? 'select-error' : ''
                 }`}
-                placeholder='e.g. New York'
                 value={economicProfile.city ?? ''}
                 onChange={(e) =>
                   setEconomicProfile((prev) => ({
@@ -181,7 +179,14 @@ function Mobility() {
                     city: e.target.value,
                   }))
                 }
-              />
+              >
+                <option value='' disabled>
+                  Select a city
+                </option>
+                <option value='New York'>New York</option>
+                <option value='San Francisco'>San Francisco</option>
+                <option value='Houston'>Houston</option>
+              </select>
               {errors.city && (
                 <p className='mt-1 text-sm text-error'>{errors.city}</p>
               )}

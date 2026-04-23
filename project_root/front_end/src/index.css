@@ -24,7 +24,7 @@ body,
 .map-app-container {
   flex: 1 0 auto;
   position: relative;
-  width: 100%;
+  width: 80%;
   height: 60%;
 }
 
@@ -33,11 +33,13 @@ body,
   color: #fff;
   padding: 6px 12px;
   font-family: monospace;
+  width: 400px;
+  max-width: 400px;
   z-index: 1;
   position: absolute;
   top: 0;
   left: 0;
-  margin: 12px;
+  margin: 0px;
   border-radius: 4px;
 
   .map-sidebar-neighborhood {
