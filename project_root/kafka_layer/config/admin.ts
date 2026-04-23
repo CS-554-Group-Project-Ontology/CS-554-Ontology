@@ -1,0 +1,32 @@
+import kafka from "./kafka_manager.ts";
+
+const admin = kafka.admin();
+
+export async function createTopics() {
+    try{
+        await admin.connect();
+
+        console.log("You successfully connected to kafka");
+
+        await admin.createTopics({
+            topics: [
+                {
+                    topic: "market-data",
+                    numPartitions: 1,
+                    replicationFactor: 1
+                },
+                {
+                    topic: "news-feed",
+                    numPartitions: 1,
+                    replicationFactor: 1
+                },
+            ],
+        });
+    }
+    catch(error){
+        throw new Error(`The given topics failed to be created: ${error}`);
+    }
+    finally {
+        await admin.disconnect();
+    }
+}
