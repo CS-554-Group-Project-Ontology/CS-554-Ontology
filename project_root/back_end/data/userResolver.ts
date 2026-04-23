@@ -133,13 +133,13 @@ export const userResolver = {
           totalOther += liabilities.other;
           otherCount++;
         }
-
-        if(rentCount === 0 && insuranceCount === 0 && utilitiesCount === 0 && otherCount === 0){
-          throw new GraphQLError('No data for this neighborhood yet', {
-            extensions: { code: 'NOT_FOUND' },
-          });
-        }       
       });
+
+      if(rentCount === 0 && insuranceCount === 0 && utilitiesCount === 0 && otherCount === 0){
+        throw new GraphQLError('No data for this neighborhood yet', {
+          extensions: { code: 'NOT_FOUND' },
+        });
+      }
 
       return {
         rent: rentCount > 0 ? totalRent / rentCount : 0,
