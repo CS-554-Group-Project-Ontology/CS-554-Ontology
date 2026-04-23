@@ -35,8 +35,14 @@ export const FRED_SERIES = gql`
 `;
 
 export const GET_COST_OF_LIVING_BY_CITY_AND_NEIGHBORHOOD = gql`
-  query GetCostOfLivingByCityAndNeighborhood($neighborhood: String!) {
-    getCostOfLivingByCityAndNeighborhood(neighborhood: $neighborhood) {
+  query GetCostOfLivingByCityAndNeighborhood(
+    $city: String!
+    $neighborhood: String!
+  ) {
+    getCostOfLivingByCityAndNeighborhood(
+      city: $city
+      neighborhood: $neighborhood
+    ) {
       rent
       insuranceDeductibles
       utilities
