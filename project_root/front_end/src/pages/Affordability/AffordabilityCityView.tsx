@@ -156,7 +156,7 @@ const AffordabilityCityView = ({
       return;
     }
 
-    const requestKey = `${selectedNeighborhood}`;
+    const requestKey = `${profileCity}|${selectedNeighborhood}`;
 
     if (lastRequestedNeighborhoodRef.current === requestKey) {
       return;
@@ -164,10 +164,11 @@ const AffordabilityCityView = ({
     lastRequestedNeighborhoodRef.current = requestKey;
     void fetchCostOfLiving({
       variables: {
+        city: profileCity,
         neighborhood: selectedNeighborhood,
       },
     });
-  }, [fetchCostOfLiving, selectedNeighborhood]);
+  }, [fetchCostOfLiving, profileCity, selectedNeighborhood]);
 
   // fetch neighborhood features from gist url
   useEffect(() => {

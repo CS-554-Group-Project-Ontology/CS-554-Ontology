@@ -4,7 +4,7 @@ export const typeDefs = gql`
   type Query {
     users: [User!]!
     getMe: User
-    getCostOfLivingByCityAndNeighborhood(neighborhood: String!): Liabilities
+    getCostOfLivingByCityAndNeighborhood(city: String!, neighborhood: String!): Liabilities
   }
 
   type User {

@@ -59,7 +59,7 @@ export const userResolver = {
 
     getCostOfLivingByCityAndNeighborhood: async (
       _: unknown,
-      args: { neighborhood: string },
+      args: { city: string; neighborhood: string },
       context: ResolverContext,
     ) => {
       if (!context.token) {
@@ -69,7 +69,14 @@ export const userResolver = {
       }
       await verifyFirebaseToken(context.token);
 
+      const city = args.city.trim();
       const neighborhood = args.neighborhood.trim();
+
+      if (!city) {
+        throw new GraphQLError('City is required', {
+          extensions: { code: 'BAD_USER_INPUT' },
+        });
+      }
 
       if (!neighborhood) {
         throw new GraphQLError('Neighborhood is required', {
@@ -80,6 +87,10 @@ export const userResolver = {
       const escapeRegex = (str: string) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
       const users = await User.find({
+        'economic_profile.city': {
+          $regex: `^${escapeRegex(city)}$`,
+          $options: 'i',
+        },
         'economic_profile.neighborhood': {
           $regex: `^${escapeRegex(neighborhood)}$`,
           $options: 'i',
