@@ -1,1 +1,10 @@
-redis_streams_layer
+
+Dockerfile
+docker-compose.yml
+/project_root/back_end/.env
+/project_root/kafka_layer/.env
+/project_root/redis_streams_layer/.env
+node_modules/
+.dockerignore
+.env.*
+
