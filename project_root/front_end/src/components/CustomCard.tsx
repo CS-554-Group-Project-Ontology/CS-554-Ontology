@@ -22,7 +22,7 @@ const CustomCard = ({
 }: CustomCardProps) => {
   return (
     <div
-      className={`card ${width} bg-base-100 p-4 mb-4 border border-slate-200 transition-all duration-300 cursor-pointer shadow-md hover:shadow-lg hover:scale-102 rounded-lg`}
+      className={`card ${width} bg-base-100 p-4 mb-4 border border-slate-200 transition-all duration-300 cursor-pointer shadow hover:shadow-md hover:scale-102 rounded-lg`}
     >
       <div className='card-body'>
         <div className='flex justify-between items-start'>

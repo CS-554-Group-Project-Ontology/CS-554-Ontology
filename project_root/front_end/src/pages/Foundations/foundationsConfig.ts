@@ -49,3 +49,20 @@ export const FOUNDATIONS_SERIES: FoundationsSeriesConfig[] = [
       'The average price of gas at the pump. When this jumps, it hits almost everything else. Shipping, flights, and even groceries, since moving stuff gets more expensive.',
   },
 ];
+
+export const DASHBOARD_FOUNDATIONS_SERIES: FoundationsSeriesConfig[] = [
+  {
+    seriesId: 'GASREGW',
+    title: 'U.S. Regular Gasoline Price',
+    yLabel: 'USD / gallon',
+    description:
+      'The average price of gas at the pump. When this jumps, it hits almost everything else. Shipping, flights, and even groceries, since moving stuff gets more expensive.',
+  },
+  {
+    seriesId: 'MORTGAGE30US',
+    title: '30-Year Fixed Mortgage Rate',
+    yLabel: '%',
+    description:
+      'The typical interest rate on a 30-year home loan. Small changes here are a big deal, as a 1% jump can add hundreds to a monthly house payment.',
+  },
+];
