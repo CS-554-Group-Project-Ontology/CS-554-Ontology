@@ -354,7 +354,7 @@ const AffordabilityCityView = ({
   const messageProfileIncomplete =
     'Please update your economic profile and interact with the map.';
   const messageProfileComplete = 'Update your economic profile';
-  const pathLink = '/dashboard';
+  const pathLink = '/';
   const pathLinkText = 'Update your economic profile';
 
   if (loading) return <p>Loading...</p>;

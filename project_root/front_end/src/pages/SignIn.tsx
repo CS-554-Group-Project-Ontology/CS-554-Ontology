@@ -12,7 +12,7 @@ function SignIn() {
   const [error, setError] = useState("");
 
   if (currentUser) {
-    return <Navigate to='/dashboard' />;
+    return <Navigate to='/' />;
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
