@@ -10,6 +10,10 @@ export type GetCostOfLivingByCityAndNeighborhoodData = {
   getCostOfLivingByCityAndNeighborhood?: TsLiabilities | null;
 };
 
+export type GetUserCountsByCityData = {
+  getUserCountsByCity: TsUserCitiesCount;
+};
+
 export interface TsLiabilities {
   rent?: number;
   insuranceDeductibles?: number;
@@ -29,6 +33,23 @@ export type NeighborhoodProperties = {
   boroughCode?: string;
   borough?: string;
   '@id'?: string;
+};
+
+export type CitiesData = {
+  city: string;
+  count: number;
+};
+
+export type UserNeighborhoodsCount = {
+  city: string;
+  neighborhood: string;
+  count: number;
+};
+
+export type TsUserCitiesCount = {
+  totalCount: number;
+  citiesData: CitiesData[];
+  popularNeighborhoods: UserNeighborhoodsCount[];
 };
 
 export type NYCFeature = Feature<Geometry | null, NeighborhoodProperties>;

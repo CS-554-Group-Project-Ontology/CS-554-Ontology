@@ -1,49 +1,110 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { Activity, DollarSignIcon, Users } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import CustomCard from '../components/CustomCard';
 import MetricCard from '../pages/Foundations/MetricCard';
 import { DASHBOARD_FOUNDATIONS_SERIES } from '../pages/Foundations/foundationsConfig';
+import queries from '../queries';
+import { useLazyQuery } from '@apollo/client/react';
+import type { GetUserCountsByCityData } from '../types';
+import Loading from './Loading';
 
 const Dashboard = () => {
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  // get user counts by city
+  const [
+    fetchUserCountsByCity,
+    {
+      data: userCountsData,
+      loading: isUserCountsLoading,
+      error: userCountsError,
+    },
+  ] = useLazyQuery<GetUserCountsByCityData>(queries.GET_USER_COUNTS_BY_CITY, {
+    fetchPolicy: 'cache-and-network',
+  });
+
+  // Get total users
+  const totalUserCounts = userCountsData?.getUserCountsByCity?.totalCount || 0;
+
+  // Get user counts for each city
+  const nycUserCounts = userCountsData?.getUserCountsByCity?.citiesData.find(
+    (city) => city.city === 'New York',
+  )?.count;
+  const sfUserCounts = userCountsData?.getUserCountsByCity?.citiesData.find(
+    (city) => city.city === 'San Francisco',
+  )?.count;
+  const houstonUserCounts =
+    userCountsData?.getUserCountsByCity?.citiesData.find(
+      (city) => city.city === 'Houston',
+    )?.count;
+
+  // Get popular neighborhoods for each city
+  const popularNeighborhoods =
+    userCountsData?.getUserCountsByCity?.popularNeighborhoods || [];
+
+  const nycPopularNeighborhood = popularNeighborhoods
+    .filter((n) => n.city === 'New York')
+    .sort((a, b) => b.count - a.count)[0]?.neighborhood;
+  const sfPopularNeighborhood = popularNeighborhoods
+    .filter((n) => n.city === 'San Francisco')
+    .sort((a, b) => b.count - a.count)[0]?.neighborhood;
+  const houstonPopularNeighborhood = popularNeighborhoods
+    .filter((n) => n.city === 'Houston')
+    .sort((a, b) => b.count - a.count)[0]?.neighborhood;
+
+  // Fetch user counts by city on component mount
+  useEffect(() => {
+    if (!currentUser) {
+      return;
+    }
+    fetchUserCountsByCity();
+  }, [currentUser, fetchUserCountsByCity]);
+
   const welcomeMessage = currentUser
     ? `Welcome back to Ontology.`
     : 'Welcome to Ontology!';
 
-  const usersContent = (
+  // Card content for users
+  const usersCardContent = (
     <div>
       <p className='font-bold text-lg'>
-        New York City: <span className='font-semibold text-primary'>25</span>
+        New York City:{' '}
+        <span className='font-semibold text-primary'>{nycUserCounts || 0}</span>
       </p>
       <p className='font-bold text-lg'>
-        San Francisco: <span className='font-semibold text-primary'>15</span>
+        San Francisco:{' '}
+        <span className='font-semibold text-primary'>{sfUserCounts || 0}</span>
       </p>
       <p className='font-bold text-lg'>
-        Houston: <span className='font-semibold text-primary'>10</span>
+        Houston:{' '}
+        <span className='font-semibold text-primary'>
+          {houstonUserCounts || 0}
+        </span>
       </p>
     </div>
   );
 
-  const financialHealthContent = (
+  // Card content for financial health insights
+  const financialHealthCardContent = (
     <div>
       <p className='font-bold text-lg'>
         Consumer Index:{' '}
         <span className='font-semibold text-primary'>334.1%</span>
       </p>
       <p className='font-bold text-lg'>
-        Mortgage: <span className='font-semibold text-primary'>6.3%</span>
+        Mortgage Rate: <span className='font-semibold text-primary'>6.3%</span>
       </p>
       <p className='font-bold text-lg'>
-        Unemployment: <span className='font-semibold text-primary'>4.3%</span>
+        Unemployment Rate: <span className='font-semibold text-primary'>4.3%</span>
       </p>
     </div>
   );
 
-  const affordabilityContent = (
+  // Card content for affordability insights
+  const affordabilityCardContent = (
     <div>
       <p className='font-bold text-lg'>
         New York City:{' '}
@@ -51,7 +112,7 @@ const Dashboard = () => {
           to='/affordability-nyc'
           className='font-semibold text-primary hover:underline'
         >
-          Flushing
+          {nycPopularNeighborhood || 'Unknown'}
         </Link>
       </p>
       <p className='font-bold text-lg'>
@@ -60,7 +121,7 @@ const Dashboard = () => {
           to='/affordability-sf'
           className='font-semibold text-primary hover:underline'
         >
-          Mission District
+          {sfPopularNeighborhood || 'Unknown'}
         </Link>
       </p>
       <p className='font-bold text-lg'>
@@ -69,11 +130,18 @@ const Dashboard = () => {
           to='/affordability-houston'
           className='font-semibold text-primary hover:underline'
         >
-          Greater Heights
+          {houstonPopularNeighborhood || 'Unknown'}
         </Link>
       </p>
     </div>
   );
+
+  if (isUserCountsLoading) {
+    return <Loading />;
+  }
+  if (userCountsError) {
+    return <p className='text-red-500'>Error: {userCountsError.message}</p>;
+  }
 
   return (
     <div>
@@ -90,11 +158,11 @@ const Dashboard = () => {
         <CustomCard
           title='Users'
           badgeText='Active'
-          numberText='50'
+          numberText={totalUserCounts.toString()}
           icon={<Users className='size-5' />}
           footerButtonText='Explore Cities'
           footerButtonAction={() => navigate('/affordability-nyc')}
-          content={usersContent}
+          content={usersCardContent}
         />
         <CustomCard
           title='Affordability'
@@ -103,7 +171,7 @@ const Dashboard = () => {
           icon={<DollarSignIcon className='size-5' />}
           footerButtonText='Explore Neighborhoods'
           footerButtonAction={() => navigate('/affordability-nyc')}
-          content={affordabilityContent}
+          content={affordabilityCardContent}
         />
         <CustomCard
           title='Purchases Power'
@@ -112,7 +180,7 @@ const Dashboard = () => {
           footerButtonText='View Financial Health'
           footerButtonAction={() => navigate('/foundations')}
           icon={<Activity className='size-5' />}
-          content={financialHealthContent}
+          content={financialHealthCardContent}
         />
       </div>
       <div className='grid gap-6 md:grid-cols-2'>
