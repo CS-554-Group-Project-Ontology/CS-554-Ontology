@@ -4,7 +4,7 @@ import { Activity, DollarSignIcon, Users } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import CustomCard from '../components/CustomCard';
 import MetricCard from '../pages/Foundations/MetricCard';
-import { DASHBOARD_FOUNDATIONS_SERIES } from '../pages/Foundations/foundationsConfig';
+import { FOUNDATIONS_SERIES } from '../pages/Foundations/foundationsConfig';
 import queries from '../queries';
 import { useLazyQuery } from '@apollo/client/react';
 import type { GetUserCountsByCityData } from '../types';
@@ -98,7 +98,8 @@ const Dashboard = () => {
         Mortgage Rate: <span className='font-semibold text-primary'>6.3%</span>
       </p>
       <p className='font-bold text-lg'>
-        Unemployment Rate: <span className='font-semibold text-primary'>4.3%</span>
+        Unemployment Rate:{' '}
+        <span className='font-semibold text-primary'>4.3%</span>
       </p>
     </div>
   );
@@ -184,7 +185,9 @@ const Dashboard = () => {
         />
       </div>
       <div className='grid gap-6 md:grid-cols-2'>
-        {DASHBOARD_FOUNDATIONS_SERIES.map((config) => (
+        {FOUNDATIONS_SERIES.filter((config) =>
+          ['GASREGW', 'MORTGAGE30US'].includes(config.seriesId),
+        ).map((config) => (
           <MetricCard key={config.seriesId} config={config} />
         ))}
       </div>
