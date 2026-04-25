@@ -64,6 +64,7 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
     const fetchNeighborhoods = async () => {
       try {
         setLoading(true);
+        setError(null);
         const resp =
           await axios.get<FeatureCollection<Geometry, GeoJsonProperties>>(
             geoJsonUrl,
