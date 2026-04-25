@@ -15,6 +15,9 @@ import {
   type FieldErrors,
   type Liabilities,
 } from './schema';
+import SearchableSelect from './SearchableSelect';
+import { CITY_OPTIONS } from '../../constants';
+import { checkNumber, checkString } from '../../helpers';
 
 function Mobility() {
   const { currentUser } = useContext(AuthContext);
@@ -47,16 +50,36 @@ function Mobility() {
       try {
         if (!currentUser) return;
         const profile = await getUserApi();
+        // Validate and sanitize fetched data
+        const city = checkString(profile.economic_profile?.city ?? '', 'City');
+        const neighborhood = checkString(
+          profile.economic_profile?.neighborhood ?? '',
+          'Neighborhood',
+        );
+        const income = checkNumber(profile.economic_profile?.income ?? 0, 'Income');
+        const rent = checkNumber(profile.economic_profile?.liabilities?.rent ?? 0, 'Rent');
+        const insuranceDeductibles = checkNumber(
+          profile.economic_profile?.liabilities?.insuranceDeductibles ?? 0,
+          'Insurance Deductibles',
+        );
+        const utilities = checkNumber(
+          profile.economic_profile?.liabilities?.utilities ?? 0,
+          'Utilities',
+        );
+        const other = checkNumber(
+          profile.economic_profile?.liabilities?.other ?? 0,
+          'Other Liabilities',
+        );
+        // If validation passes, set the sanitized profile
         const loaded: EconomicProfile = {
-          income: profile.economic_profile?.income,
-          city: profile.economic_profile?.city ?? '',
-          neighborhood: profile.economic_profile?.neighborhood ?? '',
+          income,
+          city,
+          neighborhood,
           liabilities: {
-            rent: profile.economic_profile?.liabilities?.rent,
-            insuranceDeductibles:
-              profile.economic_profile?.liabilities?.insuranceDeductibles,
-            utilities: profile.economic_profile?.liabilities?.utilities,
-            other: profile.economic_profile?.liabilities?.other,
+            rent,
+            insuranceDeductibles,
+            utilities,
+            other,
           },
         };
         baselineRef.current = loaded;
@@ -173,19 +196,23 @@ function Mobility() {
                   errors.city ? 'select-error' : ''
                 }`}
                 value={economicProfile.city ?? ''}
-                onChange={(e) =>
+                onChange={(e) => {
+                  const newCity = e.target.value;
                   setEconomicProfile((prev) => ({
                     ...prev,
-                    city: e.target.value,
-                  }))
-                }
+                    city: newCity,
+                    neighborhood: '',
+                  }));
+                }}
               >
                 <option value='' disabled>
                   Select a city
                 </option>
-                <option value='New York'>New York</option>
-                <option value='San Francisco'>San Francisco</option>
-                <option value='Houston'>Houston</option>
+                {CITY_OPTIONS.map((city) => (
+                  <option key={city} value={city}>
+                    {city}
+                  </option>
+                ))}
               </select>
               {errors.city && (
                 <p className='mt-1 text-sm text-error'>{errors.city}</p>
@@ -196,20 +223,37 @@ function Mobility() {
               <label className='mb-1 block text-sm font-medium'>
                 Neighborhood
               </label>
-              <input
-                type='text'
-                className={`input input-bordered w-full ${
-                  errors.neighborhood ? 'input-error' : ''
-                }`}
-                placeholder='e.g. Flushing'
-                value={economicProfile.neighborhood ?? ''}
-                onChange={(e) =>
-                  setEconomicProfile((prev) => ({
-                    ...prev,
-                    neighborhood: e.target.value,
-                  }))
-                }
-              />
+
+              {CITY_OPTIONS.includes(economicProfile.city!) ? (
+                <SearchableSelect
+                  selectedCity={economicProfile.city!}
+                  value={economicProfile.neighborhood!}
+                  onChange={(value: string) =>
+                    setEconomicProfile((prev) => ({
+                      ...prev,
+                      neighborhood: value,
+                    }))
+                  }
+                  placeholder='Select a neighborhood'
+                  disabled={!economicProfile.city}
+                />
+              ) : (
+                <input
+                  type='text'
+                  className={`input input-bordered w-full ${
+                    errors.neighborhood ? 'input-error' : ''
+                  }`}
+                  placeholder='e.g. Flushing'
+                  value={economicProfile.neighborhood ?? ''}
+                  onChange={(e) =>
+                    setEconomicProfile((prev) => ({
+                      ...prev,
+                      neighborhood: e.target.value,
+                    }))
+                  }
+                />
+              )}
+
               {errors.neighborhood && (
                 <p className='mt-1 text-sm text-error'>{errors.neighborhood}</p>
               )}
