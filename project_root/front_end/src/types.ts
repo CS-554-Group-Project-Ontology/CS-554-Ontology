@@ -1,4 +1,5 @@
 import type { Feature, Geometry } from 'geojson';
+import { checkString } from './helpers';
 
 export type GetMeData = {
   getMe?: {
@@ -71,6 +72,15 @@ export type FredSeriesData = {
 // SF and Houston do not have neighborhood but name property
 // So to make it work, we need to normalize the geojson to mach NYC
 export const normalizeGeoJSON = (geojson: any, city: string) => {
+  if (!geojson) return [];
+
+  try {
+    city = checkString(city, 'City');
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+  
   return geojson.features
     .filter((f: any) => f.geometry !== null)
     .map((f: any) => ({
