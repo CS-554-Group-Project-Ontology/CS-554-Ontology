@@ -3,11 +3,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { ChevronDown } from 'lucide-react';
 import type { FeatureCollection, Geometry, GeoJsonProperties } from 'geojson';
 import { normalizeGeoJSON } from '../../types';
-import {
-  HOUSTON_GEOJSON_URL,
-  NYC_GEOJSON_URL,
-  SF_GEOJSON_URL,
-} from '../../constants';
+import { CITY_GEOJSON_URLS, CITY_OPTIONS } from '../../constants';
 
 // SearchableSelect Component
 interface SearchableSelectProps {
@@ -47,28 +43,23 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
   }, [searchTerm, neighborhoods]);
 
   // Determine GeoJSON URL based on selected city
-  const geoJsonUrl = useMemo(() => {
-    switch (selectedCity) {
-      case 'New York':
-        return NYC_GEOJSON_URL;
-      case 'San Francisco':
-        return SF_GEOJSON_URL;
-      case 'Houston':
-        return HOUSTON_GEOJSON_URL;
-      default:
-        return '';
-    }
-  }, [selectedCity]);
+  const geoJsonUrl = CITY_OPTIONS.includes(selectedCity)
+    ? CITY_GEOJSON_URLS[selectedCity]
+    : null;
 
   useEffect(() => {
     const fetchNeighborhoods = async () => {
+      if (!selectedCity || !geoJsonUrl) {
+        setNeighborhoods([]);
+        setError(null);
+        return;
+      }
       try {
         setLoading(true);
         setError(null);
-        const resp =
-          await axios.get<FeatureCollection<Geometry, GeoJsonProperties>>(
-            geoJsonUrl,
-          );
+        const resp = await axios.get<
+          FeatureCollection<Geometry, GeoJsonProperties>
+        >(geoJsonUrl!);
         const normalizedFeatures = normalizeGeoJSON(resp.data, selectedCity);
         let names: string[] = [];
 
@@ -83,12 +74,14 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
                 (feature) =>
                   feature?.properties?.name ||
                   feature?.properties?.neighborhood ||
-                  '',
+                  undefined,
               )
               .filter((n): n is string => Boolean(n));
           }
+          setError(null); // Clear error if names successfully extracted
         }
-        if (names.length === 0) {
+        // If no names found, set error to inform user
+        if (!names || names.length === 0) {
           setError(`No neighborhoods found for ${selectedCity}`);
         }
         setNeighborhoods(names);
@@ -125,6 +118,15 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
         onClick={() =>
           !disabled && selectedCity && !loading && setIsOpen(!isOpen)
         }
+        onKeyDown={(e) =>
+          !disabled &&
+          selectedCity &&
+          !loading &&
+          e.key === 'Enter' &&
+          setIsOpen(!isOpen)
+        }
+        role='button'
+        tabIndex={0}
       >
         <span className={!value ? 'text-base-content/50' : ''}>
           {loading ? (
@@ -149,6 +151,9 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
             <div
               className='fixed inset-0 z-10'
               onClick={() => setIsOpen(false)}
+              onKeyDown={(e) => e.key === 'Escape' && setIsOpen(false)}
+              role='button'
+              tabIndex={0}
             />
             <div className='absolute z-20 w-full mt-1 bg-base-100 border border-base-300 rounded-lg shadow-lg max-h-80 overflow-hidden'>
               <div className='p-2 border-b border-base-300 sticky top-0 bg-base-100'>
@@ -173,6 +178,11 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
                           : ''
                       }`}
                       onClick={() => handleSelect(option)}
+                      onKeyDown={(e) =>
+                        e.key === 'Enter' && handleSelect(option)
+                      }
+                      role='button'
+                      tabIndex={0}
                     >
                       {option}
                     </div>

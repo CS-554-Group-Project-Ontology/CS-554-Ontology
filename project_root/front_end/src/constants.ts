@@ -8,6 +8,12 @@ export const SF_GEOJSON_URL =
 export const HOUSTON_GEOJSON_URL =
   'https://gist.githubusercontent.com/PollefeysC/4158b5b31f2e862362fef059da811dfb/raw/8612c7813439f31b9773b59c1446f62f64973670/houston.geojson';
 
+export const CITY_GEOJSON_URLS: Record<string, string> = {
+  'New York': NYC_GEOJSON_URL,
+  'San Francisco': SF_GEOJSON_URL,
+  'Houston': HOUSTON_GEOJSON_URL,
+};  
+
 // City options for dropdowns
 export const CITY_OPTIONS: string[] = ['New York', 'San Francisco', 'Houston'];
 
