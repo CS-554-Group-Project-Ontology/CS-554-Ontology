@@ -186,7 +186,7 @@ const Dashboard = () => {
       </div>
       <div className='grid gap-6 md:grid-cols-2'>
         {FOUNDATIONS_SERIES.filter((config) =>
-          ['GASREGW', 'MORTGAGE30US'].includes(config.seriesId),
+          ['DGS2', 'A191RL1Q225SBEA'].includes(config.seriesId),
         ).map((config) => (
           <MetricCard key={config.seriesId} config={config} />
         ))}

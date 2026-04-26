@@ -1,10 +1,15 @@
 import mongoose from 'mongoose';
+import { randomInt as secureRandomInt } from 'node:crypto';
 import { v4 as uuid } from 'uuid';
 import connectDB from '../Config/mongooseConfig.ts';
 import User from '../data_model_layer/User.ts';
 
 const today = new Date().toISOString().slice(0, 10);
 const SEED_UUID_PREFIXES = ['seed-ny-', 'seed-sf-', 'seed-houston-'];
+
+const getSecureRandomInRange = (min: number, max: number) => {
+  return secureRandomInt(min, max + 1);
+};
 
 const newYorkNeighborhoods = [
   'West Village',
@@ -114,9 +119,10 @@ const citySeedConfigs: CitySeedConfig[] = [
 ];
 
 const randomInt = (min: number, max: number) =>
-  Math.floor(Math.random() * (max - min + 1)) + min;
+  getSecureRandomInRange(min, max);
 
-const pick = <T>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)]!;
+const pick = <T>(arr: T[]): T =>
+  arr[getSecureRandomInRange(0, arr.length - 1)]!;
 
 const makeUser = (config: CitySeedConfig) => {
   const neighborhood = pick(config.neighborhoods);
@@ -155,6 +161,10 @@ const main = async () => {
       UUID: { $regex: `^${prefix}` },
     })),
   });
+
+  console.log(
+    `=> Deleted ${SEED_UUID_PREFIXES.length} seeded users for New York, San Francisco, and Houston`,
+  );
 
   const users = citySeedConfigs.flatMap((config) =>
     Array.from({ length: config.count }, () => makeUser(config)),
