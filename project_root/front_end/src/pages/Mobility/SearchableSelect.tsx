@@ -12,13 +12,21 @@ interface SearchableSelectProps {
   onChange: (value: string) => void;
   placeholder?: string;
   disabled?: boolean;
+  width?: string;
 }
 
 type NeighborhoodFeature = {
+  geometry?: Geometry;
   properties?: {
     name?: string;
     neighborhood?: string;
   };
+};
+
+type NeighborhoodOption = {
+  name: string;
+  latitude: number;
+  longitude: number;
 };
 
 const SearchableSelect: React.FC<SearchableSelectProps> = ({
@@ -27,10 +35,13 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
   onChange,
   placeholder = 'Select a neighborhood',
   disabled = false,
+  width = 'w-full',
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isOpen, setIsOpen] = useState(false);
-  const [neighborhoods, setNeighborhoods] = useState<string[]>([]);
+  const [neighborhoods, setNeighborhoods] = useState<NeighborhoodOption[]>([]);
+  const [latitude, setLatitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -38,7 +49,7 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
   const filteredOptions = useMemo(() => {
     if (!searchTerm) return neighborhoods;
     return neighborhoods.filter((option) =>
-      option.toLowerCase().includes(searchTerm.toLowerCase()),
+      option.name.toLowerCase().includes(searchTerm.toLowerCase()),
     );
   }, [searchTerm, neighborhoods]);
 
@@ -61,30 +72,45 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
           FeatureCollection<Geometry, GeoJsonProperties>
         >(geoJsonUrl!);
         const normalizedFeatures = normalizeGeoJSON(resp.data, selectedCity);
-        let names: string[] = [];
+
+        let options: NeighborhoodOption[] = [];
 
         if (Array.isArray(normalizedFeatures)) {
-          // If already array of strings, use as is
           if (typeof normalizedFeatures[0] === 'string') {
-            names = normalizedFeatures as string[];
+            options = (normalizedFeatures as string[]).map((name) => ({
+              name,
+              latitude: 0,
+              longitude: 0,
+            }));
           } else {
-            // Otherwise, try to extract from properties
-            names = (normalizedFeatures as NeighborhoodFeature[])
-              .map(
-                (feature) =>
+            options = (normalizedFeatures as NeighborhoodFeature[])
+              .map((feature) => {
+                const name =
                   feature?.properties?.name ||
                   feature?.properties?.neighborhood ||
-                  undefined,
-              )
-              .filter((n): n is string => Boolean(n));
+                  undefined;
+
+                if (!name || !feature?.geometry) {
+                  return null;
+                }
+
+                const { latitude, longitude } = getNeighborhoodLatLong(
+                  feature.geometry,
+                );
+
+                return { name, latitude, longitude };
+              })
+              .filter(
+                (option): option is NeighborhoodOption => option !== null,
+              );
           }
           setError(null); // Clear error if names successfully extracted
         }
         // If no names found, set error to inform user
-        if (!names || names.length === 0) {
+        if (!options || options.length === 0) {
           setError(`No neighborhoods found for ${selectedCity}`);
         }
-        setNeighborhoods(names);
+        setNeighborhoods(options);
       } catch (err) {
         console.error(`Failed to load ${selectedCity} GeoJSON`, err);
         setError('Failed to load neighborhoods');
@@ -103,14 +129,45 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
     }
   }, [isOpen]);
 
+  // Get latitude and longitude for a neighborhood by averaging the coordinates of its geometry
+  const getNeighborhoodLatLong = (geometry: Geometry) => {
+    const coords =
+      geometry.type === 'Polygon'
+        ? geometry.coordinates.flat(1)
+        : geometry.type === 'MultiPolygon'
+          ? geometry.coordinates.flat(2)
+          : [];
+
+    const lons = coords.map(([lng]) => lng);
+    const lats = coords.map(([, lat]) => lat);
+
+    const longitude = lons.reduce((sum, value) => sum + value, 0) / lons.length;
+    const latitude = lats.reduce((sum, value) => sum + value, 0) / lats.length;
+
+    return { latitude, longitude };
+  };
+
   const handleSelect = (selectedValue: string) => {
+    const selectedNeighborhood = neighborhoods.find(
+      (neighborhood) => neighborhood.name === selectedValue,
+    );
+
+    if (selectedNeighborhood) {
+      setLatitude(selectedNeighborhood.latitude);
+      setLongitude(selectedNeighborhood.longitude);
+    }
+
     onChange(selectedValue);
     setSearchTerm('');
     setIsOpen(false);
   };
 
   return (
-    <div className='relative w-full'>
+    <div
+      className={`relative ${width}`}
+      data-latitude={latitude}
+      data-longitude={longitude}
+    >
       <div
         className={`input input-bordered w-full flex items-center justify-between cursor-pointer ${
           disabled || !selectedCity ? 'input-disabled bg-base-200' : ''
@@ -171,20 +228,20 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
                 {filteredOptions.length > 0 ? (
                   filteredOptions.map((option, index) => (
                     <div
-                      key={`${option}-${index}`}
+                      key={`${option.name}-${index}`}
                       className={`px-3 py-2 cursor-pointer hover:bg-base-200 transition-colors ${
-                        value === option
+                        value === option.name
                           ? 'bg-primary/10 text-primary font-medium'
                           : ''
                       }`}
-                      onClick={() => handleSelect(option)}
+                      onClick={() => handleSelect(option.name)}
                       onKeyDown={(e) =>
-                        e.key === 'Enter' && handleSelect(option)
+                        e.key === 'Enter' && handleSelect(option.name)
                       }
                       role='button'
                       tabIndex={0}
                     >
-                      {option}
+                      {option.name}
                     </div>
                   ))
                 ) : (
