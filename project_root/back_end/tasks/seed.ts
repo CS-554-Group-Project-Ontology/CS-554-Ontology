@@ -156,14 +156,14 @@ const makeUser = (config: CitySeedConfig) => {
 const main = async () => {
   await connectDB();
 
-  await User.deleteMany({
+  const deletedUsers = await User.deleteMany({
     $or: SEED_UUID_PREFIXES.map((prefix) => ({
       UUID: { $regex: `^${prefix}` },
     })),
   });
 
   console.log(
-    `=> Deleted ${SEED_UUID_PREFIXES.length} seeded users for New York, San Francisco, and Houston`,
+    `=> Deleted all ${deletedUsers.deletedCount} prefix seeded users for New York, San Francisco, and Houston`,
   );
 
   const users = citySeedConfigs.flatMap((config) =>
