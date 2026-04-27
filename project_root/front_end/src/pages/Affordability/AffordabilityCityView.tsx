@@ -158,9 +158,9 @@ const AffordabilityCityView = ({
     setHoveredNeighborhood(null);
   }, [profileCity]);
 
-  // fetch cost of living data when selected neighborhood changes & fallback to searched
+  // fetch cost of living data when selected neighborhood changes & fallback to searched/profile neighborhood
   useEffect(() => {
-    const neighborhoodToShow = hoveredNeighborhood ?? selectedNeighborhood;
+    const neighborhoodToShow = hoveredNeighborhood ?? selectedNeighborhood ?? profileNeighborhood;
     if (!neighborhoodToShow) {
       return;
     }
@@ -530,11 +530,11 @@ const AffordabilityCityView = ({
                     <MapPin className='h-5 w-5' />
                   </div>
                   <div className='min-w-0 flex text-xs truncate font-semibold'>
-                    {(hoveredNeighborhood ?? selectedNeighborhood) ? (
+                    {(hoveredNeighborhood ?? selectedNeighborhood) || (isUserCurrentCity && profileNeighborhood) ? (
                       <>
                         <p className='text-slate-500 mr-1'>Cost of Living:</p>
                         <span className='text-primary'>
-                          {hoveredNeighborhood ?? selectedNeighborhood}
+                          {(hoveredNeighborhood ?? selectedNeighborhood) || (isUserCurrentCity && profileNeighborhood)}
                         </span>
                       </>
                     ) : (
