@@ -5,6 +5,24 @@ export const typeDefs = gql`
     users: [User!]!
     getMe: User
     getCostOfLivingByCityAndNeighborhood(city: String!, neighborhood: String!): Liabilities
+    getUserCountsByCity: UserCountsByCity
+  }
+
+  type UserCitiesCount {
+    city: String!
+    count: Int!
+  }
+    
+  type UserNeighborhoodsCount {
+    city: String!
+    neighborhood: String!
+    count: Int!
+  }
+  
+  type UserCountsByCity {
+    citiesData: [UserCitiesCount!]!
+    popularNeighborhoods: [UserNeighborhoodsCount!]!
+    totalCount: Int!
   }
 
   type User {

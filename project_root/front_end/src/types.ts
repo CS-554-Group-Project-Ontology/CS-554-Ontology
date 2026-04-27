@@ -1,4 +1,5 @@
 import type { Feature, Geometry } from 'geojson';
+import { checkString } from './helpers';
 
 export type GetMeData = {
   getMe?: {
@@ -8,6 +9,10 @@ export type GetMeData = {
 
 export type GetCostOfLivingByCityAndNeighborhoodData = {
   getCostOfLivingByCityAndNeighborhood?: TsLiabilities | null;
+};
+
+export type GetUserCountsByCityData = {
+  getUserCountsByCity: TsUserCitiesCount;
 };
 
 export interface TsLiabilities {
@@ -31,6 +36,23 @@ export type NeighborhoodProperties = {
   '@id'?: string;
 };
 
+export type CitiesData = {
+  city: string;
+  count: number;
+};
+
+export type UserNeighborhoodsCount = {
+  city: string;
+  neighborhood: string;
+  count: number;
+};
+
+export type TsUserCitiesCount = {
+  totalCount: number;
+  citiesData: CitiesData[];
+  popularNeighborhoods: UserNeighborhoodsCount[];
+};
+
 export type NYCFeature = Feature<Geometry | null, NeighborhoodProperties>;
 
 export interface FredObservation {
@@ -50,6 +72,15 @@ export type FredSeriesData = {
 // SF and Houston do not have neighborhood but name property
 // So to make it work, we need to normalize the geojson to mach NYC
 export const normalizeGeoJSON = (geojson: any, city: string) => {
+  if (!geojson) return [];
+
+  try {
+    city = checkString(city, 'City');
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+  
   return geojson.features
     .filter((f: any) => f.geometry !== null)
     .map((f: any) => ({

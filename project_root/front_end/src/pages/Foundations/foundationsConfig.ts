@@ -48,4 +48,18 @@ export const FOUNDATIONS_SERIES: FoundationsSeriesConfig[] = [
     description:
       'The average price of gas at the pump. When this jumps, it hits almost everything else. Shipping, flights, and even groceries, since moving stuff gets more expensive.',
   },
+  {
+    seriesId: 'DGS2',
+    title: 'Market Yield on U.S. Treasury 2-Year',
+    yLabel: '%',
+    description:
+      'The interest rate on 2-year U.S. government bonds. When this goes up, it can make borrowing more expensive and can signal that investors expect higher interest rates in the future.',
+  },
+  {
+    seriesId: 'A191RL1Q225SBEA',
+    title: 'Real Gross Domestic Product',
+    yLabel: 'USD',
+    description:
+      'Tracks the total value of all goods and services produced in the U.S. adjusted for inflation. When this goes up, it indicates economic growth. When it goes down, it might signal a recession.',
+  },
 ];

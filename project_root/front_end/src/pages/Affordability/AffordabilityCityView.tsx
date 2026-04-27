@@ -13,6 +13,9 @@ import {
 } from '../../types';
 import { formatCurrency } from '../../helpers';
 import ProfileStatusBanner from '../Mobility/ProfileStatusBanner';
+import { CITY_OPTIONS } from '../../constants';
+import SearchableSelect from '../Mobility/SearchableSelect';
+import Loading from '../../components/Loading';
 
 export interface AffordabilityCityViewProps {
   cityTitle: string;
@@ -146,17 +149,23 @@ const AffordabilityCityView = ({
   useEffect(() => {
     if (isUserCurrentCity && !selectedNeighborhood && profileNeighborhood) {
       setSelectedNeighborhood(profileNeighborhood);
-      setHoveredNeighborhood(profileNeighborhood);
     }
   }, [isUserCurrentCity, profileNeighborhood, selectedNeighborhood]);
 
-  // fetch cost of living data when selected neighborhood changes
+  // reset neighborhood state when city changes
   useEffect(() => {
-    if (!selectedNeighborhood) {
+    setSelectedNeighborhood(null);
+    setHoveredNeighborhood(null);
+  }, [profileCity]);
+
+  // fetch cost of living data when selected neighborhood changes & fallback to searched
+  useEffect(() => {
+    const neighborhoodToShow = hoveredNeighborhood ?? selectedNeighborhood;
+    if (!neighborhoodToShow) {
       return;
     }
 
-    const requestKey = `${profileCity}|${selectedNeighborhood}`;
+    const requestKey = `${profileCity}|${neighborhoodToShow}`;
 
     if (lastRequestedNeighborhoodRef.current === requestKey) {
       return;
@@ -165,10 +174,15 @@ const AffordabilityCityView = ({
     void fetchCostOfLiving({
       variables: {
         city: profileCity,
-        neighborhood: selectedNeighborhood,
+        neighborhood: neighborhoodToShow,
       },
     });
-  }, [fetchCostOfLiving, profileCity, selectedNeighborhood]);
+  }, [
+    fetchCostOfLiving,
+    profileCity,
+    selectedNeighborhood,
+    hoveredNeighborhood,
+  ]);
 
   // fetch neighborhood features from gist url
   useEffect(() => {
@@ -277,7 +291,6 @@ const AffordabilityCityView = ({
           typeof neighborhood === 'string' ? neighborhood : null;
 
         setHoveredNeighborhood(nextNeighborhood);
-        setSelectedNeighborhood(nextNeighborhood);
       });
 
       map.on('mousemove', fillLayerId, (event) => {
@@ -306,7 +319,6 @@ const AffordabilityCityView = ({
           typeof neighborhood === 'string' ? neighborhood : null;
 
         setHoveredNeighborhood(nextNeighborhood);
-        setSelectedNeighborhood(nextNeighborhood);
       });
 
       map.on('mouseleave', fillLayerId, () => {
@@ -319,8 +331,7 @@ const AffordabilityCityView = ({
         }
         hoveredId = null;
 
-        setHoveredNeighborhood(isUserCurrentCity ? profileNeighborhood : null);
-        setSelectedNeighborhood(isUserCurrentCity ? profileNeighborhood : null);
+        setHoveredNeighborhood(null);
       });
       setIsMapLoaded(true);
     });
@@ -345,19 +356,21 @@ const AffordabilityCityView = ({
       'case',
       ['boolean', ['feature-state', 'hover'], false],
       'orange',
+      ['==', ['get', 'neighborhood'], selectedNeighborhood],
+      'orange',
       ['==', ['get', 'neighborhood'], profileNeighborhood],
       '#3f2bcd',
       '#409A99',
     ]);
-  }, [isMapLoaded, profileNeighborhood, fillLayerId]);
+  }, [isMapLoaded, profileNeighborhood, selectedNeighborhood, fillLayerId]);
 
   const messageProfileIncomplete =
     'Please update your economic profile and interact with the map.';
   const messageProfileComplete = 'Update your economic profile';
-  const pathLink = '/dashboard';
+  const pathLink = '/';
   const pathLinkText = 'Update your economic profile';
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loading />;
   // Because user does not have an economic profile at first, so 'User Not Found' is expected.
   if (error && error.message !== 'User Not Found')
     return <p className='text-red-500'>Error: {error.message}</p>;
@@ -446,7 +459,7 @@ const AffordabilityCityView = ({
             </div>
           </details>
 
-          <div className='flex items-center justify-between mb-4 text-sm text-gray-600'>
+          <div className='flex items-center justify-between mb-2 text-sm text-gray-600'>
             <div className='flex items-center'>
               <p className='font-bold mr-4'>
                 Adjust the slider to zoom in or out:{' '}
@@ -481,6 +494,25 @@ const AffordabilityCityView = ({
             </button>
           </div>
 
+          {/* Search for a neighborhood */}
+          {CITY_OPTIONS.includes(profileCity!) && (
+            <div className='flex items-center justify-between mb-4'>
+              <p className='font-semibold text-gray-600 text-sm'>
+                Search for a neighborhood:
+              </p>
+              <SearchableSelect
+                selectedCity={profileCity!}
+                value={selectedNeighborhood ?? ''}
+                onChange={(value: string) => {
+                  setSelectedNeighborhood(value);
+                }}
+                placeholder='Select a neighborhood'
+                disabled={!CITY_OPTIONS.includes(profileCity!)}
+                width='w-90'
+              />
+            </div>
+          )}
+
           {/* Map container with sidebar overlay */}
           <div className='map-app-container'>
             <div className='map-sidebar'>
@@ -498,11 +530,11 @@ const AffordabilityCityView = ({
                     <MapPin className='h-5 w-5' />
                   </div>
                   <div className='min-w-0 flex text-xs truncate font-semibold'>
-                    {hoveredNeighborhood ? (
+                    {(hoveredNeighborhood ?? selectedNeighborhood) ? (
                       <>
                         <p className='text-slate-500 mr-1'>Cost of Living:</p>
                         <span className='text-primary'>
-                          {hoveredNeighborhood}
+                          {hoveredNeighborhood ?? selectedNeighborhood}
                         </span>
                       </>
                     ) : (

@@ -29,7 +29,7 @@ export const userResolver = {
             if (users.length==0){
                 throw new GraphQLError("Users Not Found"),{
                     extensions: {code: 'NOT_FOUND'}
-                }
+          }
       }
       return users;
     },
@@ -107,7 +107,7 @@ export const userResolver = {
       let totalInsuranceDeductibles = 0;
       let totalUtilities = 0;
       let totalOther = 0;
-      
+
       let rentCount = 0;
       let insuranceCount = 0;
       let utilitiesCount = 0;
@@ -146,6 +146,87 @@ export const userResolver = {
         insuranceDeductibles: insuranceCount > 0 ? totalInsuranceDeductibles / insuranceCount : 0,
         utilities: utilitiesCount > 0 ? totalUtilities / utilitiesCount : 0,
         other: otherCount > 0 ? totalOther / otherCount : 0,
+      };
+    },
+
+    getUserCountsByCity: async(_: unknown, __: unknown, context: ResolverContext) => {
+      if (!context.token) {
+        throw new GraphQLError('Unauthorized', {
+          extensions: { code: 'INVALID_ACCESS' },
+        });
+      }
+      await verifyFirebaseToken(context.token);
+
+      const users = await User.find({
+        'economic_profile.city': { $exists: true, $ne: null },
+      });
+
+      const counts: Record<string, number> = {};
+      users.forEach((user) => {
+        const city = user.economic_profile?.city;
+        if (typeof city === 'string' && city.trim() !== '') {
+          counts[city] = (counts[city] || 0) + 1;
+        }
+      });
+
+      const popularNeighborhoodsByCity: Record<
+        string,
+        Record<string, number>
+      > = {};
+      users.forEach((user) => {
+        const city = user.economic_profile?.city;
+        const neighborhood = user.economic_profile?.neighborhood;
+        if (
+          typeof city === 'string' &&
+          typeof neighborhood === 'string' &&
+          city.trim() !== '' &&
+          neighborhood.trim() !== ''
+        ) {
+          if (!popularNeighborhoodsByCity[city]) {
+            popularNeighborhoodsByCity[city] = {};
+          }
+          popularNeighborhoodsByCity[city][neighborhood] =
+            (popularNeighborhoodsByCity[city][neighborhood] || 0) + 1;
+        }
+      });
+
+      const citiesData = Object.entries(counts).map(([city, count]) => ({
+        city,
+        count,
+      }));
+
+      // get only 1 neighborhood per city, the one with the highest count, for the dashboard analytics page
+      const popularNeighborhoodsData: {
+        city: string;
+        neighborhood: string;
+        count: number;
+      }[] = [];
+
+      const seenCities = new Set<string>();
+
+      Object.entries(popularNeighborhoodsByCity)
+        .flatMap(([city, neighborhoods]) =>
+          Object.entries(neighborhoods).map(([neighborhood, count]) => ({
+            city,
+            neighborhood,
+            count,
+          })),
+        )
+        .sort((a, b) => b.count - a.count)
+        .forEach((entry) => {
+          if (!seenCities.has(entry.city)) {
+            popularNeighborhoodsData.push(entry);
+            seenCities.add(entry.city);
+          }
+        });
+
+      citiesData.sort((a, b) => b.count - a.count);
+      popularNeighborhoodsData.sort((a, b) => b.count - a.count);
+
+      return {
+        citiesData,
+        popularNeighborhoods: popularNeighborhoodsData,
+        totalCount: users.length,
       };
     },
   },

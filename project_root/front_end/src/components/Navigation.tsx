@@ -10,7 +10,7 @@ function Navigation() {
 
   const authNavItems = [
     { to: '/', label: 'Landing' },
-    { to: '/dashboard', label: 'Mobility' },
+    { to: '/mobility', label: 'Mobility' },
     { to: '/foundations', label: 'Foundations' },];
 
   const unauthNavItems = [
