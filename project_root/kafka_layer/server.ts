@@ -1,28 +1,20 @@
 import { createTopics } from "./config/admin.ts";
 import { producer } from "./config/kafka_manager.ts";
-import { fetchDataPolymarket } from "./producers/polymarket_producer.ts";
-import { fetchDataX } from "./producers/x_producer.ts";
-import { consumerConnect, consumerDisconnect } from "./consumers/consumer.ts";
+import { PolymarketProducer } from "./producers/polymarket_producer.ts";
+import { TwitterProducer } from "./producers/x_producer.ts";
+import { consumerConnect } from "./consumers/consumer.ts";
+import 'dotenv/config';
 
-const Given_Interval = 60_000;
+const X_INTERVAL = 15 * 60_000; // 15 minute interval set because Railway only allows 15 minutes CRONS for Job/Worker Roles 
+const POLY_INTERVAL =  60_000; // 1 minute for polymarket need to check for API rate
 
-async function runProducerSafely(label: string, producerName: () => Promise<void>) {
-  try {
-    await producerName();
-  } 
-  catch (error) {
-    throw new Error(`The given producer ${label} run failed due to the following:, ${error}`);
-  }
-}
 
 async function shutdown() {
   try {
     await producer.disconnect();
-    await consumerDisconnect();
-
-  } 
+  }
   catch (error) {
-    throw new Error(`Shutdown failed due to the following error:, error`);
+    throw new Error(`Shutdown failed due to the following error ${error}: error`);
   }
 }
 
@@ -33,22 +25,25 @@ async function main() {
     await producer.connect();
     await consumerConnect();
 
-    await runProducerSafely("polymarket", fetchDataPolymarket);
-    await runProducerSafely("x", fetchDataX);
+    await PolymarketProducer();
+    await TwitterProducer();
 
     setInterval(() => {
-      runProducerSafely("polymarket", fetchDataPolymarket);
-    }, Given_Interval);
+      PolymarketProducer();
+    }, POLY_INTERVAL);
 
     setInterval(() => {
-      runProducerSafely("x", fetchDataX);
-    }, Given_Interval);
+      TwitterProducer();
+    }, X_INTERVAL);
+
+
 
     console.log("Kafka layer is operational");
   }
   catch (error) {
     await shutdown();
-    throw new Error(`Kafka startup failed due to the following error: ${error}`);
+
+    throw new Error(`Shutdown failed due to the following error: ${error}`);
   }
 }
 

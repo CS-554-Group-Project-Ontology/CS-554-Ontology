@@ -6,19 +6,17 @@ export async function createTopics() {
     try{
         await admin.connect();
 
-        console.log("You successfully connected to kafka");
+        console.log("You have successfully connected to kafka");
 
         await admin.createTopics({
             topics: [
                 {
-                    topic: "market-data",
-                    numPartitions: 1,
-                    replicationFactor: 1
+                    topic: "polymarket-data",
+                    numPartitions: 1, 
                 },
                 {
-                    topic: "news-feed",
+                    topic: "x-news-feed",
                     numPartitions: 1,
-                    replicationFactor: 1
                 },
             ],
         });

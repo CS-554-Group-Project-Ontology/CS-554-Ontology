@@ -1,7 +1,4 @@
 bun.lock
 node_modules
-## The package-lock.json is really just for the 
-package-lock.json
 .env 
 
-/front_end

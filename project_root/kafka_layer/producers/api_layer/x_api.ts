@@ -1,74 +1,78 @@
-const x_token = process.env.x_bearer_token;
-const x_url = "https://api.x.com/2";
+import axios from "axios"; 
 
-let latestTweet: string | undefined;
-
-
-export async function xFetch(endpoint: string, params: Record<string, string>) {
-    try {
-        if (!endpoint || !params) {
-            throw new Error("One of the arguments for retrieving data is null or undefined");
-        }
-
-        let validatedEndpoint: string = endpoint.trim();
-
-        if (validatedEndpoint.length === 0) {
-            throw new Error("The given string is empty after being trimmed");
-        }
-
-        const url = `${x_url}${validatedEndpoint}?${new URLSearchParams(params)}`;
-
-        const Xresponse = await fetch(url, {
-            headers: { Authorization: `Bearer ${x_token}` },
-        });
+const X_TOKEN = process.env.x_bearer_token;
+const X_URL = "https://api.x.com/2";
 
 
-        if (!Xresponse.ok) {
-            throw new Error(`Failed to fetch from X api: ${Xresponse.status} ${Xresponse.statusText}`);
-        }
 
-        return Xresponse.json();
-    }
-    catch (error) {
-        throw new Error(`The data failed to return from X due to the following error: ${error}`);
-    }
+interface xTopics{
+  name: string, 
+  query: string
 }
 
-
-export async function fetchRecentTweets(query: string) {
-    try {
-        if (!query) {
-            throw new Error("The given query is undefined or null");
-        }
-
-
-        let validatedQuery: string = query.trim();
-
-
-        if (validatedQuery.length === 0) {
-            throw new Error("The string was empty after it was trimmed");
-        }
-
-        const params: Record<string, string> = {
-            query: validatedQuery,
-            max_results: "10",
-            "tweet.fields": "created_at,author_id,text,public_metrics",
-        };
-
-        if (latestTweet) {
-            params.since_id = latestTweet;
-        }
-
-        const data: any = await xFetch("/tweets/search/recent", params);
-
-        if (data.meta?.newest_id) {
-            latestTweet = data.meta.newest_id;
-        }
+export const kafkaXTopics: xTopics[] = [{
+    name: "cities",
+    query: '("San Francisco" OR "New York" OR Houston) lang:en -is:retweet',
+  },
+  {
+    name: "fed",
+    query: '("Federal Reserve" OR "interest rates" OR FOMC) lang:en -is:retweet',
+  },
+  {
+    name: "inflation",
+    query: '(inflation OR CPI OR "consumer price") lang:en -is:retweet',
+  },
+];
 
 
-        return data.data ?? [];
+
+const latestTweetTopic = new Map<string, string>();
+
+
+export async function fetchRecentTweets(topicName: string, query: string) {
+  try {
+    if (!X_TOKEN) {
+      throw new Error("x_bearer_token environment variable is not set");
     }
-    catch (error) {
-        throw new Error(`Failed to get recent tweets due to the following error: ${error}`);
+
+    const validatedQuery = query.trim();
+
+
+    if (validatedQuery.length === 0) {
+      throw new Error("The query string was empty after being trimmed");
     }
+
+
+    
+    const params: Record<string, string> = {
+      query: validatedQuery,
+      max_results: "100", 
+      "expansions": "author_id,attachments.media_keys",
+      "tweet.fields": "created_at,public_metrics",
+      "user.fields": "name,profile_image_url,verified",
+      "media.fields": "type,preview_image_url,url,width,height",
+    };
+
+    const sinceId = latestTweetTopic.get(topicName);
+
+
+    if (sinceId) {
+      params.since_id = sinceId;
+    }
+
+    const url = `${X_URL}/tweets/search/recent?${new URLSearchParams(params)}`;
+
+    const xGet = await axios.get(url, { headers: { Authorization: `Bearer ${X_TOKEN}` },});
+
+    if (xGet.data.meta.newest_id) {
+      latestTweetTopic.set(topicName, xGet.data.meta.newest_id);
+    }
+
+    
+    return xGet.data;
+
+  }
+  catch (error) {
+    throw new Error(`Failed to get recent tweets for "${topicName}": ${error}`);
+  }
 }

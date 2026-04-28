@@ -1,9 +1,9 @@
 import { Kafka } from "kafkajs";
 
-const givenBroker = process.env.Kafka_Public;
+const givenBroker = process.env.KAFKA_PUBLIC;
 
 if (!givenBroker) {
-  throw new Error("Kafka_Public environment variable is not set");
+  throw new Error("KAKFA_PUBLIC environment variable is not set or being imported correctly");
 }
 
 const kafka = new Kafka({
