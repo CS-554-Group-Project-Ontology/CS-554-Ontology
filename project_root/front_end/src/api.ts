@@ -168,6 +168,28 @@ export async function getCostOfLivingByCityAndNeighborhoodApi(city: string, neig
         return data.getCostOfLivingByCityAndNeighborhood;
 }
 
+export async function getUserCountsByCityApi(){
+    const data = await dbRequest<{
+        getUserCountsByCity: Array<{
+            city: string;
+            count: number;
+        }>;
+    }>(
+            `
+            query GetUserCountsByCity {
+                getUserCountsByCity {
+                    citiesData {
+                        city
+                        count
+                    }
+                    totalCount
+                }
+            }
+            `
+        );
+        return data.getUserCountsByCity;
+}
+
 export async function editUserApi(economic_profile: EconomicProfile){
     const data = await dbRequest<{
         editUser:{
