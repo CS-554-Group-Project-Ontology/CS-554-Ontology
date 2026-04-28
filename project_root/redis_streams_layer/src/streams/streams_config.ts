@@ -1,8 +1,14 @@
-import { redis } from "../config/redis.ts";
+import type Redis from "ioredis";
 
 export const news_stream = "news:feed";
-const maxLength = 1000;
+const max_stream_length = 1000;
 
+
+
+
+export async function clearNewsStream(redis: Redis): Promise<void> {
+  await redis.xtrim(news_stream, "MAXLEN", "~", 0);
+}
 
 export type NewsStreamEntry = {
   id: string;
@@ -10,18 +16,11 @@ export type NewsStreamEntry = {
 };
 
 
-export async function appendToNewsStream(fields: Record<string, string>,): Promise<string> {
+
+export async function appendToNewsStream(redis: Redis, fields: Record<string, string>,): Promise<string> {
   try{
-    const newsEntry = await redis.xadd(
-      news_stream,
-      "MAXLEN",
-      "~",
-      maxLength,
-      "*",
-      ...Object.entries(fields).flat(),
-    );
-
-
+    const newsEntry = await redis.xadd(news_stream, "MAXLEN","~", max_stream_length,"*",...Object.entries(fields).flat(),);
+    
     if (!newsEntry) {
       throw new Error(`Failed to the given article to thew ${news_stream} returned null`);
     }
@@ -34,9 +33,13 @@ export async function appendToNewsStream(fields: Record<string, string>,): Promi
 }
 
 
-export async function readNewsStreamSince(lastId: string = "0", count: number = 50,): Promise<NewsStreamEntry[]> {
+export async function readNewsStreamSince(redis: Redis, lastId: string = "0", count: number = 200,): Promise<NewsStreamEntry[]> {
   try{
-    const start = lastId === "0" ? "-" : `(${lastId}`;
+    let start = "-"; 
+
+    if(lastId !== "0"){ 
+      start = `(${lastId})`;
+    }
 
 
     const rawData = await redis.xrange(
@@ -56,6 +59,8 @@ export async function readNewsStreamSince(lastId: string = "0", count: number = 
 }
 
 
+
+// Helper for formatting Redis Data
 export function pairsToObject(pairs: string[]): Record<string, string> {
   const obj: Record<string, string> = {};
 
