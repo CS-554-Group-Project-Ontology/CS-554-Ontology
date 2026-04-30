@@ -403,7 +403,7 @@ const AffordabilityCityView = ({
           />
         </div>
       ) : (
-        <div className='mb-6 rounded-lg p-2'>
+        <div className='mb-6 rounded-lg'>
           <details
             ref={detailsRef}
             open={isOpen}
