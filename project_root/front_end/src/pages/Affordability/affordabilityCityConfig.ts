@@ -8,7 +8,11 @@ import {
   SF_GEOJSON_URL,
   SF_INITIAL_CENTER,
   SF_INITIAL_ZOOM,
+  // JERSEY_CITY_GEOJSON_URL,
+  // JERSEY_CITY_INITIAL_CENTER,
+  // JERSEY_CITY_INITIAL_ZOOM,
 } from '../../constants';
+import { checkString } from '../../helpers';
 
 export interface AffordabilityCityConfig {
   slug: string;
@@ -20,6 +24,8 @@ export interface AffordabilityCityConfig {
   initialZoom: number;
 }
 
+// Map of city slugs to their configurations for affordability insights
+// you can add more cities to this map by following the structure of existing entries
 export const AFFORDABILITY_CITY_CONFIGS_MAP: Record<
   string,
   AffordabilityCityConfig
@@ -51,6 +57,17 @@ export const AFFORDABILITY_CITY_CONFIGS_MAP: Record<
     initialCenter: HOUSTON_INITIAL_CENTER,
     initialZoom: HOUSTON_INITIAL_ZOOM,
   },
+  /*
+  jc: {
+    slug: 'jc',
+    cityTitle: 'Jersey City',
+    profileCity: 'Jersey City',
+    sourceIdPrefix: 'jc',
+    geoJsonUrl: JERSEY_CITY_GEOJSON_URL,
+    initialCenter: JERSEY_CITY_INITIAL_CENTER,
+    initialZoom: JERSEY_CITY_INITIAL_ZOOM,
+  },
+  */
 };
 
 export const AFFORDABILITY_CITY_LIST = Object.values(
@@ -65,3 +82,22 @@ export const getAffordabilityCityConfig = (citySlug: string) =>
 // Utility function to get city path by slug
 export const createAffordabilityCityPath = (citySlug: string) =>
   `/affordability/${citySlug}`;
+
+// Utility function to check if a city is an affordability city in the list
+export const isAffordabilityCity = (city: string) => {
+  try {
+    const normalizedCity = checkString(city, 'City');
+    if (!normalizedCity) {
+      return false;
+    }
+
+    return AFFORDABILITY_CITY_LIST.some(
+      (cityConfig) =>
+        cityConfig.profileCity === normalizedCity ||
+        cityConfig.cityTitle === normalizedCity,
+    );
+  } catch (e) {
+    console.error(e);
+    return false;
+  }
+};

@@ -13,7 +13,7 @@ import {
 } from '../../types';
 import { formatCurrency } from '../../helpers';
 import ProfileStatusBanner from '../Mobility/ProfileStatusBanner';
-import { CITY_OPTIONS } from '../../constants';
+import { AFFORDABILITY_CITY_LIST } from './affordabilityCityConfig';
 import SearchableSelect from '../Mobility/SearchableSelect';
 import Loading from '../../components/Loading';
 
@@ -486,7 +486,7 @@ const AffordabilityCityView = ({
           </div>
 
           {/* Search for a neighborhood */}
-          {CITY_OPTIONS.includes(profileCity!) && (
+          {AFFORDABILITY_CITY_LIST.some((cityConfig) => cityConfig.profileCity === profileCity!) && (
             <div className='flex items-center justify-between mb-4'>
               <p className='font-semibold text-gray-600 text-sm'>
                 Search for a neighborhood:
@@ -498,7 +498,7 @@ const AffordabilityCityView = ({
                   setSelectedNeighborhood(value);
                 }}
                 placeholder='Select a neighborhood'
-                disabled={!CITY_OPTIONS.includes(profileCity!)}
+                disabled={AFFORDABILITY_CITY_LIST.every((cityConfig) => cityConfig.profileCity !== profileCity!)}
                 width='w-90'
               />
             </div>

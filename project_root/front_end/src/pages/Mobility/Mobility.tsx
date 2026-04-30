@@ -16,7 +16,7 @@ import {
   type Liabilities,
 } from './schema';
 import SearchableSelect from './SearchableSelect';
-import { CITY_OPTIONS } from '../../constants';
+import { AFFORDABILITY_CITY_LIST, isAffordabilityCity } from '../Affordability/affordabilityCityConfig';
 import { checkNumber, checkString } from '../../helpers';
 
 function Mobility() {
@@ -212,9 +212,9 @@ function Mobility() {
                 <option value='' disabled>
                   Select a city
                 </option>
-                {CITY_OPTIONS.map((city) => (
-                  <option key={city} value={city}>
-                    {city}
+                {AFFORDABILITY_CITY_LIST.map((cityConfig) => (
+                  <option key={cityConfig.slug} value={cityConfig.profileCity}>
+                    {cityConfig.profileCity}
                   </option>
                 ))}
               </select>
@@ -228,7 +228,7 @@ function Mobility() {
                 Neighborhood
               </label>
 
-              {CITY_OPTIONS.includes(economicProfile.city!) ? (
+              {isAffordabilityCity(economicProfile.city!) ? (
                 <SearchableSelect
                   selectedCity={economicProfile.city!}
                   value={economicProfile.neighborhood!}

@@ -3,7 +3,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { ChevronDown } from 'lucide-react';
 import type { FeatureCollection, Geometry, GeoJsonProperties } from 'geojson';
 import { normalizeGeoJSON } from '../../types';
-import { CITY_GEOJSON_URLS, CITY_OPTIONS } from '../../constants';
+import { AFFORDABILITY_CITY_LIST } from '../Affordability/affordabilityCityConfig';
 
 // SearchableSelect Component
 interface SearchableSelectProps {
@@ -54,9 +54,9 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
   }, [searchTerm, neighborhoods]);
 
   // Determine GeoJSON URL based on selected city
-  const geoJsonUrl = CITY_OPTIONS.includes(selectedCity)
-    ? CITY_GEOJSON_URLS[selectedCity]
-    : null;
+  const geoJsonUrl = AFFORDABILITY_CITY_LIST.find(
+    (city) => city.profileCity === selectedCity,
+  )?.geoJsonUrl;
 
   useEffect(() => {
     const fetchNeighborhoods = async () => {

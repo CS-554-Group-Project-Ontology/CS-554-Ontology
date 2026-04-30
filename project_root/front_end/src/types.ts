@@ -70,9 +70,9 @@ export type FredSeriesData = {
 };
 
 // SF and Houston do not have neighborhood but name property
-// So to make it work, we need to normalize the geojson to mach NYC
+// So to make it work, we need to normalize the geojson to get neighborhood or name
 export const normalizeGeoJSON = (geojson: any, city: string) => {
-  if (!geojson) return [];
+  if (!geojson || !Array.isArray(geojson.features)) return [];
 
   try {
     city = checkString(city, 'City');
@@ -82,16 +82,33 @@ export const normalizeGeoJSON = (geojson: any, city: string) => {
   }
   
   return geojson.features
-    .filter((f: any) => f.geometry !== null)
-    .map((f: any) => ({
-      type: 'Feature',
-      geometry: f.geometry,
-      properties: {
-        neighborhood:
-          f.properties.neighborhood || f.properties.name || 'Unknown',
-        city,
-      },
-    }));
+    .filter((f: any) => f && f.type === 'Feature' && f.geometry !== null)
+    .map((f: any) => {
+      const props = f.properties || {};
+
+      // Different cities names for neighborhoods
+      const neighborhood =
+        props.neighborhood ||
+        props.neighborho ||
+        props.name ||
+        props.Name ||
+        props.NTAName ||
+        props.ntaname ||
+        props.label ||
+        props.area ||
+        props.ward ||
+        'Unknown';
+
+      return {
+        type: 'Feature',
+        geometry: f.geometry,
+        properties: {
+          ...props,
+          neighborhood,
+          city,
+        },
+      };
+    });
 };
 
 export type CityFeature = Feature<Geometry | null, NeighborhoodProperties>;
