@@ -173,7 +173,11 @@ function Mobility() {
     <div className='container mx-auto max-w-3xl flex-1 px-4 py-8'>
       <h1 className='text-3xl font-bold mb-6'>Mobility</h1>
 
-      <ProfileStatusBanner isEmpty={isUserEconomicProfileEmpty} />
+      {/* Show alert if user economic profile is empty */}
+      <ProfileStatusBanner
+        isProfileEmpty={isUserEconomicProfileEmpty}
+        showLink={!isUserEconomicProfileEmpty}
+      />
 
       <form onSubmit={handleSubmit} className='space-y-6'>
         <section className='rounded-box bg-base-100 p-6 shadow space-y-4'>

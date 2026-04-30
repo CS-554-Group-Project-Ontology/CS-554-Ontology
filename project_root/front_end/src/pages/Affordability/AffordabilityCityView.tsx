@@ -364,12 +364,6 @@ const AffordabilityCityView = ({
     ]);
   }, [isMapLoaded, profileNeighborhood, selectedNeighborhood, fillLayerId]);
 
-  const messageProfileIncomplete =
-    'Please update your economic profile and interact with the map.';
-  const messageProfileComplete = 'Update your economic profile';
-  const pathLink = '/';
-  const pathLinkText = 'Update your economic profile';
-
   if (loading) return <Loading />;
   // Because user does not have an economic profile at first, so 'User Not Found' is expected.
   if (error && error.message !== 'User Not Found')
@@ -404,11 +398,8 @@ const AffordabilityCityView = ({
       {isUserEconomicProfileEmpty ? (
         <div className='flex flex-col mb-4 text-gray-700'>
           <ProfileStatusBanner
-            isEmpty={isUserEconomicProfileEmpty}
-            messageProfileIncomplete={messageProfileIncomplete}
-            messageProfileComplete={messageProfileComplete}
-            pathLink={pathLink}
-            pathLinkText={pathLinkText}
+            isProfileEmpty={isUserEconomicProfileEmpty}
+            showLink
           />
         </div>
       ) : (
@@ -530,11 +521,13 @@ const AffordabilityCityView = ({
                     <MapPin className='h-5 w-5' />
                   </div>
                   <div className='min-w-0 flex text-xs truncate font-semibold'>
-                    {(hoveredNeighborhood ?? selectedNeighborhood) || (isUserCurrentCity && profileNeighborhood) ? (
+                    {(hoveredNeighborhood ?? selectedNeighborhood) ||
+                    (isUserCurrentCity && profileNeighborhood) ? (
                       <>
                         <p className='text-slate-500 mr-1'>Cost of Living:</p>
                         <span className='text-primary'>
-                          {(hoveredNeighborhood ?? selectedNeighborhood) || (isUserCurrentCity && profileNeighborhood)}
+                          {(hoveredNeighborhood ?? selectedNeighborhood) ||
+                            (isUserCurrentCity && profileNeighborhood)}
                         </span>
                       </>
                     ) : (
