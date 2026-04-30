@@ -166,14 +166,14 @@ const main = async () => {
     `=> Deleted all ${deletedUsers.deletedCount} prefix seeded users for New York, San Francisco, and Houston`,
   );
 
-  const users = citySeedConfigs.flatMap((config) =>
-    Array.from({ length: config.count }, () => makeUser(config)),
-  );
-  await User.insertMany(users);
+  // const users = citySeedConfigs.flatMap((config) =>
+  //   Array.from({ length: config.count }, () => makeUser(config)),
+  // );
+  // await User.insertMany(users);
 
-  console.log(
-    `=> Inserted ${users.length} seeded users for New York, San Francisco, and Houston`,
-  );
+  // console.log(
+  //   `=> Inserted ${users.length} seeded users for New York, San Francisco, and Houston`,
+  // );
 
   await mongoose.disconnect();
 };

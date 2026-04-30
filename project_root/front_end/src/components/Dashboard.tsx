@@ -3,8 +3,6 @@ import { AuthContext } from '../context/AuthContext';
 import { Activity, DollarSignIcon, Users } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import CustomCard from '../components/CustomCard';
-import MetricCard from '../pages/Foundations/MetricCard';
-import { FOUNDATIONS_SERIES } from '../pages/Foundations/foundationsConfig';
 import queries from '../queries';
 import { useLazyQuery } from '@apollo/client/react';
 import type { GetUserCountsByCityData } from '../types';
@@ -157,13 +155,6 @@ const Dashboard = () => {
           icon={<Activity className='size-5' />}
           content={financialHealthCardContent}
         />
-      </div>
-      <div className='grid gap-6 md:grid-cols-2'>
-        {FOUNDATIONS_SERIES.filter((config) =>
-          ['DGS2', 'A191RL1Q225SBEA'].includes(config.seriesId),
-        ).map((config) => (
-          <MetricCard key={config.seriesId} config={config} />
-        ))}
       </div>
     </div>
   );
