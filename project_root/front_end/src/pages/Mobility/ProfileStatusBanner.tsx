@@ -15,7 +15,7 @@ function ProfileStatusBanner({
     ? 'Your economic profile is incomplete. Fill it out below to unlock the affordability map and personalized insights.'
     : 'Your economic profile is complete. You can now view the affordability map and personalized insights.';
 
-  const pathLink = isProfileEmpty ? '/mobility' : '/affordability-nyc';
+  const pathLink = isProfileEmpty ? '/mobility' : '/affordability/nyc';
   const pathLinkText = isProfileEmpty
     ? 'Update your economic profile'
     : 'View Affordability Map';
