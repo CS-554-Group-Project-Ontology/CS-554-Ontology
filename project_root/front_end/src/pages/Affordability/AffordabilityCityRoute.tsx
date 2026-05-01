@@ -4,7 +4,7 @@ import NotFound from '../../components/NotFound';
 import AffordabilityCityView from './AffordabilityCityView';
 
 const AffordabilityCityRoute = () => {
-  const { citySlug } = useParams();
+  const { citySlug, popularNeighborhood } = useParams();
   const cityConfig = citySlug ? getAffordabilityCityConfig(citySlug) : null;
 
   if (!cityConfig) {
@@ -18,6 +18,7 @@ const AffordabilityCityRoute = () => {
       geoJsonUrl={cityConfig.geoJsonUrl}
       initialCenter={cityConfig.initialCenter}
       initialZoom={cityConfig.initialZoom}
+      initialNeighborhood={popularNeighborhood ? decodeURIComponent(popularNeighborhood) : undefined}
     />
   );
 };

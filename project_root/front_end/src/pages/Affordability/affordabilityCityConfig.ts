@@ -79,9 +79,16 @@ export const AFFORDABILITY_DEFAULT_CITY_SLUG = 'nyc';
 export const getAffordabilityCityConfig = (citySlug: string) =>
   AFFORDABILITY_CITY_CONFIGS_MAP[citySlug] ?? null;
 
-// Utility function to get city path by slug
-export const createAffordabilityCityPath = (citySlug: string) =>
-  `/affordability/${citySlug}`;
+// Utility function to get city path by slug and optional neighborhood
+export const createAffordabilityCityPath = (
+  citySlug: string,
+  neighborhood?: string,
+) => {
+  const basePath = `/affordability/${citySlug}`;
+  return neighborhood
+    ? `${basePath}/${encodeURIComponent(neighborhood)}`
+    : basePath;
+};
 
 // Utility function to check if a city is an affordability city in the list
 export const isAffordabilityCity = (city: string) => {

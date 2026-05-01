@@ -22,6 +22,7 @@ function App() {
             <Route path='/mobility' element={<Mobility />} />
                 <Route path='/foundations' element={<Foundations />}/>
                 <Route path='/affordability/:citySlug' element={<AffordabilityCityRoute />} />
+                <Route path='/affordability/:citySlug/:popularNeighborhood' element={<AffordabilityCityRoute />} />
                 <Route path='/profile' element={<Profile />} />
             </Route>
             <Route path='/signin' element={<SignIn />} />

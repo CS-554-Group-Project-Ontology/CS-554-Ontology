@@ -82,7 +82,7 @@ const Dashboard = () => {
         <p key={city.slug} className='font-bold text-lg'>
           {city.cityTitle}:{' '}
           <Link
-            to={`/affordability/${city.slug}`}
+            to={createAffordabilityCityPath(city.slug, getPopularNeighborhoodForCity(city.profileCity))}
             className='font-semibold text-primary hover:underline'
           >
             {getPopularNeighborhoodForCity(city.profileCity) || 'Unknown'}
@@ -151,7 +151,7 @@ const Dashboard = () => {
           badgeText='Insights'
           numberText={`'26`}
           footerButtonText='View Financial Health'
-          footerButtonAction={redirectToAffordability}
+          footerButtonAction={() => navigate('/foundations')}
           icon={<Activity className='size-5' />}
           content={financialHealthCardContent}
         />
