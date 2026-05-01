@@ -57,6 +57,37 @@ https://gist.githubusercontent.com/PollefeysC/f2f3bc6cb40e1edcaa0ae94c48c14cab/r
 https://gist.githubusercontent.com/PollefeysC/4158b5b31f2e862362fef059da811dfb/raw/8612c7813439f31b9773b59c1446f62f64973670/houston.geojson
 ```
 
+#### To add a new City with it's Neighborhoods GeoJson map data (Eg. Jersey City)
+
+`a.` Get the GeoJson api file for that city and add it with the geo-location and zoom to the `constants.ts` file like below
+
+```
+export const JERSEY_CITY_GEOJSON_URL = 'https://gist.githubusercontent.com/mdiallo24/a1fcd6d66a60fd759280e244bddc44d1/raw/73e6adf9f2e19e21d418f0bbb126847a4e9ca2c4/jc.geojson';
+
+export const JERSEY_CITY_INITIAL_CENTER: [number, number] = [-74.0885, 40.7257];
+export const JERSEY_CITY_INITIAL_ZOOM: number = 11.61;
+```
+
+`b.` Then add the city config in the `affordabilityCityConfig.ts` file like below
+
+```
+jc: {
+    slug: 'jc',
+    cityTitle: 'Jersey City',
+    profileCity: 'Jersey City',
+    sourceIdPrefix: 'jc',
+    geoJsonUrl: JERSEY_CITY_GEOJSON_URL,
+    initialCenter: JERSEY_CITY_INITIAL_CENTER,
+    initialZoom: JERSEY_CITY_INITIAL_ZOOM,
+  },
+```
+
+`c.` Voila - you can now visit the city's map by replacing `slug` with city slug (`eg: jc`)
+
+```
+http://localhost:5173/affordability/:slug
+```
+
 ### IV - How to run the application
 
 #### 1. Install dependencies by running below cmd from `/project_root` folder

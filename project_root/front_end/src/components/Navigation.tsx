@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { doSignOut } from '../firebase/FirebaseFunctions';
+import { AFFORDABILITY_CITY_LIST } from '../pages/Affordability/affordabilityCityConfig';
 
 const DEFAULT_AVATAR = '/default-avatar.png';
 
@@ -11,7 +12,8 @@ function Navigation() {
   const authNavItems = [
     { to: '/', label: 'Landing' },
     { to: '/mobility', label: 'Mobility' },
-    { to: '/foundations', label: 'Foundations' },];
+    { to: '/foundations', label: 'Foundations' },
+  ];
 
   const unauthNavItems = [
     { to: '/', label: 'Landing' },
@@ -74,48 +76,22 @@ function Navigation() {
                   tabIndex={1}
                   className='dropdown-content menu bg-base-100 rounded-lg z-1 w-52 p-2 shadow-sm'
                 >
-                  <li>
-                    <NavLink
-                      to='/affordability-nyc'
-                      className={({ isActive }) =>
-                        `btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium ${
-                          isActive
-                            ? 'bg-primary text-white'
-                            : 'text-slate-700 hover:bg-slate-200'
-                        }`
-                      }
-                    >
-                      New York City
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to='/affordability-sf'
-                      className={({ isActive }) =>
-                        `btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium ${
-                          isActive
-                            ? 'bg-primary text-white'
-                            : 'text-slate-700 hover:bg-slate-200'
-                        }`
-                      }
-                    >
-                      San Francisco
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to='/affordability-houston'
-                      className={({ isActive }) =>
-                        `btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium ${
-                          isActive
-                            ? 'bg-primary text-white'
-                            : 'text-slate-700 hover:bg-slate-200'
-                        }`
-                      }
-                    >
-                      Houston
-                    </NavLink>
-                  </li>
+                  {AFFORDABILITY_CITY_LIST.map((cityConfig) => (
+                    <li key={cityConfig.slug}>
+                      <NavLink
+                        to={`/affordability/${cityConfig.slug}`}
+                        className={({ isActive }) =>
+                          `btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium ${
+                            isActive
+                              ? 'bg-primary text-white'
+                              : 'text-slate-700 hover:bg-slate-200'
+                          }`
+                        }
+                      >
+                        {cityConfig.cityTitle}
+                      </NavLink>
+                    </li>
+                  ))}
                 </ul>
               </div>
               <div className='dropdown dropdown-end'>
@@ -154,7 +130,10 @@ function Navigation() {
                     </NavLink>
                   </li>
                   <li>
-                    <button className='btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-200' onClick={handleSignOut}>
+                    <button
+                      className='btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-200'
+                      onClick={handleSignOut}
+                    >
                       Sign Out
                     </button>
                   </li>

@@ -13,9 +13,13 @@ import {
 } from '../../types';
 import { formatCurrency } from '../../helpers';
 import ProfileStatusBanner from '../Mobility/ProfileStatusBanner';
-import { CITY_OPTIONS } from '../../constants';
+import {
+  AFFORDABILITY_CITY_LIST,
+  getAffordabilityCityConfig,
+} from './affordabilityCityConfig';
 import SearchableSelect from '../Mobility/SearchableSelect';
 import Loading from '../../components/Loading';
+import { useParams } from 'react-router-dom';
 
 export interface AffordabilityCityViewProps {
   cityTitle: string;
@@ -24,6 +28,7 @@ export interface AffordabilityCityViewProps {
   geoJsonUrl: string;
   initialCenter: [number, number];
   initialZoom: number;
+  initialNeighborhood?: string | null;
 }
 
 const AffordabilityCityView = ({
@@ -33,6 +38,7 @@ const AffordabilityCityView = ({
   geoJsonUrl,
   initialCenter,
   initialZoom,
+  initialNeighborhood,
 }: AffordabilityCityViewProps) => {
   const sourceId = `${sourceIdPrefix}-neighborhoods`;
   const fillLayerId = `${sourceIdPrefix}-neighborhoods-fill`;
@@ -45,12 +51,12 @@ const AffordabilityCityView = ({
   const [hoveredNeighborhood, setHoveredNeighborhood] = useState<string | null>(
     null,
   );
-  const [selectedNeighborhood, setSelectedNeighborhood] = useState<
-    string | null
-  >(null);
   const [neighborhoodFeatures, setNeighborhoodFeatures] = useState<
     FeatureCollection<Geometry, GeoJsonProperties>['features']
   >([]);
+
+  const { citySlug, popularNeighborhood } = useParams();
+  const cityConfigData = citySlug ? getAffordabilityCityConfig(citySlug) : null;
 
   // track the current center and zoom level of the map
   const [center, setCenter] = useState<[number, number]>([
@@ -73,6 +79,21 @@ const AffordabilityCityView = ({
     data?.getMe?.economic_profile?.neighborhood?.trim() ?? null;
   const selectedCity = data?.getMe?.economic_profile?.city?.trim() ?? '';
   const isUserCurrentCity = selectedCity === profileCity;
+
+  const routeNeighborhood =
+    popularNeighborhood?.trim() ?? initialNeighborhood?.trim() ?? null;
+
+  const profileDefaultNeighborhood = isUserCurrentCity
+    ? profileNeighborhood
+    : null;
+
+  const defaultNeighborhood =
+    routeNeighborhood ?? profileDefaultNeighborhood ?? null;
+
+  // track the selected neighborhood from the map hover or search or popular neighborhood
+  const [selectedNeighborhood, setSelectedNeighborhood] = useState<
+    string | null
+  >(defaultNeighborhood);
 
   // get cost of living data for the selected neighborhood
   const [
@@ -144,23 +165,27 @@ const AffordabilityCityView = ({
     setIsOpen((prev) => !prev);
   };
 
-  // set the selected neighborhood for the selected city
-  // Eg: User City=New York, Neighborhood=Flushing -> Flushing map is filled
+  // set the initial selected neighborhood from the URL
   useEffect(() => {
-    if (isUserCurrentCity && !selectedNeighborhood && profileNeighborhood) {
-      setSelectedNeighborhood(profileNeighborhood);
+    if (defaultNeighborhood) {
+      setSelectedNeighborhood(defaultNeighborhood);
     }
-  }, [isUserCurrentCity, profileNeighborhood, selectedNeighborhood]);
+  }, [defaultNeighborhood]);
 
   // reset neighborhood state when city changes
   useEffect(() => {
-    setSelectedNeighborhood(null);
+    setSelectedNeighborhood(defaultNeighborhood);
     setHoveredNeighborhood(null);
-  }, [profileCity]);
+  }, [defaultNeighborhood, profileCity]);
 
   // fetch cost of living data when selected neighborhood changes & fallback to searched/profile neighborhood
   useEffect(() => {
-    const neighborhoodToShow = hoveredNeighborhood ?? selectedNeighborhood ?? profileNeighborhood;
+    const neighborhoodToShow =
+      hoveredNeighborhood ??
+      initialNeighborhood?.trim() ??
+      selectedNeighborhood ??
+      profileNeighborhood;
+
     if (!neighborhoodToShow) {
       return;
     }
@@ -182,6 +207,7 @@ const AffordabilityCityView = ({
     profileCity,
     selectedNeighborhood,
     hoveredNeighborhood,
+    initialNeighborhood,
   ]);
 
   // fetch neighborhood features from gist url
@@ -356,19 +382,22 @@ const AffordabilityCityView = ({
       'case',
       ['boolean', ['feature-state', 'hover'], false],
       'orange',
+      ['==', ['get', 'neighborhood'], profileDefaultNeighborhood],
+      '#3f2bcd',
+      ['==', ['get', 'neighborhood'], routeNeighborhood],
+      'orange',
       ['==', ['get', 'neighborhood'], selectedNeighborhood],
       'orange',
-      ['==', ['get', 'neighborhood'], profileNeighborhood],
-      '#3f2bcd',
       '#409A99',
     ]);
-  }, [isMapLoaded, profileNeighborhood, selectedNeighborhood, fillLayerId]);
-
-  const messageProfileIncomplete =
-    'Please update your economic profile and interact with the map.';
-  const messageProfileComplete = 'Update your economic profile';
-  const pathLink = '/';
-  const pathLinkText = 'Update your economic profile';
+  }, [
+    isMapLoaded,
+    profileNeighborhood,
+    selectedNeighborhood,
+    routeNeighborhood,
+    popularNeighborhood,
+    fillLayerId,
+  ]);
 
   if (loading) return <Loading />;
   // Because user does not have an economic profile at first, so 'User Not Found' is expected.
@@ -404,15 +433,12 @@ const AffordabilityCityView = ({
       {isUserEconomicProfileEmpty ? (
         <div className='flex flex-col mb-4 text-gray-700'>
           <ProfileStatusBanner
-            isEmpty={isUserEconomicProfileEmpty}
-            messageProfileIncomplete={messageProfileIncomplete}
-            messageProfileComplete={messageProfileComplete}
-            pathLink={pathLink}
-            pathLinkText={pathLinkText}
+            isProfileEmpty={isUserEconomicProfileEmpty}
+            showLink
           />
         </div>
       ) : (
-        <div className='mb-6 rounded-lg p-2'>
+        <div className='mb-6 rounded-lg'>
           <details
             ref={detailsRef}
             open={isOpen}
@@ -495,19 +521,20 @@ const AffordabilityCityView = ({
           </div>
 
           {/* Search for a neighborhood */}
-          {CITY_OPTIONS.includes(profileCity!) && (
+          {AFFORDABILITY_CITY_LIST.some(
+            (cityConfig) => cityConfig.profileCity === profileCity!,
+          ) && (
             <div className='flex items-center justify-between mb-4'>
               <p className='font-semibold text-gray-600 text-sm'>
                 Search for a neighborhood:
               </p>
               <SearchableSelect
-                selectedCity={profileCity!}
-                value={selectedNeighborhood ?? ''}
+                selectedCity={profileCity ?? cityConfigData?.profileCity ?? ''}
+                value={selectedNeighborhood ?? defaultNeighborhood ?? ''}
                 onChange={(value: string) => {
                   setSelectedNeighborhood(value);
                 }}
                 placeholder='Select a neighborhood'
-                disabled={!CITY_OPTIONS.includes(profileCity!)}
                 width='w-90'
               />
             </div>
@@ -530,11 +557,17 @@ const AffordabilityCityView = ({
                     <MapPin className='h-5 w-5' />
                   </div>
                   <div className='min-w-0 flex text-xs truncate font-semibold'>
-                    {(hoveredNeighborhood ?? selectedNeighborhood) || (isUserCurrentCity && profileNeighborhood) ? (
+                    {(popularNeighborhood?.trim() ??
+                      hoveredNeighborhood ??
+                      selectedNeighborhood) ||
+                    (isUserCurrentCity && profileNeighborhood) ? (
                       <>
                         <p className='text-slate-500 mr-1'>Cost of Living:</p>
                         <span className='text-primary'>
-                          {(hoveredNeighborhood ?? selectedNeighborhood) || (isUserCurrentCity && profileNeighborhood)}
+                          {(hoveredNeighborhood ??
+                            popularNeighborhood?.trim() ??
+                            selectedNeighborhood) ||
+                            profileNeighborhood}
                         </span>
                       </>
                     ) : (

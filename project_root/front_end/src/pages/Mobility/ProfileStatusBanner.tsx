@@ -2,35 +2,37 @@ import { Link } from 'react-router-dom';
 import { AlertTriangle, CheckCircle2 } from 'lucide-react';
 
 type ProfileStatusBannerProps = {
-  isEmpty: boolean;
-  messageProfileIncomplete?: string;
-  messageProfileComplete?: string;
-  pathLink?: string;
-  pathLinkText?: string;
+  isProfileEmpty: boolean;
+  message?: string;
+  showLink?: boolean;
 };
 
 function ProfileStatusBanner({
-  isEmpty,
-  messageProfileIncomplete = 'Your economic profile is incomplete. Fill it out below to unlock the affordability map and personalized insights.',
-  messageProfileComplete = 'Your economic profile is complete.',
-  pathLink = '/affordability-nyc',
-  pathLinkText = 'View Affordability Map',
+  isProfileEmpty,
+  showLink = false,
 }: ProfileStatusBannerProps) {
-  const message = isEmpty ? messageProfileIncomplete : messageProfileComplete;
+  const message = isProfileEmpty
+    ? 'Your economic profile is incomplete. Fill it out below to unlock the affordability map and personalized insights.'
+    : 'Your economic profile is complete. You can now view the affordability map and personalized insights.';
+
+  const pathLink = isProfileEmpty ? '/mobility' : '/affordability/nyc';
+  const pathLinkText = isProfileEmpty
+    ? 'Update your economic profile'
+    : 'View Affordability Map';
 
   return (
     <div
       role='alert'
-      className={`alert ${isEmpty ? 'alert-warning' : 'alert-success'} mb-6`}
+      className={`alert ${isProfileEmpty ? 'alert-warning' : 'alert-success'} mb-6`}
     >
-      {isEmpty ? (
+      {isProfileEmpty ? (
         <AlertTriangle className='h-6 w-6 shrink-0' />
       ) : (
         <CheckCircle2 className='h-6 w-6 shrink-0' />
       )}
       <span>{message}</span>
-      {!isEmpty && (
-        <Link to={pathLink} className='btn btn-sm btn-primary'>
+      {showLink && (
+        <Link to={pathLink} className='btn btn-sm btn-primary cursor-pointer'>
           {pathLinkText}
         </Link>
       )}

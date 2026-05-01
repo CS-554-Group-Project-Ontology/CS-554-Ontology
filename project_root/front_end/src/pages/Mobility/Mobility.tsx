@@ -1,5 +1,6 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { useQuery } from '@apollo/client/react';
+import { ChevronDown, ChevronRight } from 'lucide-react';
 import { AuthContext } from '../../context/AuthContext';
 import { editUserApi, getUserApi } from '../../api';
 import type { GetMeData } from '../../types';
@@ -16,7 +17,7 @@ import {
   type Liabilities,
 } from './schema';
 import SearchableSelect from './SearchableSelect';
-import { CITY_OPTIONS } from '../../constants';
+import { AFFORDABILITY_CITY_LIST, isAffordabilityCity } from '../Affordability/affordabilityCityConfig';
 import { checkNumber, checkString } from '../../helpers';
 
 function Mobility() {
@@ -26,6 +27,11 @@ function Mobility() {
     useState<EconomicProfile>(EMPTY_PROFILE);
   const [errors, setErrors] = useState<FieldErrors>({});
   const baselineRef = useRef<EconomicProfile>(EMPTY_PROFILE);
+  // open or closed the details tag if eco profile empty or after user saves changes
+  const [isOpen, setIsOpen] = useState(false);
+  const didInitializeDetailsRef = useRef(false);
+  const suppressNextToggleRef = useRef(false);
+  const detailsRef = useRef<HTMLDetailsElement | null>(null);
 
   const {
     loading: isUserEconomicProfileLoading,
@@ -44,6 +50,15 @@ function Mobility() {
     savedProfile.city.trim().length === 0 ||
     !savedProfile.neighborhood ||
     savedProfile.neighborhood.trim().length === 0;
+
+  // Open details if user economic profile is empty, otherwise keep it closed
+  useEffect(() => {
+    if (isUserEconomicProfileLoading) return;
+    if (didInitializeDetailsRef.current) return;
+
+    setIsOpen(isUserEconomicProfileEmpty);
+    didInitializeDetailsRef.current = true;
+  }, [isUserEconomicProfileEmpty, isUserEconomicProfileLoading]);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -152,11 +167,22 @@ function Mobility() {
       await editUserApi(payload);
       baselineRef.current = { ...economicProfile };
       await refetch();
+  
+      suppressNextToggleRef.current = true;
+      setIsOpen(false);
     } catch (err) {
       console.error(err);
     } finally {
       setSaving(false);
     }
+  };
+
+  const toggleDetails = (event: React.SyntheticEvent<HTMLDetailsElement>) => {
+    if (suppressNextToggleRef.current) {
+      suppressNextToggleRef.current = false;
+      return;
+    }
+    setIsOpen(event.currentTarget.open);
   };
 
   if (isUserEconomicProfileLoading) {
@@ -173,128 +199,172 @@ function Mobility() {
     <div className='container mx-auto max-w-3xl flex-1 px-4 py-8'>
       <h1 className='text-3xl font-bold mb-6'>Mobility</h1>
 
-      <ProfileStatusBanner isEmpty={isUserEconomicProfileEmpty} />
+      {/* Show alert if user economic profile is empty */}
+      <ProfileStatusBanner
+        isProfileEmpty={isUserEconomicProfileEmpty}
+        showLink={!isUserEconomicProfileEmpty}
+      />
 
-      <form onSubmit={handleSubmit} className='space-y-6'>
-        <section className='rounded-box bg-base-100 p-6 shadow space-y-4'>
-          <h2 className='text-xl font-semibold'>Income & Location</h2>
-
-          <MoneyInput
-            label='Annual income'
-            value={economicProfile.income}
-            onChange={(value) =>
-              setEconomicProfile((prev) => ({ ...prev, income: value }))
-            }
-            error={errors.income}
-          />
-
-          <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
-            <div className='w-full'>
-              <label className='mb-1 block text-sm font-medium'>City</label>
-              <select
-                className={`select select-bordered w-full ${
-                  errors.city ? 'select-error' : ''
-                }`}
-                value={economicProfile.city ?? ''}
-                onChange={(e) => {
-                  const newCity = e.target.value;
-                  setEconomicProfile((prev) => ({
-                    ...prev,
-                    city: newCity,
-                    neighborhood: '',
-                  }));
-                }}
-              >
-                <option value='' disabled>
-                  Select a city
-                </option>
-                {CITY_OPTIONS.map((city) => (
-                  <option key={city} value={city}>
-                    {city}
-                  </option>
-                ))}
-              </select>
-              {errors.city && (
-                <p className='mt-1 text-sm text-error'>{errors.city}</p>
-              )}
+      <div className='mb-6 rounded-lg'>
+        <details
+          ref={detailsRef}
+          open={isOpen}
+          onToggle={toggleDetails}
+          className='mb-4 overflow-hidden rounded-2xl border border-slate-200 bg-linear-to-br from-slate-50 via-white to-sky-50 p-2 shadow-sm'
+        >
+          <summary className='cursor-pointer list-none'>
+            <div className='mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between'>
+              <div className='flex items-center gap-2'>
+                {isOpen ? (
+                  <ChevronDown className='h-5 w-5 text-sky-600 font-bold' />
+                ) : (
+                  <ChevronRight className='h-5 w-5 text-sky-600 font-bold' />
+                )}
+                <div>
+                  <p className='text-xs font-semibold uppercase tracking-[0.3em] text-sky-600'>
+                    Personal snapshot
+                  </p>
+                  <h2 className='text-xl font-semibold text-slate-900'>
+                    {isUserEconomicProfileEmpty
+                      ? 'Update Your Economic Profile'
+                      : 'Your Financial Profile'}
+                  </h2>
+                </div>
+              </div>
+              <span className='inline-flex w-fit items-center rounded-full bg-sky-100 px-3 py-1 text-xs font-medium text-sky-700'>
+                {isOpen ? 'Click to collapse' : 'Click to see details'}
+              </span>
             </div>
+          </summary>
+          <form onSubmit={handleSubmit} className='space-y-6'>
+            <section className='rounded-box bg-base-100 p-6 shadow space-y-4'>
+              <h2 className='text-xl font-semibold'>Income & Location</h2>
 
-            <div className='w-full'>
-              <label className='mb-1 block text-sm font-medium'>
-                Neighborhood
-              </label>
-
-              {CITY_OPTIONS.includes(economicProfile.city!) ? (
-                <SearchableSelect
-                  selectedCity={economicProfile.city!}
-                  value={economicProfile.neighborhood!}
-                  onChange={(value: string) =>
-                    setEconomicProfile((prev) => ({
-                      ...prev,
-                      neighborhood: value,
-                    }))
-                  }
-                  placeholder='Select a neighborhood'
-                  disabled={!economicProfile.city}
-                />
-              ) : (
-                <input
-                  type='text'
-                  className={`input input-bordered w-full ${
-                    errors.neighborhood ? 'input-error' : ''
-                  }`}
-                  placeholder='e.g. Flushing'
-                  value={economicProfile.neighborhood ?? ''}
-                  onChange={(e) =>
-                    setEconomicProfile((prev) => ({
-                      ...prev,
-                      neighborhood: e.target.value,
-                    }))
-                  }
-                />
-              )}
-
-              {errors.neighborhood && (
-                <p className='mt-1 text-sm text-error'>{errors.neighborhood}</p>
-              )}
-            </div>
-          </div>
-        </section>
-
-        <section className='rounded-box bg-base-100 p-6 shadow space-y-4'>
-          <h2 className='text-xl font-semibold'>Monthly Liabilities</h2>
-          <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
-            {LIABILITY_FIELDS.map(({ key, label }) => (
               <MoneyInput
-                key={key}
-                label={label}
-                value={economicProfile.liabilities?.[key]}
+                label='Annual income'
+                value={economicProfile.income}
                 onChange={(value) =>
-                  setEconomicProfile((prev) => ({
-                    ...prev,
-                    liabilities: {
-                      ...(prev.liabilities ?? {}),
-                      [key]: value,
-                    },
-                  }))
+                  setEconomicProfile((prev) => ({ ...prev, income: value }))
                 }
-                error={errors[key]}
+                error={errors.income}
               />
-            ))}
-          </div>
-        </section>
 
-        <div className='flex justify-end'>
-          <button
-            type='submit'
-            className='btn btn-primary'
-            disabled={!canSubmit}
-          >
-            {saving && <span className='loading loading-spinner loading-sm' />}
-            {saving ? 'Saving' : 'Save'}
-          </button>
-        </div>
-      </form>
+              <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
+                <div className='w-full'>
+                  <label className='mb-1 block text-sm font-medium'>City</label>
+                  <select
+                    className={`select select-bordered w-full ${
+                      errors.city ? 'select-error' : ''
+                    }`}
+                    value={economicProfile.city ?? ''}
+                    onChange={(e) => {
+                      const newCity = e.target.value;
+                      setEconomicProfile((prev) => ({
+                        ...prev,
+                        city: newCity,
+                        neighborhood: '',
+                      }));
+                    }}
+                  >
+                    <option value='' disabled>
+                      Select a city
+                    </option>
+                    {AFFORDABILITY_CITY_LIST.map((cityConfig) => (
+                      <option
+                        key={cityConfig.slug}
+                        value={cityConfig.profileCity}
+                      >
+                        {cityConfig.profileCity}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.city && (
+                    <p className='mt-1 text-sm text-error'>{errors.city}</p>
+                  )}
+                </div>
+
+                <div className='w-full'>
+                  <label className='mb-1 block text-sm font-medium'>
+                    Neighborhood
+                  </label>
+
+                  {isAffordabilityCity(economicProfile.city!) ? (
+                    <SearchableSelect
+                      selectedCity={economicProfile.city!}
+                      value={economicProfile.neighborhood!}
+                      onChange={(value: string) =>
+                        setEconomicProfile((prev) => ({
+                          ...prev,
+                          neighborhood: value,
+                        }))
+                      }
+                      placeholder='Select a neighborhood'
+                      disabled={!economicProfile.city}
+                    />
+                  ) : (
+                    <input
+                      type='text'
+                      className={`input input-bordered w-full ${
+                        errors.neighborhood ? 'input-error' : ''
+                      }`}
+                      placeholder='e.g. Flushing'
+                      value={economicProfile.neighborhood ?? ''}
+                      onChange={(e) =>
+                        setEconomicProfile((prev) => ({
+                          ...prev,
+                          neighborhood: e.target.value,
+                        }))
+                      }
+                    />
+                  )}
+
+                  {errors.neighborhood && (
+                    <p className='mt-1 text-sm text-error'>
+                      {errors.neighborhood}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </section>
+
+            <section className='rounded-box bg-base-100 p-6 shadow space-y-4'>
+              <h2 className='text-xl font-semibold'>Monthly Liabilities</h2>
+              <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
+                {LIABILITY_FIELDS.map(({ key, label }) => (
+                  <MoneyInput
+                    key={key}
+                    label={label}
+                    value={economicProfile.liabilities?.[key]}
+                    onChange={(value) =>
+                      setEconomicProfile((prev) => ({
+                        ...prev,
+                        liabilities: {
+                          ...(prev.liabilities ?? {}),
+                          [key]: value,
+                        },
+                      }))
+                    }
+                    error={errors[key]}
+                  />
+                ))}
+              </div>
+            </section>
+
+            <div className='flex justify-end'>
+              <button
+                type='submit'
+                className='btn btn-primary'
+                disabled={!canSubmit}
+              >
+                {saving && (
+                  <span className='loading loading-spinner loading-sm' />
+                )}
+                {saving ? 'Saving' : 'Save'}
+              </button>
+            </div>
+          </form>
+        </details>
+      </div>
     </div>
   );
 }
