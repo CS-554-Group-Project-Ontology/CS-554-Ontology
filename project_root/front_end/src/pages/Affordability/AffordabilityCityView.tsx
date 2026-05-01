@@ -79,18 +79,22 @@ const AffordabilityCityView = ({
     data?.getMe?.economic_profile?.neighborhood?.trim() ?? null;
   const selectedCity = data?.getMe?.economic_profile?.city?.trim() ?? '';
   const isUserCurrentCity = selectedCity === profileCity;
-  const isUserProfileNeighborhood =
-    !popularNeighborhood && isUserCurrentCity && profileNeighborhood;
-  const resolvedNeighborhood =
-    initialNeighborhood?.trim() ??
-    (isUserCurrentCity ? profileNeighborhood : null) ??
-    null;
+
+  const routeNeighborhood =
+    popularNeighborhood?.trim() ?? initialNeighborhood?.trim() ?? null;
+
+  const profileDefaultNeighborhood = isUserCurrentCity
+    ? profileNeighborhood
+    : null;
+
+  const defaultNeighborhood =
+    routeNeighborhood ?? profileDefaultNeighborhood ?? null;
 
   // track the selected neighborhood from the map hover or search or popular neighborhood
   const [selectedNeighborhood, setSelectedNeighborhood] = useState<
     string | null
-  >(resolvedNeighborhood);
-  
+  >(defaultNeighborhood);
+
   // get cost of living data for the selected neighborhood
   const [
     fetchCostOfLiving,
@@ -163,33 +167,25 @@ const AffordabilityCityView = ({
 
   // set the initial selected neighborhood from the URL
   useEffect(() => {
-    if (resolvedNeighborhood) {
-      setSelectedNeighborhood(resolvedNeighborhood);
+    if (defaultNeighborhood) {
+      setSelectedNeighborhood(defaultNeighborhood);
     }
-  }, [resolvedNeighborhood]);
-
-  // set the selected neighborhood for the selected city
-  // Eg: User City=New York, Neighborhood=Flushing -> Flushing map is filled
-  useEffect(() => {
-    if (isUserCurrentCity && !selectedNeighborhood && profileNeighborhood) {
-      setSelectedNeighborhood(profileNeighborhood.trim());
-    }
-  }, [isUserCurrentCity, profileNeighborhood, selectedNeighborhood]);
+  }, [defaultNeighborhood]);
 
   // reset neighborhood state when city changes
   useEffect(() => {
-    setSelectedNeighborhood(null);
+    setSelectedNeighborhood(defaultNeighborhood);
     setHoveredNeighborhood(null);
-  }, [profileCity]);
+  }, [defaultNeighborhood, profileCity]);
 
   // fetch cost of living data when selected neighborhood changes & fallback to searched/profile neighborhood
   useEffect(() => {
     const neighborhoodToShow =
-      initialNeighborhood?.trim() ??
       hoveredNeighborhood ??
+      initialNeighborhood?.trim() ??
       selectedNeighborhood ??
       profileNeighborhood;
-      
+
     if (!neighborhoodToShow) {
       return;
     }
@@ -386,24 +382,19 @@ const AffordabilityCityView = ({
       'case',
       ['boolean', ['feature-state', 'hover'], false],
       'orange',
-      ['==', ['get', 'neighborhood'], isUserProfileNeighborhood],
+      ['==', ['get', 'neighborhood'], profileDefaultNeighborhood],
       '#3f2bcd',
-      [
-        '==',
-        ['get', 'neighborhood'],
-        selectedNeighborhood || resolvedNeighborhood,
-      ],
+      ['==', ['get', 'neighborhood'], routeNeighborhood],
       'orange',
-
-      // ['==', ['get', 'neighborhood'], selectedNeighborhood || activeNeighborhood],
-      // 'orange',
+      ['==', ['get', 'neighborhood'], selectedNeighborhood],
+      'orange',
       '#409A99',
     ]);
   }, [
     isMapLoaded,
     profileNeighborhood,
     selectedNeighborhood,
-    resolvedNeighborhood,
+    routeNeighborhood,
     popularNeighborhood,
     fillLayerId,
   ]);
@@ -539,7 +530,7 @@ const AffordabilityCityView = ({
               </p>
               <SearchableSelect
                 selectedCity={profileCity ?? cityConfigData?.profileCity ?? ''}
-                value={selectedNeighborhood ?? resolvedNeighborhood ?? ''}
+                value={selectedNeighborhood ?? defaultNeighborhood ?? ''}
                 onChange={(value: string) => {
                   setSelectedNeighborhood(value);
                 }}
@@ -573,10 +564,10 @@ const AffordabilityCityView = ({
                       <>
                         <p className='text-slate-500 mr-1'>Cost of Living:</p>
                         <span className='text-primary'>
-                          {(popularNeighborhood?.trim() ??
-                            hoveredNeighborhood ??
+                          {(hoveredNeighborhood ??
+                            popularNeighborhood?.trim() ??
                             selectedNeighborhood) ||
-                            (isUserCurrentCity && profileNeighborhood)}
+                            profileNeighborhood}
                         </span>
                       </>
                     ) : (

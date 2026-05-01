@@ -11,13 +11,14 @@ export const HOUSTON_GEOJSON_URL =
 // export const JERSEY_CITY_GEOJSON_URL = 'https://gist.githubusercontent.com/mdiallo24/a1fcd6d66a60fd759280e244bddc44d1/raw/73e6adf9f2e19e21d418f0bbb126847a4e9ca2c4/jc.geojson';
 
 // Cities initial coordinates
-export const NYC_INITIAL_CENTER: [number, number] = [-74.0242, 40.6941];
+export const NYC_INITIAL_CENTER: [number, number] = [-74.1251, 40.7053];
 export const SF_INITIAL_CENTER: [number, number] = [-122.4723, 37.7622];
 export const HOUSTON_INITIAL_CENTER: [number, number] = [-95.5659, 29.7308];
 // export const JERSEY_CITY_INITIAL_CENTER: [number, number] = [-74.0885, 40.7257];
 
 // Cities Initial zoom level for the map
-export const NYC_INITIAL_ZOOM: number = 10.12;
+export const NYC_INITIAL_ZOOM: number = 9.25;
 export const SF_INITIAL_ZOOM: number = 11.21;
-export const HOUSTON_INITIAL_ZOOM: number = 9.87;
+export const HOUSTON_INITIAL_ZOOM: number = 9.30;
 // export const JERSEY_CITY_INITIAL_ZOOM: number = 11.61;
+
