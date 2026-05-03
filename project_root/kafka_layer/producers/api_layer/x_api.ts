@@ -1,6 +1,6 @@
 import axios from "axios"; 
 
-const X_TOKEN = process.env.x_bearer_token;
+const X_TOKEN = process.env.X_BEARER_TOKEN;
 const X_URL = "https://api.x.com/2";
 
 
@@ -32,7 +32,7 @@ const latestTweetTopic = new Map<string, string>();
 export async function fetchRecentTweets(topicName: string, query: string) {
   try {
     if (!X_TOKEN) {
-      throw new Error("x_bearer_token environment variable is not set");
+      throw new Error("X_BEARER_TOKEN environment variable is not set");
     }
 
     const validatedQuery = query.trim();
@@ -64,8 +64,9 @@ export async function fetchRecentTweets(topicName: string, query: string) {
 
     const xGet = await axios.get(url, { headers: { Authorization: `Bearer ${X_TOKEN}` },});
 
-    if (xGet.data.meta.newest_id) {
-      latestTweetTopic.set(topicName, xGet.data.meta.newest_id);
+    const newestId = xGet.data?.meta?.newest_id;
+    if (typeof newestId === "string") {
+      latestTweetTopic.set(topicName, newestId);
     }
 
     

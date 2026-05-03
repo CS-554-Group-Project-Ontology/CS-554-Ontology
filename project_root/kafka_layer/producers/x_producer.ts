@@ -44,11 +44,11 @@ function toXTweet(rawTweet: RawXTweet, rawUser: RawXUser, mediaByKey: Map<string
 
 const finalXMediaSchema = z.object({
   media_key: z.string().trim().min(1),
-  type: z.enum(["photo", "video", "animated_gif"]),
+  type: z.literal("photo"),
   preview_image_url: z.string().optional(),
   url: z.string().trim().min(1),
-  width: z.number().nonnegative().min(1),
-  height: z.number().nonnegative().min(1),
+  width: z.number().min(1),
+  height: z.number().min(1),
 });
 
 
@@ -65,13 +65,25 @@ const finalXTweetSchema = z.object({
 
   public_metrics: z
     .object({
-      retweet_count: z.number().nonnegative().min(0),
-      reply_count: z.number().nonnegative().min(0),
-      like_count: z.number().nonnegative().min(0),
-      quote_count: z.number().nonnegative().min(0).optional(),
-      impression_count: z.number().nonnegative().min(0).optional(),
+      retweet_count: z.number().nonnegative(),
+      reply_count: z.number().nonnegative(),
+      like_count: z.number().nonnegative(),
+      quote_count: z.number().nonnegative().optional(),
+      impression_count: z.number().nonnegative().optional(),
     }),
   media: z.array(finalXMediaSchema).default([]),
+});
+
+const xResponseEnvelope = z.object({
+  data: z.array(z.unknown()).default([]),
+  includes: z.object({
+    users: z.array(z.unknown()).default([]),
+    media: z.array(z.unknown()).default([]),
+  }).optional(),
+  meta: z.object({
+    newest_id: z.string().optional(),
+    result_count: z.number().optional(),
+  }).optional(),
 });
 
 type FinalXTweet = z.infer<typeof finalXTweetSchema>;
@@ -80,20 +92,19 @@ type FinalXTweet = z.infer<typeof finalXTweetSchema>;
 
 
 
-// Interface Layers for needed X data inside of kafka topics
 interface RawXPublicMetrics {
   retweet_count: number;
   reply_count: number;
   like_count: number;
-  quote_count: number;
-  impression_count: number;
+  quote_count?: number;
+  impression_count?: number;
 }
 
 
 interface RawXMedia {
   media_key: string;
   type: "photo" | "video" | "animated_gif";
-  preview_image_url: string;
+  preview_image_url?: string;
   url: string;
   width: number;
   height: number;
@@ -114,34 +125,27 @@ interface RawXTweet {
   created_at: string;
   public_metrics: RawXPublicMetrics;
   attachments?: {
-    media_keys: string[];
+    media_keys?: string[];
   };
 }
-
-interface RawXResponse {
-  data: RawXTweet[];
-  includes: {
-    users: RawXUser[];
-    media: RawXMedia[];
-  };
-  meta: {
-    newest_id: string;
-    result_count: number;
-  };
-}
-
-
-
 
 
 
 export async function TwitterProducer() {
   for (const topic of kafkaXTopics) {
     try {
-      const response = (await fetchRecentTweets(topic.name, topic.query)) as RawXResponse; // Given Raw API Repsonse 
-      const tweets = response.data ?? [];
-      const users = response.includes?.users ?? [];
-      const media = response.includes?.media ?? [];
+      const rawResponse = await fetchRecentTweets(topic.name, topic.query);
+      
+      const parsed = xResponseEnvelope.safeParse(rawResponse);
+
+      if (!parsed.success) {
+        console.log(`There was a malformed xv2 api response for the given topic: "${topic.name}":`, parsed.error.issues);
+        continue;
+      }
+
+      const tweets = parsed.data.data as RawXTweet[];
+      const users = (parsed.data.includes?.users ?? []) as RawXUser[];
+      const media = (parsed.data.includes?.media ?? []) as RawXMedia[];
 
       if (tweets.length === 0) {
         continue;
@@ -150,17 +154,16 @@ export async function TwitterProducer() {
       const userById = new Map<string, RawXUser>(); 
 
       for(const user of users){
-        userById.set(user.id,user); 
+        userById.set(user.id, user);
       }
 
       const mediaByKey = new Map<string, RawXMedia>();
 
       for(const mediaItem of media){
-        mediaByKey.set(mediaItem.media_key, mediaItem); 
+        mediaByKey.set(mediaItem.media_key, mediaItem);
       }
 
       const formatted: FinalXTweet[] = [];
-
 
       for (const tweet of tweets) {
 
@@ -180,7 +183,7 @@ export async function TwitterProducer() {
         }
 
         catch (error) {
-          console.log(`Skipping invalid tweet ${tweet.id} from the following topic${topic.name} due to this error:`, error);
+          console.log(`Skipping invalid tweet ${tweet.id} from the following topic${topic.name} due to this error: ${error}`); 
         }
       }
 
@@ -195,7 +198,7 @@ export async function TwitterProducer() {
       });
     }
     catch (error) {
-      console.log(`The following topic: "${topic.name}" that was passed in failed continuing to next:`, error);
+      console.log(`The x topic that was passed in: "${topic.name}"  was passed in failed continuing to next:`, error);
     }
   }
 }

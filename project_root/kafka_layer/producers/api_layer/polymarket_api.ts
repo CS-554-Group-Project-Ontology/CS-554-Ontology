@@ -9,7 +9,6 @@ interface PolymarketTopic {
 export const kafkaPolymarketTopics: PolymarketTopic[] = [
   { name: "politics",    tag: "Politics" },
   { name: "economy",     tag: "Economy" },
-  { name: "crypto",      tag: "Crypto" },
   { name: "geopolitics", tag: "Geopolitics" },
 ];
 
@@ -25,7 +24,7 @@ export async function fetchPolymarketEvents(topicName: string,tag: string, limit
       },
     });
 
-    if (!response.data) {
+    if (response.data == null) {
       throw new Error("No data returned from the gamma API");
     }
 

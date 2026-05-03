@@ -1,8 +1,8 @@
 import { createTopics } from "./config/admin.ts";
-import { producer } from "./config/kafka_manager.ts";
+import { producer, validateKafkaConfig } from "./config/kafka_manager.ts";
 import { PolymarketProducer } from "./producers/polymarket_producer.ts";
 import { TwitterProducer } from "./producers/x_producer.ts";
-import { consumerConnect } from "./consumers/consumer.ts";
+import { consumerConnect, consumer } from "./consumers/consumer.ts";
 import 'dotenv/config';
 
 const X_INTERVAL = 15 * 60_000; // 15 minute interval set because Railway only allows 15 minutes CRONS for Job/Worker Roles 
@@ -11,16 +11,18 @@ const POLY_INTERVAL =  60_000; // 1 minute for polymarket need to check for API 
 
 async function shutdown() {
   try {
+    await consumer.disconnect();
     await producer.disconnect();
   }
   catch (error) {
-    throw new Error(`Shutdown failed due to the following error ${error}: error`);
+    throw new Error(`Shutdown failed due to the following error: ${error}`);
   }
 }
 
 
 async function main() {
   try {
+    validateKafkaConfig();
     await createTopics();
     await producer.connect();
     await consumerConnect();
@@ -29,11 +31,11 @@ async function main() {
     await TwitterProducer();
 
     setInterval(() => {
-      PolymarketProducer();
+      PolymarketProducer().catch((err) => console.error("Polymarket interval failed:", err));
     }, POLY_INTERVAL);
 
     setInterval(() => {
-      TwitterProducer();
+      TwitterProducer().catch((err) => console.error("Twitter interval failed:", err));
     }, X_INTERVAL);
 
 
@@ -43,8 +45,10 @@ async function main() {
   catch (error) {
     await shutdown();
 
-    throw new Error(`Shutdown failed due to the following error: ${error}`);
+    throw new Error(`Main loop failed due to the following error: ${error}`);
   }
 }
 
 main();
+
+

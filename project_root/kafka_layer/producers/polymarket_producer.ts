@@ -10,9 +10,9 @@ const finalPolymarketEventSchema = z.object({
   id: z.string().trim().min(1),
   slug: z.string().trim().min(1),
   title: z.string().trim().min(1),
-  description: z.string().trim().min(0),
-  startDate: z.string().trim().min(0),
-  endDate: z.string().trim().min(0),
+  description: z.string().trim(),
+  startDate: z.string().trim(),
+  endDate: z.string().trim(),
   active: z.boolean().default(false),
   closed: z.boolean().default(false),
   liquidity: z.number().nonnegative().default(0),
@@ -25,13 +25,15 @@ const finalPolymarketEventSchema = z.object({
   oneDayPriceChange: z.number().optional(),
 });
 
+const polymarketResponse= z.array(z.unknown()).default([]);
+
 type FinalPolymarketEvent = z.infer<typeof finalPolymarketEventSchema>;
 
 interface RawPolymarketMarket {
-  lastTradePrice: number;
-  bestBid: number;
-  bestAsk: number;
-  oneDayPriceChange: number;
+  lastTradePrice?: number;
+  bestBid?: number;
+  bestAsk?: number;
+  oneDayPriceChange?: number;
 }
 
 interface RawPolymarketEvent {
@@ -54,7 +56,7 @@ function toPolymarketEvent(rawEvent: RawPolymarketEvent): FinalPolymarketEvent {
   const firstMarket = rawEvent.markets?.[0];
 
   if (!firstMarket) {
-    throw new Error(`Event ${rawEvent.id} has no markets`);
+    throw new Error(`The passed in event: ${rawEvent.id} currently has no active markets`);
   }
 
   return finalPolymarketEventSchema.parse({
@@ -80,9 +82,19 @@ function toPolymarketEvent(rawEvent: RawPolymarketEvent): FinalPolymarketEvent {
 export async function PolymarketProducer() {
   for (const topic of kafkaPolymarketTopics) {
     try {
-      const events = (await fetchPolymarketEvents(topic.name, topic.tag)) as RawPolymarketEvent[];
 
-      if (!Array.isArray(events) || events.length === 0) {
+      const rawResponse = await fetchPolymarketEvents(topic.name, topic.tag);
+
+      const parsed = polymarketResponse.safeParse(rawResponse);
+
+      if (!parsed.success) {
+        console.log(`Malformed Polymarket response for "${topic.name}":`, parsed.error.issues);
+        continue;
+      }
+
+      const events = parsed.data as RawPolymarketEvent[];
+
+      if (events.length === 0) {
         continue;
       }
 
