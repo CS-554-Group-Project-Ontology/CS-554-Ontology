@@ -1,55 +1,56 @@
 import axios from "axios";
 import { appendToNewsStream } from "./streams_config.ts";
-import { clearNewsStream } from "./streams_config.ts";
+import { trimNewsStreamEntriesOlderThan } from "./streams_config.ts";
 import * as z from "zod";
 import type Redis from "ioredis";
 
+
 const alphaApiKey = process.env.ALPHA_VANTAGE_KEY;
+const ONE_DAY_MS = 24 * 60 * 60 * 1000; 
 
 
 
-
-
-
-interface AlphaVantageNewsArticleRaw {
-  title: string;
-  url: string;
-  time_published: string;     
-  authors?: string[];
-  summary: string;
-  banner_image?: string | null; 
-}
-
-interface AlphaVantageResponse{ 
-  feed:AlphaVantageNewsArticleRaw[]; 
-}
 
 const finalArticleSchema = z.object({ 
   title: z.string().trim().min(0),
   sourceUrl: z.string().trim().url(), 
   publishedAt: 
-  z.string()
+  z.string().trim()
   .regex(/^\d{8}T\d{6}$/)
   .transform((s) => {
     const dateConversion = `${s.slice(0,4)}-${s.slice(4,6)}-${s.slice(6,8)}`
     return new Date(dateConversion)
 
 }),
-  authors: z.array(z.string().trim()).min(0), 
+  authors: z.array(z.string().trim()).default([]), 
   summary: z.string().trim().min(0)
+
+})
+
+
+const alphaVantageFeedResponse = z.object({ 
+  feed: z.array(z.unknown()).default([])
 
 })
 
 export type FinalNewsArticle = z.infer<typeof finalArticleSchema>
 
 
-function toNewsArticle(rawNewsData: AlphaVantageNewsArticleRaw): FinalNewsArticle{
+function toNewsArticle(rawNewsData: unknown): FinalNewsArticle{
+  if(typeof rawNewsData !== "object" || rawNewsData === null ){ 
+    throw new Error('The given input that is passed in is not an object'); 
+  }
+
+
+  const article = rawNewsData as Record<string, unknown>; 
+
+
   return finalArticleSchema.parse({ 
-    title: rawNewsData.title, 
-    sourceUrl: rawNewsData.url, 
-    publishedAt: rawNewsData.time_published,
-    authors: rawNewsData.authors, 
-    summary: rawNewsData.summary, 
+    title: article.title, 
+    sourceUrl: article.url, 
+    publishedAt: article.time_published,
+    authors: article.authors, 
+    summary: article.summary, 
   })
 }
 
@@ -57,7 +58,9 @@ function toNewsArticle(rawNewsData: AlphaVantageNewsArticleRaw): FinalNewsArticl
 
 
 function serializeForStream(article: FinalNewsArticle): Record<string, string> {
-  return { data: JSON.stringify(article) };
+  return { 
+    data: JSON.stringify(article) 
+  };
 }
 
 
@@ -67,9 +70,9 @@ function serializeForStream(article: FinalNewsArticle): Record<string, string> {
 
 export async function fetchAlphaVantageNews(redis: Redis): Promise<number> {
   try {
-    await clearNewsStream(redis);
+    await trimNewsStreamEntriesOlderThan(redis,ONE_DAY_MS);
 
-    const response = await axios.get<AlphaVantageResponse>(
+    const response = await axios.get<unknown>(
       "https://www.alphavantage.co/query",
       {
         params: {
@@ -80,8 +83,18 @@ export async function fetchAlphaVantageNews(redis: Redis): Promise<number> {
         },
       }
     );
+  
 
-    const rawArticles = response.data.feed ?? [];
+    const feedResult = alphaVantageFeedResponse.safeParse(response.data); 
+
+
+    if(!feedResult.success){
+      throw new Error(`Malformed Alpha Vantage API response`)
+
+    }
+
+    const rawArticles = feedResult.data.feed;
+  
 
 
     if (rawArticles.length === 0) {
@@ -89,25 +102,46 @@ export async function fetchAlphaVantageNews(redis: Redis): Promise<number> {
     }
 
     const validatedArticles: FinalNewsArticle[] = [];
+    const malformedArticles = []; 
 
-    for (const articles of rawArticles) {
+    for (const article of rawArticles) {
       try {
-        validatedArticles.push(toNewsArticle(articles));
+        validatedArticles.push(toNewsArticle(article));
       } 
       catch (error) {
-        console.log(`Given invalid article was skipped that has the following url: ${articles.url}:`, error);
+        console.log("Given invalid article was skipped:", article);
+        malformedArticles.push(article); 
+
       }
     }
+    const seenUrls = new Set<string>();
+
+    const dedupedArticles = validatedArticles.filter((article) => {
+
+      if (seenUrls.has(article.sourceUrl)){ 
+        return false;
+      } 
+
+      seenUrls.add(article.sourceUrl);
+
+      return true;
+    });
+
 
     let appendedCount = 0;
 
-    for(const article of validatedArticles){
+    for(const article of dedupedArticles){
       await appendToNewsStream(redis, serializeForStream(article));
+
       appendedCount += 1; 
 
     }
+    
+    
+    const duplicatesArticlesDropped = validatedArticles.length - dedupedArticles.length;
+    console.log(`Alpha Vantage: appended ${appendedCount} new articles (${dedupedArticles.length} unique of ${validatedArticles.length} validated, ${duplicatesArticlesDropped} duplicates dropped, ${rawArticles.length} received)`);
 
-    console.log(`Alpha Vantage: appended ${appendedCount} new articles (${validatedArticles.length} validated of ${rawArticles.length} received)`);
+
     return appendedCount;
   } 
   catch (error) {
