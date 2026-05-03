@@ -8,10 +8,8 @@ import NotFound from './components/NotFound';
 import Layout from "./components/Layout";
 import Mobility from './pages/Mobility/Mobility';
 import Foundations from './pages/Foundations/Foundations';
-import AffordabilityNYC from "./pages/AffordabilityNYC";
-import AffordabilitySF from "./pages/AffordabilitySF";
-import AffordabilityHouston from "./pages/AffordabilityHouston";
 import Profile from "./components/Profile";
+import AffordabilityCityRoute from './pages/Affordability/AffordabilityCityRoute';
 
 function App() {
   return (
@@ -23,13 +21,8 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route path='/mobility' element={<Mobility />} />
                 <Route path='/foundations' element={<Foundations />}/>
-                <Route path='/affordability-nyc' element={<AffordabilityNYC />} />
-                <Route path='/affordability-sf' element={<AffordabilitySF />} />
-                <Route
-                  path='/affordability-houston'
-                  element={<AffordabilityHouston />}
-                />
-
+                <Route path='/affordability/:citySlug' element={<AffordabilityCityRoute />} />
+                <Route path='/affordability/:citySlug/:popularNeighborhood' element={<AffordabilityCityRoute />} />
                 <Route path='/profile' element={<Profile />} />
             </Route>
             <Route path='/signin' element={<SignIn />} />

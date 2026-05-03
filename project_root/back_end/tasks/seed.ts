@@ -24,7 +24,7 @@ const newYorkNeighborhoods = [
 
 const sanFranciscoNeighborhoods = [
   'Marina',
-  'Midtown',
+  'Mission',
   'Pacific Heights',
   'Nob Hill',
   'Noe Valley',
