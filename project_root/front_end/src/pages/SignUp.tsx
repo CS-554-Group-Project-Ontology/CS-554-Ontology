@@ -14,7 +14,7 @@ function SignUp() {
   const navigate = useNavigate();
 
   if (currentUser && !signingUp) {
-    return <Navigate to='/dashboard' />;
+    return <Navigate to='/' />;
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {

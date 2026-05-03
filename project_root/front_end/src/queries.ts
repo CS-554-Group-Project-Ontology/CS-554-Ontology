@@ -51,10 +51,29 @@ export const GET_COST_OF_LIVING_BY_CITY_AND_NEIGHBORHOOD = gql`
   }
 `;
 
+export const GET_USER_COUNTS_BY_CITY = gql`
+  query GetUserCountsByCity {
+    getUserCountsByCity {
+      citiesData {
+        city
+        count
+      }
+      popularNeighborhoods {
+        city
+        neighborhood
+        count
+      }  
+      totalCount
+    }
+  }
+`;
+
+
 const queries = {
   GET_ME,
   FRED_SERIES,
   GET_COST_OF_LIVING_BY_CITY_AND_NEIGHBORHOOD,
+  GET_USER_COUNTS_BY_CITY,
 };
 
 export default queries;

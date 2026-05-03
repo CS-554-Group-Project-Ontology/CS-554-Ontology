@@ -21,7 +21,7 @@ function App() {
         <Route path='/' element={<Layout />}>
           <Route path='/' element={<Landing />} />
           <Route element={<PrivateRoute />}>
-            <Route path='/dashboard' element={<Mobility />} />
+            <Route path='/mobility' element={<Mobility />} />
                 <Route path='/foundations' element={<Foundations />}/>
                 <Route path='/affordability-nyc' element={<AffordabilityNYC />} />
                 <Route path='/affordability-sf' element={<AffordabilitySF />} />
