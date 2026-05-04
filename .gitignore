@@ -1,0 +1,12 @@
+Dockerfile
+docker-compose.yml
+/project_root/back_end/.env
+/project_root/front_end/.env
+/project_root/kafka_layer/.env
+/project_root/redis_streams_layer/.env
+node_modules/
+.dockerignore
+.env*
+bun.lock
+
+
