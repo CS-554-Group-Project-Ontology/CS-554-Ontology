@@ -2,27 +2,81 @@ import { useEffect } from "react";
 import ApexCharts, { type ApexOptions } from "apexcharts";
 
 
-type ChartMode = 'incomeVsLiability'|'budget'|'aggregate'
-type MonthlyAggregate = {
-    month: string;
-    income: number;
-    liabilities: number;
-};
+type ChartMode = 'incomeVsLiability'|'budget'
+
+interface Liabilities{
+    rent?: number;
+    insuranceDeductibles?: number;
+    utilities?: number;
+    other?: number;
+}
+
 
 type ChartProps = {
     mode: ChartMode;
     income: number;
-    liabilities: number;
-    monthlyData?: MonthlyAggregate[];
+    liabilities: Liabilities;
 };
 
-function MobilityCharts({ income,liabilities,mode,monthlyData = [] }:ChartProps) {
+function BudgetCompareBox({
+        label,
+        actual,
+        recommended,
+        isBad,
+    }: {
+        label: string;
+        actual: number;
+        recommended: number;
+        isBad: boolean;
+    }) {
+    return (
+        <div
+        className={`rounded-lg border p-3 ${
+            isBad
+            ? "border-red-200 bg-red-50 text-red-700"
+            : "border-green-200 bg-green-50 text-green-700"
+        }`}
+        >
+        <div className="flex items-center justify-between">
+            <span className="font-medium">{label}</span>
+            <span className="text-sm font-semibold">
+            {isBad ? "Over" : "Good"}
+            </span>
+        </div>
+
+        <p className="mt-1 text-sm">Actual: ${actual.toFixed(2)}</p>
+        <p className="text-sm">Recommended: ${recommended.toFixed(2)}</p>
+        </div>
+    );
+}
+
+function MobilityCharts({ income,liabilities,mode }:ChartProps) {
     const chartId =
         mode === "incomeVsLiability"
         ? "income-liability-chart"
         : mode === "budget"
         ? "budget-chart"
-        : "aggregate-chart";
+        : "unknown-chart"
+    
+    const rent = liabilities?.rent ?? 0;
+    const insurance = liabilities?.insuranceDeductibles ?? 0;
+    const utilities = liabilities?.utilities ?? 0;
+    const other = liabilities?.other ?? 0;
+
+    const actualNeeds = rent + insurance + utilities;
+    const actualWants = other;
+
+    const actualSavings = Math.max(
+    income - actualNeeds - actualWants,
+    0
+    );
+
+    const recommendedNeeds = income * 0.5;
+    const recommendedWants = income * 0.3;
+    const recommendedSavings = income * 0.2;
+
+    const totalLiabilities = actualNeeds + actualWants;
+    const remainingIncome = Math.max(income - totalLiabilities, 0);
 
     const getCssVar = (name:string,fallback:string)=>{
         return(
@@ -30,19 +84,19 @@ function MobilityCharts({ income,liabilities,mode,monthlyData = [] }:ChartProps)
         );
     };
 
-  const getChartOptions = (): ApexOptions => {
+    const getChartOptions = (): ApexOptions => {
     const brandColor = getCssVar("--color-fg-brand", "#1447E6");
     const liabilityColor = getCssVar("--color-error", "#C70036");
     const warningColor = getCssVar("--color-warning", "#F59E0B");
     const successColor = getCssVar("--color-success", "#007A55");
     const neutralColor = getCssVar("--color-neutral-primary", "#FFFFFF");
 
+
     switch (mode) {
         case "incomeVsLiability": {
-            const remainingIncome = Math.max(income - liabilities, 0);
 
             return {
-            series: [liabilities, remainingIncome],
+            series: [totalLiabilities, remainingIncome],
             labels: ["Liabilities", "Remaining Income"],
             colors: [liabilityColor, brandColor],
             chart: {
@@ -67,30 +121,49 @@ function MobilityCharts({ income,liabilities,mode,monthlyData = [] }:ChartProps)
         }
 
         case "budget": {
+
             return {
-            series: [income * 0.5, income * 0.3, income * 0.2],
-            labels: ["Needs 50%", "Wants 30%", "Savings 20%"],
-            colors: [brandColor, warningColor, successColor],
-            chart: {
+
+                series: [
+                actualNeeds,
+                actualWants,
+                actualSavings,
+                ],
+
+                labels: [
+                "Needs",
+                "Wants",
+                "Savings Potential",
+                ],
+
+                colors: [
+                brandColor,
+                warningColor,
+                successColor,
+                ],
+
+                chart: {
                 height: 420,
                 width: "100%",
                 type: "pie" as const,
-            },
-            legend: {
-                position: "bottom",
-                fontFamily: "Inter, sans-serif",
-            },
-            tooltip: {
+                },
+
+                legend: {
+                position: "bottom" as const,
+                },
+
+                tooltip: {
                 y: {
-                formatter: function (value: number) {
-                    return "$" + value.toFixed(2);
+                    formatter: function (value: number) {
+                    return "$" + value.toFixed(2);  
+                    },
                 },
                 },
-            },
             };
         }
 
-        case "aggregate": {
+        // Can implement as stretch feature however required complete overhaul of user to include month and year and allow for 1 to many
+        /*case "aggregate": {
             return {
             series: [
                 {
@@ -138,7 +211,7 @@ function MobilityCharts({ income,liabilities,mode,monthlyData = [] }:ChartProps)
                 position: "bottom",
             },
             };
-        }
+        }*/
         default: {
             return {
                 series: [],
@@ -163,23 +236,48 @@ function MobilityCharts({ income,liabilities,mode,monthlyData = [] }:ChartProps)
     return () => {
         chart.destroy();
         };
-    }, [mode, income, liabilities, monthlyData, chartId]);
+    }, [mode, income, liabilities,chartId]);
 
     const title =
         mode === "incomeVsLiability"
         ? "Income vs Liabilities"
         : mode === "budget"
         ? "Budget Breakdown"
-        : "Monthly Income and Liability Trend";
+        : "Unknown chart";
 
     return (
-        <div className="card bg-base-100 w-96 shadow-sm">
+    <div className="card bg-base-100 w-100 shadow-sm">
         <div className="card-body">
             <h2 className="card-title">{title}</h2>
 
             <div id={chartId} className="w-full" />
+
+            {mode === "budget" && (
+                <div className="mt-4 grid grid-cols-1 gap-3">
+                    <BudgetCompareBox
+                        label="Needs"
+                        actual={actualNeeds}
+                        recommended={recommendedNeeds}
+                        isBad={actualNeeds > recommendedNeeds}
+                    />
+
+                    <BudgetCompareBox
+                        label="Wants"
+                        actual={actualWants}
+                        recommended={recommendedWants}
+                        isBad={actualWants > recommendedWants}
+                    />
+
+                    <BudgetCompareBox
+                        label="Savings Room"
+                        actual={actualSavings}
+                        recommended={recommendedSavings}
+                        isBad={actualSavings < recommendedSavings}
+                    />
+                </div>
+            )}
         </div>
-        </div>
+    </div>
     );
 }
 export default MobilityCharts;

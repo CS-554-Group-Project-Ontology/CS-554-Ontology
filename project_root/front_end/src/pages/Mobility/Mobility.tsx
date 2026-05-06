@@ -19,6 +19,7 @@ import {
 import SearchableSelect from './SearchableSelect';
 import { AFFORDABILITY_CITY_LIST, isAffordabilityCity } from '../Affordability/affordabilityCityConfig';
 import { checkNumber, checkString } from '../../helpers';
+import MobilityCharts from './Charts';
 
 function Mobility() {
   const { currentUser } = useContext(AuthContext);
@@ -193,6 +194,12 @@ function Mobility() {
     return <div className='text-red-500'>{error.message}</div>;
   }
 
+  const totalLiabilities = Object.values(
+    economicProfile.liabilities ?? {})
+    .reduce((sum,value)=> sum + (typeof value === 'number' ? value: 0),0);
+
+  const chartDataCheck = typeof economicProfile.income === 'number' && economicProfile.income>0 && totalLiabilities>0;
+
   const canSubmit = hasChanges && !saving;
 
   return (
@@ -364,6 +371,35 @@ function Mobility() {
             </div>
           </form>
         </details>
+        <section aria-label='Financial-Analytics' className='grid grid-cols-1 gap-6 lg:grid-cols-2'>
+          {chartDataCheck ? (
+            <>
+              <MobilityCharts
+                income={economicProfile.income!}
+                liabilities={economicProfile.liabilities ?? {}}
+                mode='incomeVsLiability'
+              />
+
+              <MobilityCharts
+                income={economicProfile.income!}
+                liabilities={economicProfile.liabilities ?? {}}
+                mode='budget'
+              />
+            </>
+          ) : (
+          <div className='col-span-full rounded-box bg-base-100 p-6 shadow text-center border border-dashed border-slate-300'>
+            <div className='text-4xl text-slate-300 mb-2'>×</div>
+
+            <h2 className='text-lg font-semibold'>
+              Financial Analytics Locked
+            </h2>
+
+            <p className='mt-2 text-sm text-slate-500'>
+              Add your income and liabilities above to unlock financial analytics.
+            </p>
+          </div>
+          )}
+        </section>
       </div>
     </div>
   );
