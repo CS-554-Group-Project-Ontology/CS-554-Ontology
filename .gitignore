@@ -8,5 +8,9 @@ node_modules/
 .dockerignore
 .env*
 bun.lock
+dump.rdb
+*.tsbuildinfo
+**/dist/
+package-lock.json
 
 

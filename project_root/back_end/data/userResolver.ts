@@ -1,7 +1,6 @@
 import { GraphQLError } from 'graphql';
 import { setCache, getCache, cleanKey } from '../EconProfRedis.ts';
 import User from "../data_model_layer/User.ts";
-import type { typeUser } from "../data_model_layer/User.ts"
 import { verifyFirebaseToken } from '../Config/FirebaseAdmin.ts';
 
 interface TsLiabilities{
@@ -242,11 +241,11 @@ export const userResolver = {
       const decodedToken = await verifyFirebaseToken(context.token);
       const UUID = decodedToken.uid;
 
-      let inputUser: Partial<typeUser> = {
-        UUID,
-      };
-      const resultUser = new User(inputUser);
-      await resultUser.save();
+      const resultUser = await User.findOneAndUpdate(
+        { UUID },
+        { $setOnInsert: { UUID } },
+        { upsert: true, returnDocument: 'after' }
+      );
       return resultUser;
     },
 

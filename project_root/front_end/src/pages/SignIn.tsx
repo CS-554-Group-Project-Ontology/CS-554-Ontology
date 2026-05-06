@@ -6,6 +6,7 @@ import {
   doPasswordReset,
   doSocialSignIn,
 } from "../firebase/FirebaseFunctions";
+import { addUserApi } from "../api";
 
 function SignIn() {
   const { currentUser } = useContext(AuthContext);
@@ -32,6 +33,7 @@ function SignIn() {
 
     try {
       await doSignInWithEmailAndPassword(email, password);
+      await addUserApi();
     } catch (err) {
       setError((err as Error).message);
     }
@@ -56,6 +58,7 @@ function SignIn() {
   async function handleSocialSignIn() {
     try {
       await doSocialSignIn();
+      await addUserApi();
     } catch (err) {
       setError((err as Error).message);
     }
