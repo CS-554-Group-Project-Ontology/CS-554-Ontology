@@ -56,7 +56,7 @@ function SignUp() {
       await doCreateUserWithEmailAndPassword(email, password, displayName);
       await addUserApi();
       await refreshUser();
-      navigate('/dashboard');
+      navigate('/');
     } catch (err) {
       setError((err as Error).message);
       setSigningUp(false);
@@ -64,12 +64,16 @@ function SignUp() {
   }
 
   async function handleSocialSignIn() {
+    setSigningUp(true);
     try {
       await doSocialSignIn();
-      await addUserApi();
     } catch (err) {
       setError((err as Error).message);
+      setSigningUp(false);
+      return;
     }
+    await addUserApi().catch(() => {});
+    navigate('/');
   }
 
   return (
