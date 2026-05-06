@@ -33,10 +33,11 @@ function SignIn() {
 
     try {
       await doSignInWithEmailAndPassword(email, password);
-      await addUserApi();
     } catch (err) {
       setError((err as Error).message);
+      return;
     }
+    await addUserApi().catch(() => {});
   }
 
   async function handlePasswordReset() {
@@ -58,10 +59,11 @@ function SignIn() {
   async function handleSocialSignIn() {
     try {
       await doSocialSignIn();
-      await addUserApi();
     } catch (err) {
       setError((err as Error).message);
+      return;
     }
+    await addUserApi().catch(() => {});
   }
 
   return (
