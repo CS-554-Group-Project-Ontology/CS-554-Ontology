@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import ApexCharts, { type ApexOptions } from "apexcharts";
+import { usd } from "../../helpers";
 
 
 type ChartMode = 'incomeVsLiability'|'budget'
@@ -44,8 +45,8 @@ function BudgetCompareBox({
             </span>
         </div>
 
-        <p className="mt-1 text-sm">Actual: ${actual.toFixed(2)}</p>
-        <p className="text-sm">Recommended: ${recommended.toFixed(2)}</p>
+        <p className="mt-1 text-sm">Actual: {usd.format(actual)}</p>
+        <p className="text-sm">Recommended: {usd.format(recommended)}</p>
         </div>
     );
 }
@@ -159,7 +160,7 @@ function MobilityCharts({ income,liabilities,mode }:ChartProps) {
                 tooltip: {
                     y: {
                         formatter: function (value: number) {
-                        return "$" + value.toFixed(2);  
+                        return usd.format(value);
                         },
                     },
                 },
