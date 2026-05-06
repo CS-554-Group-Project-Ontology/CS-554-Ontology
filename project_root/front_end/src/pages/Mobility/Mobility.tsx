@@ -371,7 +371,7 @@ function Mobility() {
             </div>
           </form>
         </details>
-        <section aria-label='Financial-Analytics' className='grid grid-cols-1 gap-6 lg:grid-cols-2'>
+        <section aria-label='Financial-Analytics' className='mt-10 grid grid-cols-1 gap-3'>
           {chartDataCheck ? (
             <>
               <MobilityCharts

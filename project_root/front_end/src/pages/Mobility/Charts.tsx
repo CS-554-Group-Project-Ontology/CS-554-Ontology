@@ -96,27 +96,37 @@ function MobilityCharts({ income,liabilities,mode }:ChartProps) {
         case "incomeVsLiability": {
 
             return {
-            series: [totalLiabilities, remainingIncome],
-            labels: ["Liabilities", "Remaining Income"],
-            colors: [liabilityColor, brandColor],
-            chart: {
-                height: 420,
-                width: "100%",
-                type: "donut" as const,
-            },
-            stroke: {
-                colors: [neutralColor],
-            },
-            legend: {
-                position: "bottom",
-                fontFamily: "Inter, sans-serif",
-            },
-            dataLabels: {
-                enabled: true,
-                formatter: function (value: number) {
-                return value.toFixed(1) + "%";
+                series: [totalLiabilities, remainingIncome],
+                labels: ["Liabilities", "Remaining Income"],
+                colors: [liabilityColor, brandColor],
+                chart: {
+                    height: 420,
+                    width: "100%",
+                    type: "donut" as const,
                 },
-            },
+                stroke: {
+                    colors: [neutralColor],
+                },
+                plotOptions: {
+                    pie: {
+                        donut: {
+                        size: "65%",
+                        },
+                        dataLabels: {
+                        offset: -12,
+                        },
+                    },
+                },
+                legend: {
+                    position: "bottom",
+                    fontFamily: "Inter, sans-serif",
+                },
+                dataLabels: {
+                    enabled: true,
+                    formatter: function (value: number) {
+                    return value.toFixed(1) + "%";
+                    },
+                },
             };
         }
 
@@ -124,40 +134,34 @@ function MobilityCharts({ income,liabilities,mode }:ChartProps) {
 
             return {
 
-                series: [
-                actualNeeds,
-                actualWants,
-                actualSavings,
-                ],
+                series: [recommendedNeeds,recommendedWants,recommendedSavings],
+                labels: ["Needs","Wants","Savings Potential"],
+                colors: [brandColor,warningColor,successColor],
 
-                labels: [
-                "Needs",
-                "Wants",
-                "Savings Potential",
-                ],
-
-                colors: [
-                brandColor,
-                warningColor,
-                successColor,
-                ],
+                plotOptions: {
+                    pie: {
+                        dataLabels: {
+                        offset: -18,
+                        },
+                    },
+                },
 
                 chart: {
-                height: 420,
-                width: "100%",
-                type: "pie" as const,
+                    height: 420,
+                    width: "100%",
+                    type: "pie" as const,
                 },
 
                 legend: {
-                position: "bottom" as const,
+                    position: "bottom" as const,
                 },
 
                 tooltip: {
-                y: {
-                    formatter: function (value: number) {
-                    return "$" + value.toFixed(2);  
+                    y: {
+                        formatter: function (value: number) {
+                        return "$" + value.toFixed(2);  
+                        },
                     },
-                },
                 },
             };
         }
@@ -246,7 +250,7 @@ function MobilityCharts({ income,liabilities,mode }:ChartProps) {
         : "Unknown chart";
 
     return (
-    <div className="card bg-base-100 w-100 shadow-sm">
+    <div className="card bg-base-100 w-full shadow-sm">
         <div className="card-body">
             <h2 className="card-title">{title}</h2>
 
