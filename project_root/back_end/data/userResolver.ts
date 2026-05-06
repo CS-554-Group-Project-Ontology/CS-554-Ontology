@@ -23,15 +23,6 @@ type ResolverContext = {
 
 export const userResolver = {
     Query:{
-        users: async() =>{
-      const users = await User.find();
-            if (users.length==0){
-                throw new GraphQLError("Users Not Found"),{
-                    extensions: {code: 'NOT_FOUND'}
-          }
-      }
-      return users;
-    },
         getMe: async (_:unknown,__:unknown, context: ResolverContext) => {
             if (!context.token){
                 throw new GraphQLError('Unauthorized',{
