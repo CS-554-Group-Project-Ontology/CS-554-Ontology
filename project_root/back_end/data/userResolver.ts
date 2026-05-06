@@ -243,7 +243,6 @@ export const userResolver = {
         editUser: async(_:unknown,args:{economic_profile: TsEconomicProfile}, context: ResolverContext) => {
 
             console.log("edit resolver hit");
-            console.log("incoming args:", args);
 
             if (!context.token){
                 throw new GraphQLError('Unauthorized',{
