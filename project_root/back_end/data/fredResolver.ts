@@ -1,5 +1,5 @@
 import { GraphQLError } from 'graphql';
-import { verifyFirebaseToken } from '../Config/FirebaseAdmin.ts';
+import { requireAuth } from '../Config/FirebaseAdmin.ts';
 import { fetchFredSeries, isAllowedSeries } from '../services/fredService.ts';
 import { getFredCache, setFredCache } from '../FredRedis.ts';
 
@@ -20,12 +20,7 @@ export const fredResolver = {
             args: FredSeriesArgs,
             context: ResolverContext,
         ) => {
-            if (!context.token) {
-                throw new GraphQLError('Unauthorized', {
-                    extensions: { code: 'INVALID_ACCESS' },
-                });
-            }
-            await verifyFirebaseToken(context.token);
+            await requireAuth(context);
 
             const { seriesId, start, end } = args;
             if (!isAllowedSeries(seriesId)) {

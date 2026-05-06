@@ -1,7 +1,7 @@
 import { GraphQLError } from 'graphql';
 import { setCache, getCache, cleanKey } from '../EconProfRedis.ts';
 import User from "../data_model_layer/User.ts";
-import { verifyFirebaseToken } from '../Config/FirebaseAdmin.ts';
+import { requireAuth } from '../Config/FirebaseAdmin.ts';
 
 interface TsLiabilities{
   rent?: number;
@@ -24,13 +24,7 @@ type ResolverContext = {
 export const userResolver = {
     Query:{
         getMe: async (_:unknown,__:unknown, context: ResolverContext) => {
-            if (!context.token){
-                throw new GraphQLError('Unauthorized',{
-                    extensions: {code: 'INVALID_ACCESS'}
-        });
-      }
-      const decodedToken = await verifyFirebaseToken(context.token);
-      const UUID = decodedToken.uid;
+      const { uid: UUID } = await requireAuth(context);
 
       const cache = await getCache(UUID);
             if (cache){
@@ -52,12 +46,7 @@ export const userResolver = {
       args: { city: string; neighborhood: string },
       context: ResolverContext,
     ) => {
-      if (!context.token) {
-        throw new GraphQLError('Unauthorized', {
-          extensions: { code: 'INVALID_ACCESS' },
-        });
-      }
-      await verifyFirebaseToken(context.token);
+      await requireAuth(context);
 
       const city = args.city.trim();
       const neighborhood = args.neighborhood.trim();
@@ -140,12 +129,7 @@ export const userResolver = {
     },
 
     getUserCountsByCity: async(_: unknown, __: unknown, context: ResolverContext) => {
-      if (!context.token) {
-        throw new GraphQLError('Unauthorized', {
-          extensions: { code: 'INVALID_ACCESS' },
-        });
-      }
-      await verifyFirebaseToken(context.token);
+      await requireAuth(context);
 
       const users = await User.find({
         'economic_profile.city': { $exists: true, $ne: null },
@@ -224,13 +208,7 @@ export const userResolver = {
   Mutation: {
         addUser: async(_:unknown,__:unknown,context: ResolverContext) =>{
             console.log("register resolver hit");
-            if (!context.token){
-                throw new GraphQLError('Unauthorized',{
-                    extensions: {code: 'INVALID_ACCESS'}
-        });
-      }
-      const decodedToken = await verifyFirebaseToken(context.token);
-      const UUID = decodedToken.uid;
+      const { uid: UUID } = await requireAuth(context);
 
       const resultUser = await User.findOneAndUpdate(
         { UUID },
@@ -244,13 +222,7 @@ export const userResolver = {
 
             console.log("edit resolver hit");
 
-            if (!context.token){
-                throw new GraphQLError('Unauthorized',{
-                    extensions: {code: 'INVALID_ACCESS'}
-        });
-      }
-      const decodedToken = await verifyFirebaseToken(context.token);
-      const UUID = decodedToken.uid;
+      const { uid: UUID } = await requireAuth(context);
 
             let inputUser: Record<string,unknown> = {};
 
@@ -338,13 +310,7 @@ export const userResolver = {
             
             console.log("remove resolver hit");
 
-            if (!context.token){
-                throw new GraphQLError('Unauthorized',{
-                    extensions: {code: 'INVALID_ACCESS'}
-        });
-      }
-      const decodedToken = await verifyFirebaseToken(context.token);
-      const UUID = decodedToken.uid;
+      const { uid: UUID } = await requireAuth(context);
 
             const result = await User.findOneAndDelete({UUID});
 
