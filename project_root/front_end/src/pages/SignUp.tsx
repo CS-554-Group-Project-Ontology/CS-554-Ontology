@@ -56,7 +56,7 @@ function SignUp() {
       await doCreateUserWithEmailAndPassword(email, password, displayName);
       await addUserApi();
       await refreshUser();
-      navigate('/dashboard');
+      navigate('/');
     } catch (err) {
       setError((err as Error).message);
       setSigningUp(false);
