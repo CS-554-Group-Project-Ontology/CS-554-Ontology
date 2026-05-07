@@ -13,6 +13,7 @@ function Navigation() {
     { to: '/', label: 'Landing' },
     { to: '/mobility', label: 'Mobility' },
     { to: '/foundations', label: 'Foundations' },
+    { to: '/news', label:'News'}
   ];
 
   const unauthNavItems = [
@@ -30,7 +31,7 @@ function Navigation() {
   }
 
   return (
-    <header className='navbar bg-base-300 sticky top-0 z-50 shadow-sm'>
+    <header className='navbar bg-surface sticky top-0 z-50 shadow-sm'>
       <nav className='container mx-auto flex items-center justify-between px-4 py-3'>
         <div className='flex items-center justify-center gap-3 lg:justify-start'>
           <div className='flex h-9 w-9 items-center justify-center rounded-full bg-linear-to-br from-blue-600 to-amber-500 text-sm font-black text-white shadow-sm'>
@@ -38,7 +39,7 @@ function Navigation() {
           </div>
           <div>
             <NavLink to='/'>
-              <p className='text-xl font-black tracking-tight text-slate-900'>
+              <p className='text-xl font-black tracking-tight text-base-content'>
                 Ontology
               </p>
             </NavLink>
@@ -56,7 +57,7 @@ function Navigation() {
                       `btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium ${
                         isActive
                           ? 'bg-primary text-white'
-                          : 'text-slate-700 hover:bg-slate-200'
+                          : 'text-base-content hover:bg-base-200'
                       }`
                     }
                   >
@@ -68,7 +69,7 @@ function Navigation() {
                 <div
                   tabIndex={0}
                   role='button'
-                  className='btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-200'
+                  className='btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium text-base-content hover:bg-base-200'
                 >
                   Affordability
                 </div>
@@ -84,7 +85,7 @@ function Navigation() {
                           `btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium ${
                             isActive
                               ? 'bg-primary text-white'
-                              : 'text-slate-700 hover:bg-slate-200'
+                              : 'text-base-content hover:bg-base-200'
                           }`
                         }
                       >
@@ -122,7 +123,7 @@ function Navigation() {
                         `btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium ${
                           isActive
                             ? 'bg-primary text-white'
-                            : 'text-slate-700 hover:bg-slate-200'
+                            : 'text-base-content hover:bg-base-200'
                         }`
                       }
                     >
@@ -131,7 +132,7 @@ function Navigation() {
                   </li>
                   <li>
                     <button
-                      className='btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-200'
+                      className='btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium text-base-content hover:bg-base-200'
                       onClick={handleSignOut}
                     >
                       Sign Out
@@ -150,7 +151,7 @@ function Navigation() {
                       `btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium ${
                         isActive
                           ? 'bg-primary text-white'
-                          : 'text-slate-700 hover:bg-slate-200'
+                          : 'text-base-content hover:bg-base-200'
                       }`
                     }
                   >

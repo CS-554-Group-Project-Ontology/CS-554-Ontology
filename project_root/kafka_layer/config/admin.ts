@@ -18,6 +18,10 @@ export async function createTopics() {
                     topic: "x-news-feed",
                     numPartitions: 1,
                 },
+                {
+                    topic: "news-articles-feed",
+                    numPartitions: 1,
+                },
             ],
         });
     }

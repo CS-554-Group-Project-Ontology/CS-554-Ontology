@@ -10,6 +10,7 @@ import Mobility from './pages/Mobility/Mobility';
 import Foundations from './pages/Foundations/Foundations';
 import Profile from "./components/Profile";
 import AffordabilityCityRoute from './pages/Affordability/AffordabilityCityRoute';
+import News from './pages/News/News';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
                 <Route path='/affordability/:citySlug' element={<AffordabilityCityRoute />} />
                 <Route path='/affordability/:citySlug/:popularNeighborhood' element={<AffordabilityCityRoute />} />
                 <Route path='/profile' element={<Profile />} />
+                <Route path='/news' element={<News />} /> 
             </Route>
             <Route path='/signin' element={<SignIn />} />
             <Route path='/signup' element={<SignUp />} />
