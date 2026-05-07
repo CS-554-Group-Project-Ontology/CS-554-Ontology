@@ -6,9 +6,10 @@ import { fredResolver } from './data/fredResolver.ts';
 
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-import { client } from "./Config/redisClient.ts"
+import { fredClient, authClient } from "./Config/redisClient.ts"
 
-await client.connect();
+await fredClient.connect();
+await authClient.connect();
 
 const Server = async () => {
     await connectDB();
