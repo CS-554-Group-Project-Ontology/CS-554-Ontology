@@ -19,17 +19,33 @@ type ChartProps = {
     liabilities: Liabilities;
 };
 
+type BudgetCompareType = "spending" | "savings";
+
 function BudgetCompareBox({
-        label,
-        actual,
-        recommended,
-        isBad,
+    label,
+    actual,
+    recommended,
+    type,
     }: {
-        label: string;
-        actual: number;
-        recommended: number;
-        isBad: boolean;
+    label: string;
+    actual: number;
+    recommended: number;
+    type: BudgetCompareType;
     }) {
+    const isBad =
+        type === "savings"
+        ? actual < recommended
+        : actual > recommended;
+
+    const status =
+        type === "savings"
+        ? isBad
+            ? "Under Target"
+            : "On Track"
+        : isBad
+        ? "Over Target"
+        : "Within Target";
+
     return (
         <div
         className={`rounded-lg border p-3 ${
@@ -40,17 +56,14 @@ function BudgetCompareBox({
         >
         <div className="flex items-center justify-between">
             <span className="font-medium">{label}</span>
-            <span className="text-sm font-semibold">
-            {isBad ? "Over" : "Good"}
-            </span>
+            <span className="text-sm font-semibold">{status}</span>
         </div>
 
-        <p className="mt-1 text-sm">Actual: {usd.format(actual)}</p>
-        <p className="text-sm">Recommended: {usd.format(recommended)}</p>
+        <p className="mt-1 text-sm">Actual: ${actual.toFixed(2)}</p>
+        <p className="text-sm">Recommended: ${recommended.toFixed(2)}</p>
         </div>
     );
 }
-
 function MobilityCharts({ income,liabilities,mode }:ChartProps) {
     const chartId =
         mode === "incomeVsLiability"
@@ -241,7 +254,7 @@ function MobilityCharts({ income,liabilities,mode }:ChartProps) {
     return () => {
         chart.destroy();
         };
-    }, [mode, income, liabilities,chartId]);
+    }, [mode, income, rent, insurance, utilities, other]);
 
     const title =
         mode === "incomeVsLiability"
@@ -263,21 +276,21 @@ function MobilityCharts({ income,liabilities,mode }:ChartProps) {
                         label="Needs"
                         actual={actualNeeds}
                         recommended={recommendedNeeds}
-                        isBad={actualNeeds > recommendedNeeds}
+                        type="spending"
                     />
 
                     <BudgetCompareBox
                         label="Wants"
                         actual={actualWants}
                         recommended={recommendedWants}
-                        isBad={actualWants > recommendedWants}
+                        type="spending"
                     />
 
                     <BudgetCompareBox
-                        label="Savings Room"
+                        label="Savings"
                         actual={actualSavings}
                         recommended={recommendedSavings}
-                        isBad={actualSavings < recommendedSavings}
+                        type="savings"
                     />
                 </div>
             )}
