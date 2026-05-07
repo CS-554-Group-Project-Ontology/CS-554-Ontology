@@ -1,15 +1,8 @@
 import express from "express";
 import { apacheKafkaEvents, feedData } from "../../consumers/consumer";
+import { SSE_HEADERS, TOPICS } from "./constants";
 
 const router = express.Router();
-const TOPIC = "news-articles-feed";
-
-const SSE_HEADERS = {
-  "Content-Type": "text/event-stream",
-  "Cache-Control": "no-cache",
-  "Connection": "keep-alive",
-  "X-Accel-Buffering": "no",
-} as const;
 
 
 router.get("/stream/alpha-vantage-news", (req, res) => {
@@ -17,14 +10,7 @@ router.get("/stream/alpha-vantage-news", (req, res) => {
   res.set(SSE_HEADERS);
   res.flushHeaders();
 
-
-  if(!Array.isArray(feedData[TOPIC])){ 
-
-  }
-
-  
-
-  const recent = (feedData[TOPIC] ?? []).slice(-25).reverse();
+  const recent = (feedData[TOPICS.ALPHA_VANTAGE_NEWS] ?? []).slice(-25).reverse();
 
   
   res.write(`event: snapshot\ndata: ${JSON.stringify(recent)}\n\n`);
@@ -33,12 +19,12 @@ router.get("/stream/alpha-vantage-news", (req, res) => {
     res.write(`event: articleAdded\ndata: ${JSON.stringify(payload)}\n\n`);
   };
 
-  apacheKafkaEvents.on(TOPIC, onMessage);
+  apacheKafkaEvents.on(TOPICS.ALPHA_VANTAGE_NEWS, onMessage);
 
   const ping = setInterval(() => res.write(": keepalive\n\n"), 25_000);
 
   req.on("close", () => {
-    apacheKafkaEvents.off(TOPIC, onMessage);
+    apacheKafkaEvents.off(TOPICS.ALPHA_VANTAGE_NEWS, onMessage);
     clearInterval(ping);
     res.end();
   });

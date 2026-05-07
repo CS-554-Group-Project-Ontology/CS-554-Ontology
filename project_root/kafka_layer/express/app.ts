@@ -3,7 +3,7 @@ import router from "./routes";
 
 export function startExpressServer() {
   const app = express();
-  const PORT  = process.env.PORT || 3001; // important for railway config when buildin container. 
+  const PORT  = process.env.PORT || 3001;  
 
   app.use(express.json());
 

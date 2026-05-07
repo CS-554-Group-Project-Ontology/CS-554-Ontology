@@ -17,7 +17,7 @@ const getMarketId = (p: PolymarketRow) => p.id;
 
 const News = () => {
   const tweets = useEventStream({
-    url: "/streams/x",
+    url: "/stream/x",
     events: {
       snapshot: "snapshot",
       update: "tweetAdded",

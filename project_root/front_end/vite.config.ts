@@ -8,8 +8,10 @@ export default defineConfig({
   server: {
     open: true,
     proxy: {
-      '/stream':  { target: 'http://localhost:3001', changeOrigin: true },
-      '/streams': { target: 'http://localhost:3001', changeOrigin: true },
+      '/stream':  { 
+        target: 'http://localhost:3001', 
+        changeOrigin: true 
+      },
     },
   },
 });

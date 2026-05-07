@@ -20,7 +20,7 @@ const finalArticleSchema = z.object({
   z.string().trim()
   .regex(/^\d{8}T\d{6}$/)
   .transform((s) => {
-    const dateConversion = `${s.slice(0,4)}-${s.slice(4,6)}-${s.slice(6,8)}`
+    const dateConversion = `${s.slice(0,4)}-${s.slice(4,6)}-${s.slice(6,8)}T${s.slice(9,11)}:${s.slice(11,13)}:${s.slice(13,15)}Z`
     return new Date(dateConversion)
 
 }),

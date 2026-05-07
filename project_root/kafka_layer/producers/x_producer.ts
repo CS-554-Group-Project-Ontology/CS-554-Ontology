@@ -2,6 +2,7 @@ import * as z from "zod";
 import { producer } from "../config/kafka_manager.ts";
 import { fetchRecentTweets } from "./api_layer/x_api.ts";
 import { kafkaXTopics } from "./api_layer/x_api.ts";
+import { TOPICS } from "../express/routes/constants.ts";
 
 
 function toXTweet(rawTweet: RawXTweet, rawUser: RawXUser, mediaByKey: Map<string, RawXMedia>,): FinalXTweet {
@@ -193,7 +194,7 @@ export async function TwitterProducer() {
       }));
 
       await producer.send({
-        topic: "x-news-feed",
+        topic: TOPICS.TWITTER,
         messages,
       });
     }

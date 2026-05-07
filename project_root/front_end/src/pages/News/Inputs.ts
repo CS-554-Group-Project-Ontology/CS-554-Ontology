@@ -32,7 +32,7 @@ export type XMedia = z.infer<typeof XMediaSchema>;
 
 export const NewsArticleEntrySchema = z.object({
   title: z.string().trim(),
-  sourceUrl: z.string().trim(),
+  sourceUrl: z.string().trim().url(),
   publishedAt: z.string().trim(),
   authors: z.array(z.string().trim()),
   summary: z.string().trim(),
