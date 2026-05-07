@@ -1,24 +1,26 @@
 import axios from "axios";
 import { appendToNewsStream } from "./streams_config.ts";
 import { trimNewsStreamEntriesOlderThan } from "./streams_config.ts";
+import { NEWS_STREAM, pairsToObject } from "./streams_config.ts";
 import * as z from "zod";
 import type Redis from "ioredis";
+import type { Producer } from "kafkajs";
 
 
 const alphaApiKey = process.env.ALPHA_VANTAGE_KEY;
 const ONE_DAY_MS = 24 * 60 * 60 * 1000; 
-
-
+const REDIS_TO_KAFKA_CHECKPOINT = "kafka-mirror:news-feed:last-id";
+const KAFKA_NEWS_TOPIC = "news-articles-feed";
 
 
 const finalArticleSchema = z.object({ 
-  title: z.string().trim().min(0),
+  title: z.string().trim().min(1),
   sourceUrl: z.string().trim().url(), 
   publishedAt: 
   z.string().trim()
   .regex(/^\d{8}T\d{6}$/)
   .transform((s) => {
-    const dateConversion = `${s.slice(0,4)}-${s.slice(4,6)}-${s.slice(6,8)}`
+    const dateConversion = `${s.slice(0,4)}-${s.slice(4,6)}-${s.slice(6,8)}T${s.slice(9,11)}:${s.slice(11,13)}:${s.slice(13,15)}Z`
     return new Date(dateConversion)
 
 }),
@@ -143,9 +145,56 @@ export async function fetchAlphaVantageNews(redis: Redis): Promise<number> {
 
 
     return appendedCount;
-  } 
+  }
   catch (error) {
     throw new Error(`Failed to fetch economic data from Alpha Vantage: ${error}`);
   }
 }
 
+
+export async function syncRedisStreamToKafka(redis: Redis, kafkaProducer: Producer): Promise<number> {
+  try {
+    const lastId = (await redis.get(REDIS_TO_KAFKA_CHECKPOINT)) ?? "0";
+
+    const start = lastId === "0" ? "-" : `(${lastId}`;
+
+    const rawEntries = await redis.xrange(NEWS_STREAM, start, "+");
+
+    if (rawEntries.length === 0) {
+      return 0;
+    }
+
+    const messages = rawEntries.map(([id, pairs]) => {
+      const fields = pairsToObject(pairs);
+
+      if (typeof fields.data !== "string") {
+        throw new Error(`Missing or invalid data field for Redis entry ${id}`);
+      }
+
+      return {
+        key: id,
+        value: fields.data,
+      };
+    });
+
+    await kafkaProducer.send({
+      topic: KAFKA_NEWS_TOPIC,
+      messages,
+    });
+
+    const newestEntry = rawEntries[rawEntries.length - 1];
+
+    if (!newestEntry) {
+      throw new Error("Expected newest Redis stream entry, but found none");
+    }
+
+    const newestId = newestEntry[0];
+
+    await redis.set(REDIS_TO_KAFKA_CHECKPOINT, newestId);
+
+    return rawEntries.length;
+  } 
+  catch (error) {
+    throw new Error(`Failed to sync Redis stream to Kafka due to the following error: ${error}`);
+  }
+}

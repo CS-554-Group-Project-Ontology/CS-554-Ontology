@@ -1,6 +1,7 @@
 import * as z from "zod";
 import { producer } from "../config/kafka_manager.ts";
 import { fetchPolymarketEvents, kafkaPolymarketTopics } from "./api_layer/polymarket_api.ts";
+import { TOPICS } from "../express/routes/constants.ts";
 
 
 
@@ -120,7 +121,7 @@ export async function PolymarketProducer() {
       }));
 
       await producer.send({
-        topic: "polymarket-data",
+        topic: TOPICS.POLYMARKET,
         messages,
       });
     }

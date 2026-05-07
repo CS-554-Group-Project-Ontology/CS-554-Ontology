@@ -1,12 +1,28 @@
 import kafka from "../config/kafka_manager.ts";
+import EventEmitter from "node:events";
+import { TOPICS } from "../express/routes/constants.ts";
 
 export const consumer = kafka.consumer({ groupId: "ontology-group" });
+
+
+export const apacheKafkaEvents = new EventEmitter();
+
+export const feedData: Record<string, unknown[]> = {
+  [TOPICS.TWITTER]: [],
+  [TOPICS.POLYMARKET]: [],
+  [TOPICS.ALPHA_VANTAGE_NEWS]: [],
+}
+
+export const TOPIC_LENGTH = 65;
+
+
+
 
 export async function consumerConnect() {
   await consumer.connect();
 
   await consumer.subscribe({
-    topics: ["polymarket-data", "x-news-feed"],
+    topics: [TOPICS.POLYMARKET, TOPICS.TWITTER, TOPICS.ALPHA_VANTAGE_NEWS],
     fromBeginning: false,
   });
 
@@ -17,25 +33,50 @@ export async function consumerConnect() {
 
       if (!value){
         return;
-      } 
+      }
 
       try {
         const parsed = JSON.parse(value);
-        
-        const ts = new Date().toISOString().slice(11, 19);
+
+
+        const messageData = feedData[topic]
+
+
+        if(messageData){
+          messageData.push(parsed);
+
+          if(messageData.length > TOPIC_LENGTH){
+            messageData.shift();
+          }
+
+        }
+
+
+        apacheKafkaEvents.emit(topic,parsed)
+
+
+
+        const ts = new Date().toISOString().slice(11, 19); 
 
         switch (topic) {
-          case "polymarket-data": {
+          case TOPICS.POLYMARKET: {
             const title = String(parsed.title ?? "").slice(0, 60);
 
             console.log(`[${ts}] markets | ${title} | yes=${parsed.yesPrice ?? "?"} vol=${parsed.volume ?? "?"}`);
 
             break;
           }
-          case "x-news-feed": {
+          case TOPICS.TWITTER: {
             const text = String(parsed.text ?? "").replace(/\s+/g, " ").slice(0, 80);
 
             console.log(`[${ts}] news    | @${parsed.username ?? "?"}: ${text}`);
+
+            break;
+          }
+          case TOPICS.ALPHA_VANTAGE_NEWS: {
+            const title = String(parsed.title ?? "").slice(0, 60);
+
+            console.log(`[${ts}] article | ${parsed.sourceUrl ?? "?"} | ${title}`);
 
             break;
           }
@@ -44,7 +85,7 @@ export async function consumerConnect() {
         }
       }
       catch (error) {
-        console.error(`Bad JSON on ${topic}:`, error);
+        console.error(`Bad JSON for the following topic: ${topic} due to this error:`, error);
       }
     },
   });

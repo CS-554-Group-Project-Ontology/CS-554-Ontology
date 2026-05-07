@@ -1,4 +1,5 @@
 import kafka from "./kafka_manager.ts";
+import { TOPICS } from "../express/routes/constants.ts";
 
 const admin = kafka.admin();
 
@@ -11,11 +12,15 @@ export async function createTopics() {
         await admin.createTopics({
             topics: [
                 {
-                    topic: "polymarket-data",
+                    topic: TOPICS.POLYMARKET,
                     numPartitions: 1, 
                 },
                 {
-                    topic: "x-news-feed",
+                    topic: TOPICS.TWITTER,
+                    numPartitions: 1,
+                },
+                {
+                    topic: TOPICS.ALPHA_VANTAGE_NEWS,
                     numPartitions: 1,
                 },
             ],

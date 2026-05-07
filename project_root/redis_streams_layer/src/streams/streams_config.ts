@@ -10,10 +10,7 @@ export async function trimNewsStreamEntriesOlderThan(redis: Redis, maximumAgeMil
 
     const minimumEntryIdToKeep = `${cutOffTimestamp}-0`
 
-
-
     const removedEntries = await redis.xtrim(NEWS_STREAM,"MINID","=",minimumEntryIdToKeep)
-
 
     return removedEntries; 
 
@@ -25,6 +22,7 @@ export async function trimNewsStreamEntriesOlderThan(redis: Redis, maximumAgeMil
 }
 
 /* 
+
 - This might need to be used in case we need to clear the stream when testing the final version of the project
 export async function clearNewsStream(redis: Redis): Promise<void> {
   await redis.xtrim(news_stream, "MAXLEN", max_stream_length);
@@ -43,7 +41,7 @@ export async function appendToNewsStream(redis: Redis, fields: Record<string, st
     const newsEntry = await redis.xadd(NEWS_STREAM, "MAXLEN","=", MAX_STREAM_LENGTH,"*",...Object.entries(fields).flat(),);
     
     if (!newsEntry) {
-      throw new Error(`Failed to the given article to thew ${NEWS_STREAM} returned null`);
+      throw new Error(`Failed to append article to ${NEWS_STREAM} the xdd operation  returned null`);
     }
 
     return newsEntry;
