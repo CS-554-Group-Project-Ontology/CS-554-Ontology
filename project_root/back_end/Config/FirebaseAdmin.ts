@@ -1,5 +1,6 @@
 import { getApps, initializeApp, cert } from "firebase-admin/app";
 import { getAuth } from "firebase-admin/auth";
+import { GraphQLError } from "graphql";
 import dotenv from 'dotenv';
 dotenv.config()
 
@@ -19,6 +20,17 @@ if (!getApps().length) {
   });
 }
 
-export async function verifyFirebaseToken(token: string) {
-    return await getAuth().verifyIdToken(token);
+export async function requireAuth(context: { token: string }) {
+  if (!context.token) {
+    throw new GraphQLError('Unauthorized', {
+      extensions: { code: 'INVALID_ACCESS' },
+    });
+  }
+  try {
+    return await getAuth().verifyIdToken(context.token);
+  } catch {
+    throw new GraphQLError('Unauthorized', {
+      extensions: { code: 'INVALID_ACCESS' },
+    });
+  }
 }
