@@ -53,3 +53,8 @@ export const checkNumber = (num: number, varName: string) => {
     throw new Error(`${varName} must be a non-negative number`);
   return num;
 };
+
+export const usd = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+});
