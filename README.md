@@ -39,25 +39,25 @@ https://github.com/CS-554-Group-Project-Ontology/CS-554-Ontology
 
 ### III - Dataset
 
-#### New York City Neighborhoods GeoJson map data
+#### `New York City` Neighborhoods GeoJson map data
 
 ```
 https://gist.githubusercontent.com/PollefeysC/da321dabb6455a52cfe0e121b314da51/raw/2725bf0b9ca897c590bdb592040ab587e4348725/nyc.geojson
 ```
 
-#### San Francisco Neighborhoods GeoJson map data
+#### `San Francisco` Neighborhoods GeoJson map data
 
 ```
 https://gist.githubusercontent.com/PollefeysC/f2f3bc6cb40e1edcaa0ae94c48c14cab/raw/0927e4107ea832d01de8dae70e0c8efc05ae780f/sf.geojson
 ```
 
-#### Houston Neighborhoods GeoJson map data
+#### `Houston` Neighborhoods GeoJson map data
 
 ```
 https://gist.githubusercontent.com/PollefeysC/4158b5b31f2e862362fef059da811dfb/raw/8612c7813439f31b9773b59c1446f62f64973670/houston.geojson
 ```
 
-#### To add a new City with it's Neighborhoods GeoJson map data (Eg. Jersey City)
+#### To `add a new City` with it's Neighborhoods GeoJson map data (Eg. Jersey City)
 
 `a.` Get the GeoJson api file for that city and add it with the geo-location and zoom to the `constants.ts` file like below
 
@@ -90,29 +90,59 @@ http://localhost:5173/affordability/:slug
 
 ### IV - How to run the application
 
-#### 1. Install dependencies by running below cmd from `/project_root` folder
+#### 1. Environment variables
+
+Make sure you add the `.env` files containing the below variables on each directory below
+
+##### a. Add Backend `.env` file at `/project_root/back_end` folder
+
+```
+MONGO_URL=your_mongo_db_url
+FIREBASE_PROJECT_ID=ontology-id
+FIREBASE_CLIENT_EMAIL=your_firebase_client_email
+FRED_API_KEY=your_fred_api_key
+FRED_REDIS_URL=your_redis_url
+AUTH_REDIS_URL=redis:your_auth_redis_url
+```
+
+##### b. Add Frontend `.env` file at `/project_root/front_end` folder
+
+```
+VITE_FIREBASE_KEY=your_firebase_key
+VITE_FIREBASE_DOMAIN=ontology-id.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=ontology-id
+VITE_FIREBASE_STORAGE_BUCKET=ontology-id.firebasestorage.app
+VITE_FIREBASE_SENDER_ID=your_firebase_sender_id
+VITE_FIREBASE_APP_ID=your_firebase_app_id
+
+VITE_MAPBOX_ACCESS_TOKEN=your_mapbox_access_token
+```
+
+#### 2. Install dependencies
+
+##### `a`. Install dependencies by running below cmd from `/project_root` folder
 
 ```
 npm install
 ```
 
-#### 2. Install Server dependencies by running below cmd from `/back_end` folder
+##### `b`. Install Server dependencies by running below cmd from `/back_end` folder
 
 ```
 cd back_end
 npm install
 ```
 
-#### 3. Install Client dependencies by running below cmd from `/front_end` folder
+##### `c`. Install Client dependencies by running below cmd from `/front_end` folder
 
 ```
 cd front_end
 npm install
 ```
 
-#### 4. Ensure a Redis instance is running on the default port `6379` (required by the backend cache)
+#### 5. Ensure a Redis instance is running on the default port `6379` (required by the backend cache)
 
-#### 5. Insert the Seed data for testing but you can still signup
+#### 6. Insert the Seed data for testing but you can still signup
 
 Make sure you are at the `project_root` folder
 
@@ -120,25 +150,25 @@ Make sure you are at the `project_root` folder
 npm run seed
 ```
 
-#### 6. Run both Server and Client from root directory `/project_root`
+#### 7. Run both Server and Client from root directory `/project_root`
 
 ```
 npm run dev
 ```
 
-#### 7. Visit the application
+#### 8. Visit the application
 
 ```
 http://localhost:5173/
 ```
 
-#### 8. If you want to visit the Server then go to
+#### 9. If you want to visit the Server then go to
 
 ```
 http://localhost:4000/
 ```
 
-#### 9. If you want to clear Server cache, then go to
+#### 10. If you want to clear Server cache, then go to
 
 ```
 cd back_end

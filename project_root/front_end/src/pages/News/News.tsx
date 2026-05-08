@@ -50,9 +50,9 @@ const News = () => {
   });
 
   return (
-    <div className="h-screen flex flex-col">
+    <div className="container mx-auto min-h-screen flex flex-col px-2 py-8 sm:px-4 lg:px-6">
       <div className="px-6 py-4 border-b border-base-content/10">
-        <h1 className="text-xl font-bold">News Page</h1>
+        <h1 className="text-xl font-bold">News</h1>
         <p className="text-sm text-base-content/60">
           Live updates on world events and prediction market data on the likelihood of future outcomes.
         </p>

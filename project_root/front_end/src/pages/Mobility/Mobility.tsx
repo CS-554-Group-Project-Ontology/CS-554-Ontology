@@ -200,7 +200,7 @@ function Mobility() {
   const canSubmit = hasChanges && !saving;
 
   return (
-    <div className='container mx-auto max-w-3xl flex-1 px-4 py-8'>
+    <div className='container mx-auto flex-1 px-2 py-8 sm:px-4 lg:px-6'>
       <h1 className='text-3xl font-bold mb-6'>Mobility</h1>
 
       {/* Show alert if user economic profile is empty */}
