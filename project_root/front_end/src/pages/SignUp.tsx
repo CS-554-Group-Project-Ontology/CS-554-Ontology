@@ -84,20 +84,20 @@ function SignUp() {
           {error && <p className="text-error">{error}</p>}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="form-control">
-              <label className="label">Display Name</label>
-              <input name='displayName' type='text' className="input input-bordered w-full" required />
+              <label className="label" htmlFor='displayName'>Display Name</label>
+              <input id='displayName' name='displayName' type='text' className="input input-bordered w-full" required />
             </div>
             <div className="form-control">
-              <label className="label">Email</label>
-              <input name='email' type='email' className="input input-bordered w-full" required />
+              <label className="label" htmlFor='email'>Email</label>
+              <input id='email' name='email' type='email' className="input input-bordered w-full" required />
             </div>
             <div className="form-control">
-              <label className="label">Password</label>
-              <input name='password' type='password' className="input input-bordered w-full" required />
+              <label className="label" htmlFor='password'>Password</label>
+              <input id='password' name='password' type='password' className="input input-bordered w-full" required />
             </div>
             <div className="form-control">
-              <label className="label">Confirm Password</label>
-              <input name='confirmPassword' type='password' className="input input-bordered w-full" required />
+              <label className="label" htmlFor='confirmPassword'>Confirm Password</label>
+              <input id='confirmPassword' name='confirmPassword' type='password' className="input input-bordered w-full" required />
             </div>
             <button type='submit' className="btn btn-primary w-full">Sign Up</button>
           </form>

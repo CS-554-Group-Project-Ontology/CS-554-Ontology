@@ -45,12 +45,9 @@ function Mobility() {
 
   const savedProfile = data?.getMe?.economic_profile;
   const isUserEconomicProfileEmpty =
-    !savedProfile ||
-    savedProfile.income == null ||
-    !savedProfile.city ||
-    savedProfile.city.trim().length === 0 ||
-    !savedProfile.neighborhood ||
-    savedProfile.neighborhood.trim().length === 0;
+    savedProfile?.income == null ||
+    !savedProfile?.city?.trim() ||
+    !savedProfile?.neighborhood?.trim();
 
   // Open details if user economic profile is empty, otherwise keep it closed
   useEffect(() => {
@@ -258,8 +255,14 @@ function Mobility() {
 
               <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
                 <div className='w-full'>
-                  <label className='mb-1 block text-sm font-medium'>City</label>
+                  <label
+                    className='mb-1 block text-sm font-medium'
+                    htmlFor='mobility-city'
+                  >
+                    City
+                  </label>
                   <select
+                    id='mobility-city'
                     className={`select select-bordered w-full ${
                       errors.city ? 'select-error' : ''
                     }`}
@@ -291,12 +294,16 @@ function Mobility() {
                 </div>
 
                 <div className='w-full'>
-                  <label className='mb-1 block text-sm font-medium'>
+                  <label
+                    className='mb-1 block text-sm font-medium'
+                    htmlFor='mobility-neighborhood'
+                  >
                     Neighborhood
                   </label>
 
                   {isAffordabilityCity(economicProfile.city!) ? (
                     <SearchableSelect
+                      id='mobility-neighborhood'
                       selectedCity={economicProfile.city!}
                       value={economicProfile.neighborhood!}
                       onChange={(value: string) =>
@@ -310,6 +317,7 @@ function Mobility() {
                     />
                   ) : (
                     <input
+                      id='mobility-neighborhood'
                       type='text'
                       className={`input input-bordered w-full ${
                         errors.neighborhood ? 'input-error' : ''

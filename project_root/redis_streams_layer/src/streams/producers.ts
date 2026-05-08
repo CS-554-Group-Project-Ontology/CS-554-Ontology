@@ -104,16 +104,13 @@ export async function fetchAlphaVantageNews(redis: Redis): Promise<number> {
     }
 
     const validatedArticles: FinalNewsArticle[] = [];
-    const malformedArticles = []; 
 
     for (const article of rawArticles) {
       try {
         validatedArticles.push(toNewsArticle(article));
-      } 
+      }
       catch (error) {
         console.log("Given invalid article was skipped:", article);
-        malformedArticles.push(article); 
-
       }
     }
     const seenUrls = new Set<string>();

@@ -120,12 +120,9 @@ const AffordabilityCityView = ({
 
   // check if the user economic profile is empty (city, neighborhood & income)
   const isUserEconomicProfileEmpty =
-    !userEconomicProfile ||
-    userEconomicProfile.income == null ||
-    !userEconomicProfile.city ||
-    userEconomicProfile.city.trim().length === 0 ||
-    !userEconomicProfile.neighborhood ||
-    userEconomicProfile.neighborhood.trim().length === 0;
+    userEconomicProfile?.income == null ||
+    !userEconomicProfile?.city?.trim() ||
+    !userEconomicProfile?.neighborhood?.trim();
 
   // create an array of profile details to display in the details tag
   const profileDetails = [
@@ -201,7 +198,7 @@ const AffordabilityCityView = ({
         city: profileCity,
         neighborhood: neighborhoodToShow,
       },
-    }).catch(() => undefined);
+    }).catch(() => {});
   }, [
     fetchCostOfLiving,
     profileCity,
@@ -370,11 +367,7 @@ const AffordabilityCityView = ({
 
   // Update the fill color of user neighborhood by default
   useEffect(() => {
-    if (
-      !isMapLoaded ||
-      !mapRef.current ||
-      !mapRef.current.getLayer(fillLayerId)
-    ) {
+    if (!isMapLoaded || !mapRef.current?.getLayer(fillLayerId)) {
       return;
     }
 

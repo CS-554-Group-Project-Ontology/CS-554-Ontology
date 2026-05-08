@@ -6,6 +6,14 @@ import { AFFORDABILITY_CITY_LIST } from '../pages/Affordability/affordabilityCit
 
 const DEFAULT_AVATAR = '/default-avatar.png';
 
+async function handleSignOut() {
+  try {
+    await doSignOut();
+  } catch (err) {
+    alert((err as Error).message);
+  }
+}
+
 function Navigation() {
   const { currentUser } = useContext(AuthContext);
 
@@ -21,14 +29,6 @@ function Navigation() {
     { to: '/signin', label: 'Sign In' },
     { to: '/signup', label: 'Sign Up' },
   ];
-
-  async function handleSignOut() {
-    try {
-      await doSignOut();
-    } catch (err) {
-      alert((err as Error).message);
-    }
-  }
 
   return (
     <header className='navbar bg-surface sticky top-0 z-50 shadow-sm'>
@@ -66,15 +66,13 @@ function Navigation() {
                 </li>
               ))}
               <div className='dropdown dropdown-hover'>
-                <div
-                  tabIndex={0}
-                  role='button'
+                <button
+                  type='button'
                   className='btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium text-base-content hover:bg-base-200'
                 >
                   Affordability
-                </div>
+                </button>
                 <ul
-                  tabIndex={1}
                   className='dropdown-content menu bg-base-100 rounded-lg z-1 w-52 p-2 shadow-sm'
                 >
                   {AFFORDABILITY_CITY_LIST.map((cityConfig) => (
@@ -96,9 +94,8 @@ function Navigation() {
                 </ul>
               </div>
               <div className='dropdown dropdown-end'>
-                <div
-                  tabIndex={0}
-                  role='button'
+                <button
+                  type='button'
                   className='btn btn-ghost btn-circle avatar'
                 >
                   <div className='w-10 rounded-full'>
@@ -111,9 +108,8 @@ function Navigation() {
                       }}
                     />
                   </div>
-                </div>
+                </button>
                 <ul
-                  tabIndex={1}
                   className='menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 gap-2 shadow'
                 >
                   <li>
