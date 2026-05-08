@@ -26,12 +26,12 @@ function BudgetCompareBox({
     actual,
     recommended,
     type,
-    }: {
+    }: Readonly<{
     label: string;
     actual: number;
     recommended: number;
     type: BudgetCompareType;
-    }) {
+    }>) {
     const isBad =
         type === "savings"
         ? actual < recommended
@@ -62,7 +62,7 @@ function BudgetCompareBox({
         </div>
     );
 }
-function MobilityCharts({ income,liabilities,mode }:ChartProps) {
+function MobilityCharts({ income,liabilities,mode }:Readonly<ChartProps>) {
     let chartId: string;
     if (mode === "incomeVsLiability") {
         chartId = "income-liability-chart";

@@ -67,7 +67,7 @@ export async function consumerConnect() {
             break;
           }
           case TOPICS.TWITTER: {
-            const text = String(parsed.text ?? "").replace(/\s+/g, " ").slice(0, 80);
+            const text = String(parsed.text ?? "").replaceAll(/\s+/g, " ").slice(0, 80);
 
             console.log(`[${ts}] news    | @${parsed.username ?? "?"}: ${text}`);
 

@@ -354,7 +354,7 @@ function Mobility() {
                       setEconomicProfile((prev) => ({
                         ...prev,
                         liabilities: {
-                          ...(prev.liabilities ?? {}),
+                          ...prev.liabilities,
                           [key]: value,
                         },
                       }))

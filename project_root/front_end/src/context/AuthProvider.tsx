@@ -10,7 +10,7 @@ async function getToken() {
   return await auth.currentUser.getIdToken();
 }
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+export function AuthProvider({ children }: Readonly<{ children: React.ReactNode }>) {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loadingUser, setLoadingUser] = useState(true);
 

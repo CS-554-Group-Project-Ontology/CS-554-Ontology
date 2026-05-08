@@ -1,7 +1,6 @@
 interface CustomCardProps {
   title?: string;
   numberText?: string;
-  features?: string[];
   badgeText?: string;
   icon?: React.ReactNode;
   footerButtonText?: string;

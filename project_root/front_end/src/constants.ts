@@ -19,6 +19,6 @@ export const HOUSTON_INITIAL_CENTER: [number, number] = [-95.5659, 29.7308];
 // Cities Initial zoom level for the map
 export const NYC_INITIAL_ZOOM: number = 9.25;
 export const SF_INITIAL_ZOOM: number = 11.21;
-export const HOUSTON_INITIAL_ZOOM: number = 9.30;
+export const HOUSTON_INITIAL_ZOOM: number = 9.3;
 // export const JERSEY_CITY_INITIAL_ZOOM: number = 11.61; // NOSONAR kept as template for adding a new city
 

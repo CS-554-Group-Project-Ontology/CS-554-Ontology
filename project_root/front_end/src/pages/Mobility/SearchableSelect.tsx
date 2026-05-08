@@ -72,7 +72,7 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
         setError(null);
         const resp = await axios.get<
           FeatureCollection<Geometry, GeoJsonProperties>
-        >(geoJsonUrl!);
+        >(geoJsonUrl);
         const normalizedFeatures = normalizeGeoJSON(resp.data, selectedCity);
 
         let options: NeighborhoodOption[] = [];
@@ -190,7 +190,7 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
         } ${error ? 'input-error' : ''}`}
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span className={!value ? 'text-base-content/50' : ''}>
+        <span className={value ? '' : 'text-base-content/50'}>
           {triggerLabel}
         </span>
         <ChevronDown
