@@ -59,8 +59,8 @@ function BudgetCompareBox({
             <span className="text-sm font-semibold">{status}</span>
         </div>
 
-        <p className="mt-1 text-sm">Actual: ${actual.toFixed(2)}</p>
-        <p className="text-sm">Recommended: ${recommended.toFixed(2)}</p>
+        <p className="mt-1 text-sm">Actual: {usd.format(actual)}</p>
+        <p className="text-sm">Recommended: {usd.format(recommended)}</p>
         </div>
     );
 }
