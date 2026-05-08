@@ -93,7 +93,16 @@ function Navigation() {
                 >
                   {AFFORDABILITY_CITY_LIST.map((cityConfig) => (
                     <li key={cityConfig.slug}>
-                      <NavLink to={`/affordability/${cityConfig.slug}`}>
+                      <NavLink
+                        to={`/affordability/${cityConfig.slug}`}
+                        className={({ isActive }) =>
+                          `btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium ${
+                            isActive
+                              ? 'bg-primary text-white'
+                              : 'text-slate-700 hover:bg-slate-200'
+                          }`
+                        }
+                      >
                         {cityConfig.cityTitle}
                       </NavLink>
                     </li>
@@ -122,11 +131,25 @@ function Navigation() {
                   tabIndex={1}
                   className='menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 gap-2 shadow'
                 >
+                  <NavLink
+                    to='/profile'
+                    className={({ isActive }) =>
+                      `btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium ${
+                        isActive
+                          ? 'bg-primary text-white'
+                          : 'text-slate-700 hover:bg-slate-200'
+                      }`
+                    }
+                  >
+                    Profile
+                  </NavLink>
                   <li>
-                    <NavLink to='/profile'>Profile</NavLink>
-                  </li>
-                  <li>
-                    <button onClick={handleSignOut}>Sign Out</button>
+                    <button
+                      onClick={handleSignOut}
+                      className='btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-200'
+                    >
+                      Sign Out
+                    </button>
                   </li>
                 </ul>
               </div>
@@ -168,9 +191,8 @@ function Navigation() {
                   <li key={cityConfig.slug}>
                     <NavLink
                       to={`/affordability/${cityConfig.slug}`}
-                      onClick={() => setMobileMenuOpen(false)}
                       className={({ isActive }) =>
-                        `block rounded-lg px-3 py-2 text-sm font-medium ${
+                        `btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium ${
                           isActive
                             ? 'bg-primary text-white'
                             : 'text-slate-700 hover:bg-slate-200'
@@ -183,10 +205,26 @@ function Navigation() {
                 ))}
 
                 <li>
-                  <NavLink to='/profile'>Profile</NavLink>
+                  <NavLink
+                    to='/profile'
+                    className={({ isActive }) =>
+                      `btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium ${
+                        isActive
+                          ? 'bg-primary text-white'
+                          : 'text-slate-700 hover:bg-slate-200'
+                      }`
+                    }
+                  >
+                    Profile
+                  </NavLink>
                 </li>
                 <li>
-                  <button onClick={handleSignOut}>Sign Out</button>
+                  <button
+                    onClick={handleSignOut}
+                    className='btn btn-ghost rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-200'
+                  >
+                    Sign Out
+                  </button>
                 </li>
               </>
             )}
