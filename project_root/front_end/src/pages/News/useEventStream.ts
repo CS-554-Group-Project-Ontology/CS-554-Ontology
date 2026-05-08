@@ -84,8 +84,9 @@ export function useEventStream<KafkaLayerData, ReactShapeData>({
 
       const item = transform(result.data);
       const id = getId(item);
+      const isNotMatching = (p: ReactShapeData) => getId(p) !== id;
 
-      setItems((prev) => [item, ...prev.filter((p) => getId(p) !== id)].slice(0, max));
+      setItems((prev) => [item, ...prev.filter(isNotMatching)].slice(0, max));
     };
 
     source.addEventListener(events.snapshot, onSnapshot as EventListener);

@@ -196,12 +196,12 @@ const AffordabilityCityView = ({
       return;
     }
     lastRequestedNeighborhoodRef.current = requestKey;
-    void fetchCostOfLiving({
+    fetchCostOfLiving({
       variables: {
         city: profileCity,
         neighborhood: neighborhoodToShow,
       },
-    });
+    }).catch(() => undefined);
   }, [
     fetchCostOfLiving,
     profileCity,
