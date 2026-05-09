@@ -25,7 +25,6 @@ export const kafkaXTopics: XTopics[] = [{
 ];
 
 
-
 const latestTweetTopic = new Map<string, string>();
 
 
@@ -46,7 +45,7 @@ export async function fetchRecentTweets(topicName: string, query: string) {
     
     const params: Record<string, string> = {
       query: validatedQuery,
-      max_results: "100", 
+      max_results: "10", 
       "expansions": "author_id,attachments.media_keys",
       "tweet.fields": "created_at,public_metrics",
       "user.fields": "name,profile_image_url,verified",

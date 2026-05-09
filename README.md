@@ -100,6 +100,7 @@ Make sure you add the `.env` files containing the below variables on each direct
 MONGO_URL=your_mongo_db_url
 FIREBASE_PROJECT_ID=ontology-id
 FIREBASE_CLIENT_EMAIL=your_firebase_client_email
+FIREBASE_PRIVATE_KEY=your_firebase_private_key
 FRED_API_KEY=your_fred_api_key
 FRED_REDIS_URL=your_redis_url
 AUTH_REDIS_URL=redis:your_auth_redis_url
@@ -114,9 +115,27 @@ VITE_FIREBASE_PROJECT_ID=ontology-id
 VITE_FIREBASE_STORAGE_BUCKET=ontology-id.firebasestorage.app
 VITE_FIREBASE_SENDER_ID=your_firebase_sender_id
 VITE_FIREBASE_APP_ID=your_firebase_app_id
-
 VITE_MAPBOX_ACCESS_TOKEN=your_mapbox_access_token
+VITE_BACKEND_URL=your_backend_server_url
+VITE_STREAM_URL=your_kafka_stream_server_url
 ```
+
+
+##### c. Add kafka_layer `.env` file at `/project_root/kafka_layer` folder
+
+```
+KAFKA_PUBLIC=your_kafka_broker_url
+X_BEARER_TOKEN=your_x_bearer_token
+```
+
+##### d. Add redis_streams_layer `.env` file at `/project_root/redis_streams_layer`  folder
+
+```
+REDIS_URL=your_redis_url
+ALPHA_VANTAGE_KEY=your_alpha_vantage_key
+KAFKA_PUBLIC=your_kafka_broker_url
+```
+
 
 #### 2. Install dependencies
 
@@ -166,3 +185,17 @@ http://localhost:4000/
 cd back_end
 redis-cli flushall
 ```
+
+##### 11. Production
+The production environment is deployed on Railway. Railway uses Railpack to infer the runtime and build time environment from the connected GitHub repository which in this case is our main branch.
+
+The application is split into separate services so each layer can be deployed independently and connected through environment variables. Locally, `npm run dev` from `/project_root` starts all four layers concurrently.
+
+Production Link:
+https://ontologyfrontend-production.up.railway.app
+
+Services:
+- project_root/front_end
+- project_root/back_end
+- project_root/kafka_layer
+- project_root/redis_streams_layer
