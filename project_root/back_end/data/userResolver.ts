@@ -1,7 +1,7 @@
 import { GraphQLError } from 'graphql';
 import { setCache, getCache, cleanKey } from '../EconProfRedis.ts';
 import User from "../data_model_layer/User.ts";
-import { requireAuth } from '../Config/FirebaseAdmin.ts';
+import { requireAuth } from '../config/FirebaseAdmin.ts';
 
 interface TsLiabilities{
   rent?: number;
