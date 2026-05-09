@@ -74,7 +74,7 @@ function SignIn() {
           {error && <p className='text-error'>{error}</p>}
           <form onSubmit={handleSubmit} className='space-y-4'>
             <div className='form-control'>
-              <label className='label'>Email</label>
+              <label className='label' htmlFor='email'>Email</label>
               <input
                 id='email'
                 name='email'
@@ -84,8 +84,9 @@ function SignIn() {
               />
             </div>
             <div className='form-control'>
-              <label className='label'>Password</label>
+              <label className='label' htmlFor='password'>Password</label>
               <input
+                id='password'
                 name='password'
                 type='password'
                 className='input input-bordered w-full'

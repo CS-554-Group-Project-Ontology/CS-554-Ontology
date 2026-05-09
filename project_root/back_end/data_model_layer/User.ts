@@ -14,7 +14,7 @@ interface TsEconomicProfile{
     liabilities?: TsLiabilities;
 }
 
-export interface typeUser extends Document{
+export interface TypeUser extends Document{
         UUID: string;
         economic_profile?: TsEconomicProfile;
         createdAt: Date;
@@ -65,7 +65,7 @@ const economicProfileSchema = new Schema<TsEconomicProfile>(
     {_id:false}
 );
 
-const userSchema = new Schema<typeUser>(
+const userSchema = new Schema<TypeUser>(
     {
         UUID: {
             type: String,
@@ -83,6 +83,6 @@ const userSchema = new Schema<typeUser>(
     }
 );
 
-const User: Model<typeUser> = mongoose.models.User || mongoose.model<typeUser>("User",userSchema)
+const User: Model<TypeUser> = mongoose.models.User || mongoose.model<TypeUser>("User",userSchema)
 
 export default User

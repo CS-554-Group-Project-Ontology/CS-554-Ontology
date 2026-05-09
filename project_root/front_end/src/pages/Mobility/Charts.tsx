@@ -26,25 +26,23 @@ function BudgetCompareBox({
     actual,
     recommended,
     type,
-    }: {
+    }: Readonly<{
     label: string;
     actual: number;
     recommended: number;
     type: BudgetCompareType;
-    }) {
+    }>) {
     const isBad =
         type === "savings"
         ? actual < recommended
         : actual > recommended;
 
-    const status =
-        type === "savings"
-        ? isBad
-            ? "Under Target"
-            : "On Track"
-        : isBad
-        ? "Over Target"
-        : "Within Target";
+    let status: string;
+    if (type === "savings") {
+        status = isBad ? "Under Target" : "On Track";
+    } else {
+        status = isBad ? "Over Target" : "Within Target";
+    }
 
     return (
         <div
@@ -64,13 +62,15 @@ function BudgetCompareBox({
         </div>
     );
 }
-function MobilityCharts({ income,liabilities,mode }:ChartProps) {
-    const chartId =
-        mode === "incomeVsLiability"
-        ? "income-liability-chart"
-        : mode === "budget"
-        ? "budget-chart"
-        : "unknown-chart"
+function MobilityCharts({ income,liabilities,mode }:Readonly<ChartProps>) {
+    let chartId: string;
+    if (mode === "incomeVsLiability") {
+        chartId = "income-liability-chart";
+    } else if (mode === "budget") {
+        chartId = "budget-chart";
+    } else {
+        chartId = "unknown-chart";
+    }
     
     const rent = liabilities?.rent ?? 0;
     const insurance = liabilities?.insuranceDeductibles ?? 0;
@@ -256,12 +256,14 @@ function MobilityCharts({ income,liabilities,mode }:ChartProps) {
         };
     }, [mode, income, rent, insurance, utilities, other]);
 
-    const title =
-        mode === "incomeVsLiability"
-        ? "Income vs Liabilities"
-        : mode === "budget"
-        ? "Budget Breakdown"
-        : "Unknown chart";
+    let title: string;
+    if (mode === "incomeVsLiability") {
+        title = "Income vs Liabilities";
+    } else if (mode === "budget") {
+        title = "Budget Breakdown";
+    } else {
+        title = "Unknown chart";
+    }
 
     return (
     <div className="card bg-base-100 w-full shadow-sm">

@@ -82,7 +82,7 @@ export const normalizeGeoJSON = (geojson: any, city: string) => {
   }
   
   return geojson.features
-    .filter((f: any) => f && f.type === 'Feature' && f.geometry !== null)
+    .filter((f: any) => f?.type === 'Feature' && f.geometry !== null)
     .map((f: any) => {
       const props = f.properties || {};
 

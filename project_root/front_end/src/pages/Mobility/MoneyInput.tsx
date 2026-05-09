@@ -5,7 +5,7 @@ type MoneyInputProps = {
   error?: string;
 };
 
-function MoneyInput({ label, value, onChange, error }: MoneyInputProps) {
+function MoneyInput({ label, value, onChange, error }: Readonly<MoneyInputProps>) {
   return (
     <div className='w-full'>
       <label className='mb-1 block text-sm font-medium'>{label}</label>

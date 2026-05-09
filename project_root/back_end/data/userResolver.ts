@@ -63,7 +63,7 @@ export const userResolver = {
         });
       }
 
-      const escapeRegex = (str: string) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const escapeRegex = (str: string) => str.replaceAll(/[.*+?^${}()|[\]\\]/g, String.raw`\$&`);
 
       const users = await User.find({
         'economic_profile.city': {
@@ -156,9 +156,7 @@ export const userResolver = {
           city.trim() !== '' &&
           neighborhood.trim() !== ''
         ) {
-          if (!popularNeighborhoodsByCity[city]) {
-            popularNeighborhoodsByCity[city] = {};
-          }
+          popularNeighborhoodsByCity[city] ??= {};
           popularNeighborhoodsByCity[city][neighborhood] =
             (popularNeighborhoodsByCity[city][neighborhood] || 0) + 1;
         }
