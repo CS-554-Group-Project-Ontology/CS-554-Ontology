@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { randomInt as secureRandomInt } from 'node:crypto';
 import { v4 as uuid } from 'uuid';
-import connectDB from '../Config/mongooseConfig.ts';
+import connectDB from '../config/mongooseConfig.ts';
 import User from '../data_model_layer/User.ts';
 
 const today = new Date().toISOString().slice(0, 10);

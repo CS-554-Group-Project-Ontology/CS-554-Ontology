@@ -13,7 +13,7 @@ import { ApolloProvider } from '@apollo/client/react';
 initializeApp(fbconfig);
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:4000/',
+  uri: import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000/',
 });
 
 const authLink = setContext(async (_, { headers }) => {

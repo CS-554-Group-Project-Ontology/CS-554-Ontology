@@ -3,6 +3,7 @@ export const SSE_HEADERS = {
   "Cache-Control": "no-cache",
   "Connection": "keep-alive",
   "X-Accel-Buffering": "no",
+  "Access-Control-Allow-Origin": "*",
 } as const;
 
 export const TOPICS = {

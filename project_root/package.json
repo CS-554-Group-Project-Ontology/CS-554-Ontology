@@ -6,8 +6,8 @@
   "scripts": {
     "dev:front": "cd front_end && npm run dev",
     "dev:back": "cd back_end && npm run dev",
-    "dev:kafka": "cd kafka_layer && npm run start-node",
-    "dev:redis": "cd redis_streams_layer && npm run start-node",
+    "dev:kafka": "cd kafka_layer && npm start",
+    "dev:redis": "cd redis_streams_layer && npm start",
     "seed": "cd back_end && npm run seed",
     "dev": "concurrently -n front-end,back-end,kafka-layer,redis-streams -c blue,green,yellow,magenta \"npm run dev:front\" \"npm run dev:back\" \"npm run dev:kafka\" \"npm run dev:redis\""
   },

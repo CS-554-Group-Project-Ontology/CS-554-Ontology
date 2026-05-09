@@ -1,4 +1,4 @@
-import { authClient } from "./Config/redisClient.ts"
+import { authClient } from "./config/redisClient.ts"
 
 const EconTTL = 60 * 15
 

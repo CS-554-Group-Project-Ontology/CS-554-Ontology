@@ -17,7 +17,7 @@ const getMarketId = (p: PolymarketRow) => p.id;
 
 const News = () => {
   const tweets = useEventStream({
-    url: "/stream/x",
+    url: `${import.meta.env.VITE_STREAM_URL ?? ''}/stream/x`,
     events: {
       snapshot: "snapshot",
       update: "tweetAdded",
@@ -28,7 +28,7 @@ const News = () => {
   });
 
   const articles = useEventStream({
-    url: "/stream/alpha-vantage-news",
+    url: `${import.meta.env.VITE_STREAM_URL ?? ''}/stream/alpha-vantage-news`,
     events: {
       snapshot: "snapshot",
       update: "articleAdded",
@@ -39,7 +39,7 @@ const News = () => {
   });
 
   const polymarket = useEventStream({
-    url: "/stream/polymarket",
+    url: `${import.meta.env.VITE_STREAM_URL ?? ''}/stream/polymarket`,
     events: {
       snapshot: "snapshot",
       update: "marketUpdated",

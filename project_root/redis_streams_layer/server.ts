@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import Redis from "ioredis";
 import { Kafka, type Producer } from "kafkajs";
 import { fetchAlphaVantageNews, syncRedisStreamToKafka } from "./src/streams/producers.ts";
