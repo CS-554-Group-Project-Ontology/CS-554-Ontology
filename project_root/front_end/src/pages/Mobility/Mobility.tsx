@@ -245,7 +245,7 @@ function Mobility() {
               <h2 className='text-xl font-semibold'>Income & Location</h2>
 
               <MoneyInput
-                label='Annual income'
+                label='Monthly income'
                 value={economicProfile.income}
                 onChange={(value) =>
                   setEconomicProfile((prev) => ({ ...prev, income: value }))

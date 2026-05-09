@@ -161,33 +161,25 @@ npm install
 
 #### 5. Ensure a Redis instance is running on the default port `6379` (required by the backend cache)
 
-#### 6. Insert the Seed data for testing but you can still signup
-
-Make sure you are at the `project_root` folder
-
-```
-npm run seed
-```
-
-#### 7. Run both Server and Client from root directory `/project_root`
+#### 6. Run both Server and Client from root directory `/project_root`
 
 ```
 npm run dev
 ```
 
-#### 8. Visit the application
+#### 7. Visit the application
 
 ```
 http://localhost:5173/
 ```
 
-#### 9. If you want to visit the Server then go to
+#### 8. If you want to visit the Server then go to
 
 ```
 http://localhost:4000/
 ```
 
-#### 10. If you want to clear Server cache, then go to
+#### 9. If you want to clear Server cache, then go to
 
 ```
 cd back_end
