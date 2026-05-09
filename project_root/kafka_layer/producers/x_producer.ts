@@ -41,7 +41,6 @@ function toXTweet(rawTweet: RawXTweet, rawUser: RawXUser, mediaByKey: Map<string
 }
 
 // Zod Validation
-
 const finalXMediaSchema = z.object({
   media_key: z.string().trim().min(1),
   type: z.literal("photo"),

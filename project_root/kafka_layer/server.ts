@@ -6,7 +6,7 @@ import { TwitterProducer } from "./producers/x_producer.ts";
 import { consumerConnect, consumer } from "./consumers/consumer.ts";
 import { startExpressServer } from "./express/app.ts";
 
-const X_INTERVAL = 15 * 60_000; // 15 minute interval set because Railway only allows 15 minutes CRONS for Job/Worker Roles 
+const X_INTERVAL = 24 * 60 * 60_000; // Set back to 24 hour fetch to reduce the number of requests
 const POLY_INTERVAL =  60_000; // 1 minute for polymarket need to check for API rate
 
 
@@ -33,7 +33,6 @@ async function main() {
     await consumerConnect();
 
     await PolymarketProducer();
-    await TwitterProducer();
 
     setInterval(() => {
       PolymarketProducer().catch((err) => console.error("Polymarket interval failed:", err));
@@ -55,5 +54,4 @@ async function main() {
 }
 
 main();
-
 
