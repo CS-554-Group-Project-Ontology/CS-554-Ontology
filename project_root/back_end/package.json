@@ -8,8 +8,7 @@
     "prod": "npm run build && npm start",
     "start": "tsx ./server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "nodemon --exec ts-node --esm ./server.ts",
-    "seed": "ts-node --esm ./tasks/seed.ts"
+    "watch": "nodemon --exec ts-node --esm ./server.ts"
   },
   "keywords": [],
   "authors": [
