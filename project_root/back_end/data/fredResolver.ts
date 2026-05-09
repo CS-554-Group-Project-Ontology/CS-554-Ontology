@@ -1,5 +1,5 @@
 import { GraphQLError } from 'graphql';
-import { requireAuth } from '../config/FirebaseAdmin.ts';
+import { requireAuth } from '../Config/FirebaseAdmin.ts';
 import { fetchFredSeries, isAllowedSeries } from '../services/fredService.ts';
 import { getFredCache, setFredCache } from '../FredRedis.ts';
 
