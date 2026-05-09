@@ -22,7 +22,7 @@ export const TwitterSidebar = ({ tweets }: TwitterSidebarProps) => {
                 <div className="flex items-start gap-2">
                   <div className="avatar">
                     <div className="w-8 rounded-full">
-                      <img src={tweet.author.avatarUrl} />
+                      <img src={tweet.author.avatarUrl} alt={`${tweet.author.name} avatar`} />
                     </div>
                   </div>
                   <div className="flex-1 min-w-0">

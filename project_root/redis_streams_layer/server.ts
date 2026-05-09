@@ -97,4 +97,4 @@ async function main(): Promise<void> {
   }
 }
 
-main();
+await main();

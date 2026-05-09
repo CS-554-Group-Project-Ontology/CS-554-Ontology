@@ -5,12 +5,12 @@ const X_URL = "https://api.x.com/2";
 
 
 
-interface xTopics{
+interface XTopics{
   name: string, 
   query: string
 }
 
-export const kafkaXTopics: xTopics[] = [{
+export const kafkaXTopics: XTopics[] = [{
     name: "cities",
     query: '("San Francisco" OR "New York" OR Houston) lang:en -is:retweet',
   },

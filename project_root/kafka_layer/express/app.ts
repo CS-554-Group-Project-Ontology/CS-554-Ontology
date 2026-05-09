@@ -3,7 +3,8 @@ import router from "./routes";
 
 export function startExpressServer() {
   const app = express();
-  const PORT  = process.env.PORT || 3001;  
+  app.disable('x-powered-by');
+  const PORT  = process.env.PORT || 3001;
 
   app.use(express.json());
 

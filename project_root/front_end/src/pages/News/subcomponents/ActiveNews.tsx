@@ -47,11 +47,7 @@ export const ActiveNewsPanel = ({ articles }: ActiveNewsPanelProps) => {
           </div>
         </div>
 
-        {!currentArticle ? (
-          <div className="flex-1 flex items-center justify-center opacity-60 text-sm">
-            Headlines have not loaded in as of yet.
-          </div>
-        ) : (
+        {currentArticle ? (
           <div className="flex-1 p-3 overflow-auto">
             <div className="card bg-base-100 w-full">
               <div className="card-body">
@@ -67,6 +63,10 @@ export const ActiveNewsPanel = ({ articles }: ActiveNewsPanelProps) => {
                 </p>
               </div>
             </div>
+          </div>
+        ) : (
+          <div className="flex-1 flex items-center justify-center opacity-60 text-sm">
+            Headlines have not loaded in as of yet.
           </div>
         )}
       </div>

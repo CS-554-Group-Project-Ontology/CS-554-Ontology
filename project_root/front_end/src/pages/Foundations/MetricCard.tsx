@@ -20,7 +20,7 @@ type Props = {
   config: FoundationsSeriesConfig;
 };
 
-function MetricCard({ config }: Props) {
+function MetricCard({ config }: Readonly<Props>) {
   const [range, setRange] = useState<Range>('5Y');
   const start = startDateFor(range);
 

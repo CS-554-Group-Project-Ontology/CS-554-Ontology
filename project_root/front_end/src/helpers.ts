@@ -37,7 +37,7 @@ export const checkString = (strVal: string, varName: string) => {
   if (strVal.length === 0)
     throw new Error(`${varName} must not be empty or whitespace only`);
 
-  if (!isNaN(+strVal))
+  if (!Number.isNaN(+strVal))
     throw new Error(
       `${varName} must not be a numeric string, but received "${strVal}"`,
     );
@@ -47,7 +47,7 @@ export const checkString = (strVal: string, varName: string) => {
 
 export const checkNumber = (num: number, varName: string) => {
   num = Number(num);
-  if (isNaN(num))
+  if (Number.isNaN(num))
     throw new Error(`${varName} must be a valid number, but received "${num}"`);
   if (num < 0)
     throw new Error(`${varName} must be a non-negative number`);

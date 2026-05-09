@@ -23,7 +23,7 @@ export function validatePassword(password: string): string | null {
   if (!/[A-Z]/.test(password)) {
     return 'password needs at least 1 uppercase letter';
   }
-  if (!/[0-9]/.test(password)) {
+  if (!/\d/.test(password)) {
     return 'password needs at least 1 number';
   }
   if (!/[^A-Za-z0-9]/.test(password)) {

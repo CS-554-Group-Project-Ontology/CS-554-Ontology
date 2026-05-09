@@ -1,7 +1,5 @@
 import axios from "axios";
-import { appendToNewsStream } from "./streams_config.ts";
-import { trimNewsStreamEntriesOlderThan } from "./streams_config.ts";
-import { NEWS_STREAM, pairsToObject } from "./streams_config.ts";
+import { appendToNewsStream, trimNewsStreamEntriesOlderThan, NEWS_STREAM, pairsToObject } from "./streams_config.ts";
 import * as z from "zod";
 import type Redis from "ioredis";
 import type { Producer } from "kafkajs";
@@ -104,16 +102,13 @@ export async function fetchAlphaVantageNews(redis: Redis): Promise<number> {
     }
 
     const validatedArticles: FinalNewsArticle[] = [];
-    const malformedArticles = []; 
 
     for (const article of rawArticles) {
       try {
         validatedArticles.push(toNewsArticle(article));
-      } 
+      }
       catch (error) {
-        console.log("Given invalid article was skipped:", article);
-        malformedArticles.push(article); 
-
+        console.log("Given invalid article was skipped:", article, error);
       }
     }
     const seenUrls = new Set<string>();
@@ -168,7 +163,7 @@ export async function syncRedisStreamToKafka(redis: Redis, kafkaProducer: Produc
       const fields = pairsToObject(pairs);
 
       if (typeof fields.data !== "string") {
-        throw new Error(`Missing or invalid data field for Redis entry ${id}`);
+        throw new TypeError(`Missing or invalid data field for Redis entry ${id}`);
       }
 
       return {

@@ -1,7 +1,6 @@
 import * as z from "zod";
 import { producer } from "../config/kafka_manager.ts";
-import { fetchRecentTweets } from "./api_layer/x_api.ts";
-import { kafkaXTopics } from "./api_layer/x_api.ts";
+import { fetchRecentTweets, kafkaXTopics } from "./api_layer/x_api.ts";
 import { TOPICS } from "../express/routes/constants.ts";
 
 
