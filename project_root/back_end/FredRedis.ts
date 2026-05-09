@@ -1,4 +1,4 @@
-import { fredClient } from "./config/redisClient.ts"
+import { fredClient } from "./Config/redisClient.ts"
 
 const FredTTL = 60 * 60 * 24
 

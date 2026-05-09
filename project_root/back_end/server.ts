@@ -1,4 +1,4 @@
-import connectDB from './config/mongooseConfig.ts';
+import connectDB from './Config/mongooseConfig.ts';
 import { typeDefs } from './data/userTypeDefs.ts';
 import { userResolver } from './data/userResolver.ts';
 import { fredTypeDefs } from './data/fredTypeDefs.ts';
@@ -6,7 +6,7 @@ import { fredResolver } from './data/fredResolver.ts';
 
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-import { fredClient, authClient } from "./config/redisClient.ts"
+import { fredClient, authClient } from "./Config/redisClient.ts"
 
 await fredClient.connect();
 await authClient.connect();
