@@ -4,7 +4,6 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "tsc",
     "dev": "tsx ./server.ts",
     "prod": "npm run build && npm start",
     "start": "tsx ./server.ts",
