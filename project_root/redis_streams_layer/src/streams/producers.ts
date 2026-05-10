@@ -98,7 +98,8 @@ export async function fetchAlphaVantageNews(redis: Redis): Promise<number> {
 
 
     if (rawArticles.length === 0) {
-      throw new Error("Alpha Vantage returned no articles");
+      console.log("Alpha Vantage returned no articles; skipping this cycle");
+      return 0;
     }
 
     const validatedArticles: FinalNewsArticle[] = [];
