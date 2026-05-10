@@ -33,6 +33,7 @@ async function main() {
     await consumerConnect();
 
     await PolymarketProducer();
+    await TwitterProducer(); 
 
     setInterval(() => {
       PolymarketProducer().catch((err) => console.error("Polymarket interval failed:", err));
