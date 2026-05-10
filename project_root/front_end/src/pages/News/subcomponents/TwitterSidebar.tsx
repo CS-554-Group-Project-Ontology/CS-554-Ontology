@@ -16,6 +16,12 @@ export const TwitterSidebar = ({ tweets }: TwitterSidebarProps) => {
         </h2>
 
         <div className="flex-1 overflow-y-auto px-2 pb-2 space-y-2">
+          {tweets.length === 0 && (
+            <div className="flex h-full items-center justify-center px-4 text-center text-sm opacity-60">
+              No tweets have loaded  in yet from the SSE Event stream. 
+            </div>
+          )}
+
           {tweets.map((tweet) => (
             <div key={tweet.id} className="card card-compact bg-base-100">
               <div className="card-body">

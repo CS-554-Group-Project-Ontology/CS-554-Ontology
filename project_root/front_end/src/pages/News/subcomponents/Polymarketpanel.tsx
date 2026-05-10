@@ -30,22 +30,28 @@ export const PolymarketPanel = ({ events }: PolymarketPanelProps) => {
                 <tr key={event.id} className="hover">
                   <td className="max-w-xs">{event.question}</td>
                   <td className="text-right font-mono">
-                    {(event.yesPrice * 100).toFixed(0)}¢
+                    {event.yesPrice > 0 && event.yesPrice * 100 < 1
+                      ? "<1¢"
+                      : `${(event.yesPrice * 100).toFixed(0)}¢`}
                   </td>
                   <td className="text-right">
-                    <span
-                      className={`inline-flex items-center gap-1 text-xs ${
-                        event.change24h >= 0 ? "text-success" : "text-error"
-                      }`}
-                    >
-                      {event.change24h >= 0 ? (
-                        <TrendingUp className="w-3 h-3" />
-                      ) : (
-                        <TrendingDown className="w-3 h-3" />
-                      )}
-                      {event.change24h >= 0 ? "+" : ""}
-                      {event.change24h.toFixed(1)}%
-                    </span>
+                    {event.change24h == null ? (
+                      <span className="text-xs opacity-60">-</span>
+                    ) : (
+                      <span
+                        className={`inline-flex items-center gap-1 text-xs ${
+                          event.change24h >= 0 ? "text-success" : "text-error"
+                        }`}
+                      >
+                        {event.change24h >= 0 ? (
+                          <TrendingUp className="w-3 h-3" />
+                        ) : (
+                          <TrendingDown className="w-3 h-3" />
+                        )}
+                        {event.change24h >= 0 ? "+" : ""}
+                        {(event.change24h * 100).toFixed(1)}%
+                      </span>
+                    )}
                   </td>
                   <td className="text-right text-xs opacity-70">
                     ${formatCount(event.volume)}

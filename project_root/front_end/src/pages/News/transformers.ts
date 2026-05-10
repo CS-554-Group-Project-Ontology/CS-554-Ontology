@@ -22,8 +22,8 @@ export const toTweet = (t: XTweet) => ({
 export const toPolymarketRow = (p: PolymarketEvent) => ({
   id: p.id,
   question: p.title,
-  yesPrice: p.yesPrice ?? 0,
-  change24h: p.oneDayPriceChange ?? 0,
+  yesPrice: p.yesPrice ?? 0, 
+  change24h: p.oneDayPriceChange,
   volume: p.volume,
 });
 
