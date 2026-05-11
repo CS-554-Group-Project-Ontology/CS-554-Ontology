@@ -92,7 +92,9 @@ http://localhost:5173/affordability/:slug
 
 #### 1. Environment variables
 
-Make sure you add the `.env` files containing the below variables on each directory below
+Make sure you add the `.env` files containing the below variables on each directory below.
+
+The `MONGO_URL`, `KAFKA_PUBLIC`, `REDIS_URL`, `FRED_REDIS_URL`, and `AUTH_REDIS_URL` values can point to the hosted Railway/Atlas instances or to your own local services (for example `mongodb://localhost:27017`, `redis://localhost:6379`, `localhost:9092`). Edit the URLs in the env files to use local instead of hosted.
 
 ##### a. Add Backend `.env` file at `/project_root/back_end` folder
 
@@ -159,34 +161,48 @@ cd front_end
 npm install
 ```
 
-#### 5. Ensure a Redis instance is running on the default port `6379` (required by the backend cache)
+##### `d`. Install kafka_layer dependencies by running below cmd from `/kafka_layer` folder
 
-#### 6. Run both Server and Client from root directory `/project_root`
+```
+cd kafka_layer
+npm install
+```
+
+##### `e`. Install redis_streams_layer dependencies by running below cmd from `/redis_streams_layer` folder
+
+```
+cd redis_streams_layer
+npm install
+```
+
+#### 3. Run both Server and Client from root directory `/project_root`
 
 ```
 npm run dev
 ```
 
-#### 7. Visit the application
+#### 4. Visit the application
 
 ```
 http://localhost:5173/
 ```
 
-#### 8. If you want to visit the Server then go to
+#### 5. If you want to visit the Server then go to
 
 ```
 http://localhost:4000/
 ```
 
-#### 9. If you want to clear Server cache, then go to
+#### 6. If you want to clear Server cache, then go to
 
 ```
 cd back_end
-redis-cli flushall
+set -a && source .env && set +a
+redis-cli -u "$FRED_REDIS_URL" flushall
+redis-cli -u "$AUTH_REDIS_URL" flushall
 ```
 
-##### 11. Production
+#### 7. Production
 The production environment is deployed on Railway. Railway uses Railpack to infer the runtime and build time environment from the connected GitHub repository which in this case is our main branch.
 
 The application is split into separate services so each layer can be deployed independently and connected through environment variables. Locally, `npm run dev` from `/project_root` starts all four layers concurrently.
